@@ -1,0 +1,28 @@
+@mixin mobile {
+  @media (max-width: #{$md-break - 1px}) {
+      @content;
+  }
+}
+
+
+@mixin transition($what: all, $time: 0.2s, $how: ease-in-out) {
+  -webkit-transition: $what $time $how;
+  -moz-transition: $what $time $how;
+  -ms-transition: $what $time $how;
+  -o-transition: $what $time $how;
+  transition: $what $time $how;
+}
+
+@mixin no-select {
+  -webkit-touch-callout: none;
+  /* iOS Safari */
+  -webkit-user-select: none;
+  /* Safari */
+  -khtml-user-select: none;
+  /* Konqueror HTML */
+  -moz-user-select: none;
+  /* Firefox */
+  -ms-user-select: none;
+  /* Internet Explorer/Edge */
+  user-select: none;
+}
