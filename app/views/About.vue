@@ -52,15 +52,24 @@ export default {
   &__title {
     font-size: $xll-font;
     color: $grey-darker;
+
+    @include mobile {
+      font-size: $md-font;
+    }
   }
 
   &__description {
-    font-size: $xl-font;
+    font-size: $sm-font;
     color: $grey-darker + 100;
+
+    @include mobile {
+      font-size: $xs-font;
+    }
   }
 
   &__preview {
     padding-top: 50px;
+    margin-bottom: 10px;
     display: flex;
     align-items: center;
     justify-content: space-around;

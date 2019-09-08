@@ -77,11 +77,15 @@ export default {
 
   &__title {
     font-size: $xll-font;
+
+    @include mobile {
+      font-size: $md-font;
+    }
   }
 
   &__description {
     font-weight: 700;
-    font-size: $xl-font;
+    font-size: $sm-font;
   }
 
   &__button {

@@ -87,6 +87,10 @@ export default {
   &__title {
     font-size: $xll-font;
     color: $grey-darker;
+
+    @include mobile {
+      font-size: $md-font;
+    }
   }
 
   &__card {
@@ -97,6 +101,10 @@ export default {
 
   &__card-title {
     color: $white;
+
+    @include mobile {
+      font-size: $xs-font;
+    }
   }
 
   &__row {

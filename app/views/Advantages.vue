@@ -101,8 +101,12 @@ export default {
   }
 
   &__title {
-    font-size: $xll-font;
+    font-size: $xl-font;
     color: $white;
+
+    @include mobile {
+      font-size: $md-font;
+    }
   }
 
   &__card {
@@ -111,13 +115,13 @@ export default {
 
   &__card-title {
     font-weight: bolder;
-    font-size: 1.5rem;
+    font-size: $sm-font;
     color: $white;
   }
 
   &__card-description {
     color: rgba(255,255,255,.7);
-    font-size: 1rem;
+    font-size: $xs-font;
   }
 
   &__row {

@@ -85,7 +85,7 @@ export default {
   }
 }
 
-@media screen and (max-width: 1300px) {
+@media screen and (max-width: $xl-break) {
   .Nav {
     &__menu {
       display: block;
@@ -101,7 +101,7 @@ export default {
       flex-direction: column;
       background: $background-gradient;
 
-      @include clip-path(circle(100px at 100% -15%));
+      @include clip-path(circle(10px at 90% -15%));
 
       &_isOpen {
         @include clip-path(circle(1900px at 100% -15%));
