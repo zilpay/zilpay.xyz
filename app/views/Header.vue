@@ -54,6 +54,10 @@ export default {
 
 <style lang="scss">
 .Header {
+  background: url(/bg.svg) $background;
+  background-size: cover;
+  background-repeat: no-repeat;
+
   &__container {
     min-height: 100vh;
 
@@ -63,10 +67,6 @@ export default {
     flex-direction: column;
 
     text-align: center;
-  }
-
-  &__masthead {
-    z-index: 1;
   }
 
   &__title {
