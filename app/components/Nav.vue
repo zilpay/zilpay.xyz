@@ -1,7 +1,5 @@
 <template>
   <nav :class="b()">
-    <Logo :class="b('logo')" />
-
     <div :class="b('links', { isOpen })">
       <nuxt-link
         v-for="link of links"
@@ -21,13 +19,11 @@
 </template>
 
 <script>
-import Logo from './Logo'
 import BurgerMenu from './BurgerMenu'
 
 export default {
   name: 'Nav',
   components: {
-    Logo,
     BurgerMenu
   },
   data () {
@@ -50,10 +46,10 @@ export default {
 <style lang="scss">
 
 .Nav {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  // background: $background-gradient;
+  position: fixed;
+  right: 50px;
+  top: 50px;
+  z-index: 9;
 
   &__logo {
     cursor: pointer;
@@ -61,56 +57,44 @@ export default {
   }
 
   &__links {
+    top: 0;
+    left: 0;
+
+    height: 100vh;
+    width: 100%;
+
     display: flex;
-    justify-content: space-between;
-    margin-left: auto;
-    z-index: 9;
+    position: fixed;
+
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: $background-gradient;
+
+    @include clip-path(circle(10px at 90% -15%));
+
+    &_isOpen {
+      @include clip-path(circle(1900px at 100% -15%));
+    }
   }
 
   &__nuxt-link {
     margin-left: 36px;
     padding: 5px 0;
-    font-size: 16px;
-    line-height: 22px;
     padding: 20px;
     text-align: left;
     margin-left: auto;
     margin-right: auto;
     color: $white;
+    font-size: $lg-font;
+
+    @include mobile {
+      font-size: $md-font;
+    }
   }
 
   &__menu {
-    display: none;
     z-index: 10;
-  }
-}
-
-@media screen and (max-width: $xl-break) {
-  .Nav {
-    &__menu {
-      display: block;
-    }
-
-    &__links {
-      height: 100vh;
-      width: 100%;
-
-      position: fixed;
-      top: 0;
-
-      flex-direction: column;
-      background: $background-gradient;
-
-      @include clip-path(circle(10px at 90% -15%));
-
-      &_isOpen {
-        @include clip-path(circle(1900px at 100% -15%));
-      }
-    }
-
-    &__nuxt-link {
-      font-size: 25px;
-    }
   }
 }
 </style>

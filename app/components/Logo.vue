@@ -17,7 +17,7 @@ export default {
     },
     height: {
       type: Number,
-      default: 70
+      default: 150
     }
   }
 }

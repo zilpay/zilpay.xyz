@@ -38,10 +38,12 @@ export default {
 
 <style lang="scss">
 .About {
-  &__container {
-    min-height: 110vh;
+  background: $background-gradient;
 
-    padding: 100px 50px 0 50px;
+  &__container {
+    min-height: 100vh;
+
+    padding: 50px 50px 0 50px;
 
     display: flex;
     flex-direction: column;

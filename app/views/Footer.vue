@@ -59,8 +59,8 @@ export default {
 
 <style lang="scss">
 .Footer {
-  height: 30vh;
-  background: $primary;
+  min-height: 20vh;
+  background: $background;
 
   &__container {
     padding: 50px 50px 0 50px;

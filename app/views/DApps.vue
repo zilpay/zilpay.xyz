@@ -73,6 +73,8 @@ export default {
 
 <style lang="scss">
 .DApps {
+  background: $background-gradient;
+
   &__container {
     min-height: 100vh;
 

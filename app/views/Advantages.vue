@@ -87,7 +87,7 @@ export default {
 
 <style lang="scss">
 .Advantages {
-  background: $background-gradient;
+  background-color: $background;
 
   &__container {
     min-height: 100vh;

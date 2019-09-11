@@ -27,15 +27,16 @@ export default {
   line-height: 1.5;
   border-radius: .25rem;
   border: none;
+  font-size: $sm-font;
+  font-weight: 900;
 
   transition: all .15s ease;
 
-  @include no-select();
   @include box-shadow(0 3px 3px 0 rgba(0, 0, 0, .1));
 
   background-color: $primary;
   border-color: $borderColor;
-  color: $white;
+  color: $background;
 
   &:hover {
     background-color: $primary - 30;

@@ -1,8 +1,8 @@
 <template>
   <header :class="b()">
-    <div class="background" />
     <div :class="b('container')">
       <div :class="b('masthead')">
+        <Logo />
         <h1 :class="b('title')">
           ZilPay Wallet
         </h1>
@@ -13,7 +13,6 @@
           </a>
           blockchain
         </h2>
-
         <Button :class="b('button')" @click="goToStore">
           {{ btnTitle }} {{ detectedBrowser }}
         </Button>
@@ -23,13 +22,15 @@
 </template>
 
 <script>
+import Logo from '../components/Logo'
 import Button from '../components/Button'
 import DetectingBrowsers from '../mixins/detecting-browsers'
 
 export default {
   name: 'Header',
   components: {
-    Button
+    Button,
+    Logo
   },
   mixins: [DetectingBrowsers],
   data () {
@@ -52,16 +53,9 @@ export default {
 </script>
 
 <style lang="scss">
-.background {
-  position: absolute;
-  height: 87vh;
-  width: 100%;
-  background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAHCAYAAAA1WQxeAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH4wkICQcQyYc0PgAAAB1pVFh0Q29tbWVudAAAAAAAQ3JlYXRlZCB3aXRoIEdJTVBkLmUHAAAAUElEQVQI11WO0Q2AQAxCH+T2cgFXcP8tqF+cJ0mTUiBU1/3MzCCJ4tyXbQCScBptI4mVBGCLnZkhyWdosmINLinKe1tNVEzyq7Kk/dBpbN0LEJVA7uWBHJcAAAAASUVORK5CYII=');
-  filter: blur(2px);
-}
 .Header {
   &__container {
-    height: 80vh;
+    min-height: 100vh;
 
     padding-top: 200px;
 
