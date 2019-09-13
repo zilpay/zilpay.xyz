@@ -26,7 +26,7 @@
 
 <script>
 import uuidv4 from 'uuidv4'
-import ReduceCard from '../components/ReduceCard'
+import ReduceCard from '../../components/ReduceCard'
 
 export default {
   name: 'DApps',

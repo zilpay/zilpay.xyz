@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import LinkIcon from '../components/LinkIcon'
+import LinkIcon from '../../components/LinkIcon'
 
 export default {
   name: 'Footer',

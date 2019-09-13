@@ -9,11 +9,11 @@
 </template>
 
 <script>
-import Header from '../views/Header'
-import About from '../views/About'
-import Advantages from '../views/Advantages'
-import DApps from '../views/DApps'
-import Footer from '../views/Footer'
+import Header from '../views/home/Header'
+import About from '../views/home/About'
+import Advantages from '../views/home/Advantages'
+import DApps from '../views/home/DApps'
+import Footer from '../views/home/Footer'
 
 export default {
   name: 'Home',
