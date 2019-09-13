@@ -17,6 +17,14 @@ $ npm run start
 
 # generate static project
 $ npm run generate
+
+# watch doc
+$ npm run docs:dev
+
+# build doc
+$ npm run docs:build
 ```
+
+
 
 For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
