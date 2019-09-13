@@ -1,6 +1,9 @@
 <template>
   <div>
-    <button :class="b()" @click="clickBtn">
+    <button
+      :class="b()"
+      @click="clickBtn"
+    >
       <slot />
     </button>
   </div>

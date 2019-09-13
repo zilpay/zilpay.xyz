@@ -26,7 +26,14 @@
 
 <script>
 import uuidv4 from 'uuidv4'
+
 import ReduceCard from '../../components/ReduceCard'
+import DAppsData from '../../static/dapps.json'
+
+const dapps = DAppsData.map(el => ({
+  ...el,
+  uuidv4: uuidv4()
+}))
 
 export default {
   name: 'DApps',
@@ -35,37 +42,14 @@ export default {
   },
   data () {
     return {
-      dapps: [
-        {
-          id: uuidv4(),
-          img: 'fungibletoken.png',
-          title: 'FungibleToken creater',
-          description: 'This dapp help will create FungibleToken token This token implements a fungible token interface a la ERC20.'
-        },
-        {
-          id: uuidv4(),
-          img: 'nonfungibletoken.png',
-          title: 'NonfungibleToken creater',
-          description: 'This dapp help will create NonfungibleToken token This token is implementation Token ERC721'
-        },
-        {
-          id: uuidv4(),
-          img: 'scillaeditor.png',
-          title: 'Scilla editor',
-          description: 'Editor and deploy smart contract on scilla language'
-        },
-        {
-          id: uuidv4(),
-          img: 'roll_game.png',
-          title: 'Roll game',
-          description: 'You can play with the test Zil'
-        }
-      ]
+      dapps
     }
   },
   methods: {
     cardClick (dapp) {
-      // console.log(dapp)
+      if (process.client) {
+        window.location.replace(`/dapp/${dapp.link}`)
+      }
     }
   }
 }
