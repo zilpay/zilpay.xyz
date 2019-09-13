@@ -3,23 +3,32 @@
     <div :class="b('links', { isOpen })">
       <nuxt-link
         v-for="link of links"
-        :key="link"
+        :key="link.uuidv4"
         :class="b('nuxt-link')"
-        :to="`/${link}`"
+        :to="`/${link.href}`"
+        @click.native="isOpen = false"
       >
-        {{ link }}
+        {{ link.name }}
       </nuxt-link>
     </div>
 
     <BurgerMenu
+      v-model="isOpen"
       :class="b('menu')"
-      @toggle="isOpen = $event"
     />
   </nav>
 </template>
 
 <script>
+import uuidv4 from 'uuidv4'
+
 import BurgerMenu from './BurgerMenu'
+
+const ROUTERS = {
+  Home: 'Home',
+  Privacy: 'Privacy',
+  Terms: 'Terms'
+}
 
 export default {
   name: 'Nav',
@@ -29,13 +38,21 @@ export default {
   data () {
     return {
       links: [
-        'Home',
-        'About',
-        'Services',
-        'DApps',
-        'Privacy policy',
-        'Terms',
-        'contacts'
+        {
+          uuidv4: uuidv4(),
+          name: ROUTERS.Home,
+          href: ''
+        },
+        {
+          uuidv4: uuidv4(),
+          name: ROUTERS.Privacy,
+          href: ROUTERS.Privacy
+        },
+        {
+          uuidv4: uuidv4(),
+          name: ROUTERS.Terms,
+          href: ROUTERS.Terms
+        }
       ],
       isOpen: false
     }

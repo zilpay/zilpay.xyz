@@ -1,23 +1,23 @@
 <template>
   <div :class="b()" @click="toggle">
-    <div :class="b('bar', { isOpen })" />
-    <div :class="b('bar', { isOpen })" />
-    <div :class="b('bar', { isOpen })" />
+    <div :class="b('bar', { value })" />
+    <div :class="b('bar', { value })" />
+    <div :class="b('bar', { value })" />
   </div>
 </template>
 
 <script>
 export default {
   name: 'BurgerMenu',
-  data () {
-    return {
-      isOpen: false
+  props: {
+    value: {
+      type: Boolean,
+      required: true
     }
   },
   methods: {
     toggle () {
-      this.isOpen = !this.isOpen
-      this.$emit('toggle', this.isOpen)
+      this.$emit('input', !this.value)
     }
   }
 }
@@ -50,7 +50,7 @@ $distance-between: 10px;
       margin-top: $distance-between;
     }
 
-    &_isOpen {
+    &_value {
       &:first-child {
         transform: rotate(-45deg);
         margin-top: 20px;

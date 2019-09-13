@@ -10,19 +10,22 @@
 </template>
 
 <script>
+const SUB_TITLE = 'subTitle'
+const TITLE = 'title'
+
 export default {
   name: 'SimpleHeader',
   props: {
-    title: {
+    [TITLE]: {
       type: String,
       required: true
     },
-    subTitle: {
+    [SUB_TITLE]: {
       type: String,
       required: true
     }
   },
-  data() {
+  data () {
     return {
       classes: {
         title: 'title',
@@ -37,6 +40,7 @@ export default {
 .SimpleHeader {
   min-height: 50vh;
   padding: 10%;
+  background-color: $background;
 
   &__title {
     font-size: $xll-font;
