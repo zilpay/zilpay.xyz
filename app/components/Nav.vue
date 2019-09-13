@@ -27,7 +27,8 @@ import BurgerMenu from './BurgerMenu'
 const ROUTERS = {
   Home: 'Home',
   Privacy: 'Privacy',
-  Terms: 'Terms'
+  Terms: 'Terms',
+  Doc: 'Documentation'
 }
 
 export default {
@@ -52,6 +53,11 @@ export default {
           uuidv4: uuidv4(),
           name: ROUTERS.Terms,
           href: ROUTERS.Terms
+        },
+        {
+          uuidv4: uuidv4(),
+          name: ROUTERS.Doc,
+          href: ROUTERS.Doc
         }
       ],
       isOpen: false
