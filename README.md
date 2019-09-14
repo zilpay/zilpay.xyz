@@ -25,6 +25,4 @@ $ npm run docs:dev
 $ npm run docs:build
 ```
 
-
-
 For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).

@@ -1,14 +1,22 @@
 <template>
   <div :class="b()">
-    sdasdsa
   </div>
 </template>
 
 <script>
 export default {
-  name: 'Documentation'
+  name: 'Documentation',
+  components: {
+  },
+  data () {
+    return {
+    }
+  }
 }
 </script>
 
 <style lang="scss">
+.Documentation {
+  background: $background-gradient;
+}
 </style>

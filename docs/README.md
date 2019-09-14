@@ -1,12 +1,27 @@
-<h2 style="text-align:center">
-  ZilPay Developer Documentation
-</h2>
+---
+home: true
+heroImage: /logo.svg
+heroText: ZilPay Developer Documentation
+tagline: Welcome to ZilPay Developer Documentation.
+actionText: Get Started →
+actionLink: /getting-started/
+features:
+- title: Security
+  details: ZilPay wallet have most security in work with dApps.
+- title: Simple API
+  details: Simple API for dApp developers.
+- title: Performant
+  details: ZilPay injected very minimal Javascript object to page.
+footer: MIT Licensed | Copyright © ZilPay 2019
+---
 
-<h4 style="text-align:center">
-  Welcome to ZilPay Developer Documentation. This documentation is for learning to develop applications for ZilPay.
-</h4>
+```js
+<script>
+  window.zilPay.wallet.connect();
+</script>
+```
 
-## Why ZilPay?
+# Why ZilPay?
 
 ZilPay was created out of the needs of creating more secure and usable Zilliqa-based web sites. In particular, it handles account management and connecting the user to the blockchain.
 
@@ -29,3 +44,15 @@ Today, ZilPay is compatible with any blockchain that exposes an Zilliqa Compatib
 ### Blockchain Applications
 
 only ZilPay makes it easy to write user interfaces to blockchain-based smart contract systems. You can accept payments without knowing how to write smart contracts, but you’ll be able to do much more interesting things if you do.
+
+
+## Donate
+> ZIL: zil1wl38cwww2u3g8wzgutxlxtxwwc0rf7jf27zace
+
+> ETH: 0x246C5881E3F109B2aF170F5C773EF969d3da581B
+
+> ZEC: t1dZMw8FVWnGKC9cyXKaiKWmmAFmQoeNc5Y
+
+> LTC: LM3JwjTbboMkHdFEYnn4ycJB61r3fqvXPr
+
+> DASH: Xv2tpCMHPAztd4B5UMnaqwkqnSfiUs1P8B
