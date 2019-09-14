@@ -14,7 +14,7 @@
 <script>
 import uuidv4 from 'uuidv4'
 
-import Footer from '../views/home/Footer'
+import Footer from '../views/common/Footer'
 import SimpleHeader from '../components/SimpleHeader'
 import DescriptionList from '../components/DescriptionList'
 
