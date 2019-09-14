@@ -1,9 +1,10 @@
 {
   "name": "zilpay.xyz",
   "version": "1.0.0",
-  "description": "ZilPay is a browser wallet for Zilliqa. Developers can integrate ZilPay into their website to create Decentralised Apps.",
+  "description": "ZilPay is a (Chrome, FireFox, Opera) wallet for Zilliqa.",
+  "title": "ZilPay",
   "author": "Rinat",
-  "private": true,
+  "private": false,
   "scripts": {
     "dev": "cross-env NODE_ENV=development nodemon server/index.js --watch server",
     "build": "nuxt build",

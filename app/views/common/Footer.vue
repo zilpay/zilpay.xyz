@@ -28,7 +28,7 @@ export default {
       socialNetwork: [
         {
           name: 'Github',
-          src: 'https://github.com/zilpay',
+          src: 'https://github.com/zilpay/zil-pay',
           icon: 'github-logo.svg'
         },
         {

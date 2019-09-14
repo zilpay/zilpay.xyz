@@ -1,9 +1,9 @@
 <template>
-  <div :class="b()" @click="toggle">
+  <span :class="b()" @click="toggle">
     <div :class="b('bar', { value })" />
     <div :class="b('bar', { value })" />
     <div :class="b('bar', { value })" />
-  </div>
+  </span>
 </template>
 
 <script>
