@@ -23,6 +23,8 @@
     "@ledgerhq/hw-transport-u2f": "^4.70.0",
     "@nuxtjs/axios": "^5.3.6",
     "@nuxtjs/style-resources": "^1.0.0",
+    "@nuxtjs/eslint-config": "^1.0.1",
+    "@nuxtjs/eslint-module": "^1.0.0",
     "@zilliqa-js/zilliqa": "^0.8.0-alpha.0",
     "cross-env": "^5.2.0",
     "express": "^4.16.4",
@@ -31,8 +33,6 @@
     "vue-bem-cn": "^1.1.1"
   },
   "devDependencies": {
-    "@nuxtjs/eslint-config": "^1.0.1",
-    "@nuxtjs/eslint-module": "^1.0.0",
     "babel-eslint": "^10.0.1",
     "eslint": "^6.1.0",
     "eslint-plugin-nuxt": ">=0.4.2",
