@@ -1,3 +1,5 @@
+const title = process.env.npm_package_title || 'zilpay'
+const description = 'ZilPay is a (Chrome, FireFox, Opera) wallet for Zilliqa.'
 
 module.exports = {
   mode: 'universal',
@@ -6,13 +8,13 @@ module.exports = {
   ** Headers of the page
   */
   head: {
-    title: process.env.npm_package_title || 'zilpay',
+    title,
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: process.env.npm_package_description || '' },
+      { hid: 'description', name: 'description', content: process.env.npm_package_description || description },
       { name: 'author', text: 'lich666black' },
-      { name: 'description', content: process.env.npm_package_description },
+      { name: 'description', content: process.env.npm_package_description || description },
       { name: 'msapplication-TileColor', content: '#35DF79' },
       { name: 'msapplication-TileImage', content: '/images/favicon/ms-icon-144x144.png' },
       { name: 'theme-color', content: '#35DF79' },
@@ -21,13 +23,13 @@ module.exports = {
       { name: 'twitter:card', content: 'summary_large_image' },
       { name: 'twitter:site', content: 'https://twitter.com/lich666black' },
       { name: 'twitter:creator', content: '@lich666black' },
-      { name: 'twitter:title', content: process.env.npm_package_title },
-      { name: 'twitter:description', content: process.env.npm_package_description },
+      { name: 'twitter:title', content: process.env.npm_package_title || title },
+      { name: 'twitter:description', content: process.env.npm_package_description || description },
 
       // OpenGraph
       { name: 'og:type', content: 'website' },
-      { name: 'og:title', content: process.env.npm_package_title },
-      { name: 'og:description', content: process.env.npm_package_description },
+      { name: 'og:title', content: process.env.npm_package_title || title },
+      { name: 'og:description', content: process.env.npm_package_description || description },
       { name: 'og:locale', content: 'en_US' },
       { name: 'og:url', content: 'https://zilpay.xyz/' }
     ],
