@@ -1,5 +1,7 @@
-const title = process.env.npm_package_title || 'zilpay'
-const description = 'ZilPay is a (Chrome, FireFox, Opera) wallet for Zilliqa.'
+const package = require('./package.json')
+console.log(package)
+const title = package.title
+const description = package.description
 
 module.exports = {
   mode: 'universal',
