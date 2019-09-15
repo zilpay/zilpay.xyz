@@ -1,5 +1,5 @@
 const package = require('./package.json')
-console.log(package)
+
 const title = package.title
 const description = package.description
 

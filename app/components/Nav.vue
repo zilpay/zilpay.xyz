@@ -1,6 +1,9 @@
 <template>
   <nav :class="b()">
-    <div :class="b('links', { isOpen })">
+    <div
+      :class="b('links', { isOpen })"
+      @click="isOpen = false"
+    >
       <nuxt-link
         v-for="link of links"
         :key="link.uuidv4"
