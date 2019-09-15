@@ -28,7 +28,18 @@
     "express": "^4.16.4",
     "nuxt": "^2.0.0",
     "uuidv4": "^5.0.1",
-    "vue-bem-cn": "^1.1.1"
+    "vue-bem-cn": "^1.1.1",
+
+    "@nuxtjs/eslint-config": "^1.0.1",
+    "@nuxtjs/eslint-module": "^1.0.0",
+    "babel-eslint": "^10.0.1",
+    "eslint": "^6.1.0",
+    "eslint-plugin-nuxt": ">=0.4.2",
+    "node-sass": "^4.12.0",
+    "nodemon": "^1.18.9",
+    "sass-loader": "^8.0.0",
+    "webpack": "^4.40.2",
+    "webpack-cli": "^3.3.8"
   },
   "devDependencies": {
     "@nuxtjs/eslint-config": "^1.0.1",
