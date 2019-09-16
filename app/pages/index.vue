@@ -24,6 +24,9 @@ export default {
     DApps,
     Footer
   }
+  // mounted () {
+  //   setTimeout(() => this.$nuxt.$loading.start(), 1000)
+  // }
 }
 </script>
 

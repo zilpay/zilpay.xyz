@@ -5,6 +5,7 @@ import scrollBehavior from './router.scrollBehavior.js'
 
 const _4ab4aa37 = () => interopDefault(import('../app/pages/Privacy.vue' /* webpackChunkName: "pages/Privacy" */))
 const _36e9d276 = () => interopDefault(import('../app/pages/Terms.vue' /* webpackChunkName: "pages/Terms" */))
+const _459da38c = () => interopDefault(import('../app/pages/app/Roll.vue' /* webpackChunkName: "pages/app/Roll" */))
 const _1579f461 = () => interopDefault(import('../app/pages/index.vue' /* webpackChunkName: "pages/index" */))
 const _9ba85e24 = () => interopDefault(import('../app/pages/_.vue' /* webpackChunkName: "pages/_" */))
 
@@ -25,6 +26,10 @@ export const routerOptions = {
       path: "/Terms",
       component: _36e9d276,
       name: "Terms"
+    }, {
+      path: "/app/Roll",
+      component: _459da38c,
+      name: "app-Roll"
     }, {
       path: "/",
       component: _1579f461,
