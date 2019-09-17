@@ -13,7 +13,8 @@ const ROUTERS = {
   Home: 'Home',
   Privacy: 'Privacy',
   Terms: 'Terms',
-  Doc: 'Documentation'
+  Doc: 'Documentation',
+  whitePaper: 'whitePaper'
 }
 
 export default {
@@ -46,6 +47,12 @@ export default {
           uuidv4: uuidv4(),
           name: ROUTERS.Doc,
           href: ROUTERS.Doc,
+          external: true
+        },
+        {
+          uuidv4: uuidv4(),
+          name: ROUTERS.whitePaper,
+          href: `/${ROUTERS.whitePaper}.pdf`,
           external: true
         }
       ]
