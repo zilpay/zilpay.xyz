@@ -4,17 +4,29 @@
       :class="b('links', { isOpen })"
       @click="isOpen = false"
     >
-      <nuxt-link
+      <div
         v-for="link of links"
         :key="link.uuidv4"
         :class="b('nuxt-link')"
-        :to="`/${link.href}`"
-        @click.native="isOpen = false"
       >
-        {{ link.name }}
-      </nuxt-link>
+        <nuxt-link
+          v-if="!link.external"
+          :class="b('link-item')"
+          :to="`/${link.href}`"
+          @click.native="isOpen = false"
+        >
+          {{ link.name }}
+        </nuxt-link>
+        <a
+          v-if="link.external"
+          target="_blank"
+          :class="b('link-item')"
+          :href="link.href"
+        >
+          {{ link.name }}
+        </a>
+      </div>
     </div>
-
     <BurgerMenu
       v-model="isOpen"
       :class="b('menu')"
@@ -23,46 +35,21 @@
 </template>
 
 <script>
-import uuidv4 from 'uuidv4'
-
 import BurgerMenu from './BurgerMenu'
-
-const ROUTERS = {
-  Home: 'Home',
-  Privacy: 'Privacy',
-  Terms: 'Terms',
-  Doc: 'Documentation'
-}
 
 export default {
   name: 'Nav',
   components: {
     BurgerMenu
   },
+  props: {
+    links: {
+      type: Array,
+      required: true
+    }
+  },
   data () {
     return {
-      links: [
-        {
-          uuidv4: uuidv4(),
-          name: ROUTERS.Home,
-          href: ''
-        },
-        {
-          uuidv4: uuidv4(),
-          name: ROUTERS.Privacy,
-          href: ROUTERS.Privacy
-        },
-        {
-          uuidv4: uuidv4(),
-          name: ROUTERS.Terms,
-          href: ROUTERS.Terms
-        },
-        {
-          uuidv4: uuidv4(),
-          name: ROUTERS.Doc,
-          href: ROUTERS.Doc
-        }
-      ],
       isOpen: false
     }
   }
@@ -105,12 +92,10 @@ export default {
   }
 
   &__nuxt-link {
-    margin-left: 36px;
-    padding: 5px 0;
     padding: 20px;
-    text-align: left;
-    margin-left: auto;
-    margin-right: auto;
+  }
+
+  &__link-item {
     color: $white;
     font-size: $lg-font;
 
