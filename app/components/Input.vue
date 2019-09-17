@@ -1,8 +1,7 @@
 <template>
   <div>
     <input
-      id="input"
-      :class="b()"
+      :class="b({ variant })"
       :type="type"
       :min="min"
       :max="max"
@@ -15,6 +14,8 @@
 </template>
 
 <script>
+import TYPES from '../static/types.json'
+
 export default {
   name: 'Input',
   props: {
@@ -42,6 +43,10 @@ export default {
       type: String,
       default: '',
       required: false
+    },
+    variant: {
+      type: String,
+      default: TYPES.primary
     }
   },
   methods: {
@@ -55,15 +60,14 @@ export default {
 <style lang="scss">
 .Input {
   display: block;
-  margin: 0;
-  padding: 0.8rem 1.6rem;
-  // background: transparent;
-  color: inherit;
-  font-family: inherit;
+  padding: 0.5rem 1.6rem;
+  width: 200px;
+
+  background: transparent;
+
   font-size: $sm-font;
-  border-color: $primary;
   border-width: 1px;
-  border-radius: 0.4rem;
+  text-align: center;
 
   @include transition(box-shadow 300ms);
 
@@ -73,7 +77,31 @@ export default {
 
   &:focus {
     outline: none;
-    // @include box-shadow(0 0.3rem 2rem rgba(82, 196, 196, 0.233));
+  }
+
+  &_variant-primary {
+    color: $primary + 150;
+    border-color: $primary;
+  }
+
+  &_variant-success {
+    color: $success + 150;
+    border-color: $success;
+  }
+
+  &_variant-warning {
+    color: $warning + 150;
+    border-color: $warning;
+  }
+
+  &_variant-danger {
+    color: $danger + 150;
+    border-color: $danger;
+  }
+
+  &_variant-info {
+    color: $info + 150;
+    border-color: $info;
   }
 }
 </style>

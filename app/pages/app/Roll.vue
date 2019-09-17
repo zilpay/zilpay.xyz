@@ -5,7 +5,7 @@
         <Alert :variant="types.danger">
           This
           <a
-            href="http://"
+            href="https://viewblock.io/zilliqa/address/zil1az5e0c6e4s4pazgahhmlca2cvgamp6kjtaxf4q?network=testnet"
             target="_blank"
           >
             contract
@@ -17,7 +17,7 @@
           This smart contract made for fun, do not use in production!!!
         </Alert>
         <Alert>
-          contract Balance: 9947.44534 ZIL
+          contract Balance: {{ balance }} ZIL
         </Alert>
         <div
           :class="b('rol-value')"
@@ -26,8 +26,8 @@
         </div>
         <Range
           v-model="range"
-          :max="99"
-          :min="1"
+          :max="rangeMax"
+          :min="rangeMin"
           :class="b('range')"
         />
         <div
@@ -36,12 +36,13 @@
           <div
             :class="b('win-amount')"
           >
-            WIN AMOUNT: {{ range * 2 }}
+            WIN AMOUNT: {{ winAmount }}
           </div>
-          <Input />
+          <Input v-model="betAmount" :variant="types.warning" />
         </div>
         <Button
           :class="b('button')"
+          @click="roll"
         >
           Bet
         </Button>
@@ -51,8 +52,10 @@
 </template>
 
 <script>
+import TYPES from '../../static/types.json'
+
 import Jumbotron from '../../components/Jumbotron'
-import Alert, { TYPES } from '../../components/Alert'
+import Alert from '../../components/Alert'
 import Range from '../../components/Range'
 import Input from '../../components/Input'
 import Button from '../../components/Button'
@@ -69,7 +72,63 @@ export default {
   data () {
     return {
       types: TYPES,
-      range: 50
+      range: 50,
+      rangeMax: 99,
+      rangeMin: 1,
+      balance: 0,
+      betAmount: 100,
+      contractAddress: '0xE8A997e359AC2A1e891dBDf7fc7558623bB0eaD2'
+    }
+  },
+  computed: {
+    winAmount () {
+      return Math.round((this.rangeMax / this.range) * this.betAmount)
+    }
+  },
+  mounted () {
+    this.$nextTick(async () => {
+      this.$nuxt.$loading.start()
+      await this.getState()
+      this.$nuxt.$loading.finish()
+    })
+  },
+  methods: {
+    async getState () {
+      if (process.client) {
+        const { contracts, utils } = window.zilPay
+        const contract = contracts.at(this.contractAddress)
+        const state = await contract.getState()
+        this.balance = utils.units.fromQa(
+          new utils.BN(state._balance), 'zil'
+        )
+      }
+    },
+    async roll () {
+      if (!process.client) {
+        return null
+      }
+      const { contracts, utils } = window.zilPay
+      const contract = contracts.at(this.contractAddress)
+      const amount = utils.units.toQa(
+        this.betAmount,
+        utils.units.Units.Zil
+      )
+      const gasPrice = utils.units.toQa(
+        '1000', utils.units.Units.Li
+      )
+      await contract.call(
+        'Roll', [{
+          vname: 'rol',
+          type: 'Uint128',
+          value: this.range
+        }],
+        {
+          amount,
+          gasPrice,
+          gasLimit: utils.Long.fromNumber(9000)
+        }
+      )
+      // console.log(tx)
     }
   }
 }
@@ -119,6 +178,10 @@ $indentation: 100vw - 100;
     color: $grey-darker;
     font-weight: bold;
     font-size: $sm-font;
+  }
+
+  &__win-amount {
+    color: $warning;
   }
 
   &__button {

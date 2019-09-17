@@ -5,14 +5,7 @@
 </template>
 
 <script>
-export const TYPES = {
-  primary: 'primary',
-  secondary: 'secondary',
-  success: 'success',
-  danger: 'danger',
-  warning: 'warning',
-  dark: 'dark'
-}
+import TYPES from '../static/types.json'
 
 export default {
   name: 'Alert',
