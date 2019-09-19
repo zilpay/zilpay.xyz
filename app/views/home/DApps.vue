@@ -48,7 +48,7 @@ export default {
   methods: {
     cardClick (dapp) {
       if (process.client) {
-        window.location.replace(`/dapp/${dapp.link}`)
+        this.$router.push(`/app/${dapp.link}`)
       }
     }
   }

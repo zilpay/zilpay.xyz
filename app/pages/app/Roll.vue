@@ -77,7 +77,7 @@ export default {
       rangeMin: 1,
       balance: 0,
       betAmount: 100,
-      contractAddress: '0xE8A997e359AC2A1e891dBDf7fc7558623bB0eaD2'
+      contractAddress: 'zil1az5e0c6e4s4pazgahhmlca2cvgamp6kjtaxf4q'
     }
   },
   computed: {
@@ -120,7 +120,7 @@ export default {
         'Roll', [{
           vname: 'rol',
           type: 'Uint128',
-          value: this.range
+          value: this.range.toString()
         }],
         {
           amount,
