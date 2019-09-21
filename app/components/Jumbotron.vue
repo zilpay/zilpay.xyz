@@ -1,6 +1,8 @@
 <template>
-  <div :class="b({ rounded: true, shadow: true })">
-    <slot />
+  <div>
+    <div :class="b({ rounded: true, shadow: true })">
+      <slot />
+    </div>
   </div>
 </template>
 

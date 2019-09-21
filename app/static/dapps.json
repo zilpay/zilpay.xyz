@@ -3,7 +3,7 @@
     "img": "fungibletoken.png",
     "title": "FungibleToken creater",
     "link": "fungibletoken",
-    "external": true,
+    "external": false,
     "description": "This dapp help will create FungibleToken token This token implements a fungible token interface a la ERC20."
   },
   {
