@@ -3,11 +3,18 @@
     <div :class="b('container')">
       <div :class="b('row')">
         <Jumbotron :class="b('column')">
+          <h1 :class="b('title')">
+            FungibleToken creator
+          </h1>
           <Alert :variant="types.info">
-            This smart contract made for fun, do not use in production!!!
+            <p>This dApp is a form to create fungible tokens.</p>
+            <p>This token implements a fungible token interface a la ERC20.</p>
           </Alert>
         </Jumbotron>
         <Jumbotron :class="b('column')">
+          <h1 :class="b('title')">
+            FungibleToken Connect
+          </h1>
           <Alert :variant="types.info">
             This smart contract made for fun, do not use in production!!!
           </Alert>
@@ -59,7 +66,11 @@ $indentation: 100vw - 100;
   }
 
   &__column {
-    margin-top: 30px;;
+    margin-top: 30px;
+  }
+
+  &__title {
+    margin-bottom: 10px;
   }
 }
 </style>
