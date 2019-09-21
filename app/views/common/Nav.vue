@@ -1,5 +1,10 @@
 <template>
-  <nav :class="b()">
+  <nav :class="b({ isback: isBackButton })">
+    <BackButton
+      v-show="!isBackButton"
+      :class="b('back-button')"
+      @click.native="backHistroyRoute"
+    />
     <div
       :class="b('links', { isOpen })"
       @click="isOpen = false"
@@ -35,12 +40,14 @@
 </template>
 
 <script>
-import BurgerMenu from './BurgerMenu'
+import BurgerMenu from '../../components/BurgerMenu'
+import BackButton from '../../components/BackButton'
 
 export default {
   name: 'Nav',
   components: {
-    BurgerMenu
+    BurgerMenu,
+    BackButton
   },
   props: {
     links: {
@@ -52,6 +59,16 @@ export default {
     return {
       isOpen: false
     }
+  },
+  computed: {
+    isBackButton () {
+      return this.$route.path === '/'
+    }
+  },
+  methods: {
+    backHistroyRoute () {
+      this.$router.go(-1)
+    }
   }
 }
 </script>
@@ -59,9 +76,14 @@ export default {
 <style lang="scss">
 
 .Nav {
+  display: flex;
+  justify-content: space-between;
+
   position: fixed;
-  right: 50px;
+  left: 20px;
+  right: 20px;
   top: 50px;
+
   z-index: 9;
 
   &__logo {
@@ -104,8 +126,13 @@ export default {
     }
   }
 
-  &__menu {
+  &__menu,
+  &__back-button {
     z-index: 10;
+  }
+
+  &_isback {
+    justify-content: flex-end;
   }
 }
 </style>

@@ -2,7 +2,7 @@ const path = require('path')
 const express = require('express')
 const app = express()
 
-const PUBLIC = '/dapp'
+const PUBLIC = '/app'
 const PUBLIC_DIR = express.static(path.join(__dirname, '../public'))
 const DOC_DIST_DIR = express.static(path.join(__dirname, '../docs/.vuepress/dist'))
 

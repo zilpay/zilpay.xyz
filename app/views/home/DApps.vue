@@ -47,9 +47,16 @@ export default {
   },
   methods: {
     cardClick (dapp) {
-      if (process.client) {
-        this.$router.push(`/app/${dapp.link}`)
+      if (!process.client) {
+        return null
       }
+      const url = `/app/${dapp.link}`
+      if (dapp.external) {
+        window.location.replace(
+          window.location.origin + url
+        )
+      }
+      this.$router.push(url)
     }
   }
 }

@@ -7,7 +7,7 @@
 
 <script>
 import uuidv4 from 'uuidv4'
-import Nav from '../components/Nav'
+import Nav from '../views/common/Nav'
 
 const ROUTERS = {
   Home: 'Home',
