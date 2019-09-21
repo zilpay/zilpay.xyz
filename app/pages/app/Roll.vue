@@ -1,6 +1,14 @@
 <template>
   <div :class="b()">
     <div :class="b('container')">
+      <div :class="b('info')">
+        <div :class="b('network')">
+          {{ walletState.network }}
+        </div>
+        <div :class="b('address')">
+          {{ walletState.currentAddress }}
+        </div>
+      </div>
       <Jumbotron>
         <Alert :variant="types.danger">
           This
@@ -44,10 +52,22 @@
           :class="b('button')"
           @click="roll"
         >
-          Bet
+          Roll
         </Button>
       </Jumbotron>
     </div>
+    <Modal
+      :name="rollModal.name"
+      :title="rollModal.title"
+    >
+      <div :class="b('modal-content')">
+        <img
+          width="300"
+          :src="rollModal.img"
+          :class="b('modal-img')"
+        >
+      </div>
+    </Modal>
   </div>
 </template>
 
@@ -59,6 +79,7 @@ import Alert from '../../components/Alert'
 import Range from '../../components/Range'
 import Input from '../../components/Input'
 import Button from '../../components/Button'
+import Modal from '../../components/Modal'
 
 export default {
   name: 'Roll',
@@ -67,7 +88,8 @@ export default {
     Alert,
     Range,
     Input,
-    Button
+    Button,
+    Modal
   },
   data () {
     return {
@@ -77,7 +99,16 @@ export default {
       rangeMin: 1,
       balance: 0,
       betAmount: 100,
-      contractAddress: 'zil1az5e0c6e4s4pazgahhmlca2cvgamp6kjtaxf4q'
+      contractAddress: 'zil1az5e0c6e4s4pazgahhmlca2cvgamp6kjtaxf4q',
+      rollModal: {
+        title: 'ZilPay',
+        name: 'roll',
+        img: ''
+      },
+      walletState: {
+        currentAddress: '',
+        network: ''
+      }
     }
   },
   computed: {
@@ -88,23 +119,27 @@ export default {
   mounted () {
     this.$nextTick(async () => {
       this.$nuxt.$loading.start()
+      this.observable()
       await this.getState()
       this.$nuxt.$loading.finish()
     })
   },
   methods: {
     async getState () {
-      if (process.client) {
-        const { contracts, utils } = window.zilPay
-        const contract = contracts.at(this.contractAddress)
-        const state = await contract.getState()
-        this.balance = utils.units.fromQa(
-          new utils.BN(state._balance), 'zil'
-        )
+      const test = this.zilPayTest()
+      if (!test) {
+        return null
       }
+      const { contracts, utils } = window.zilPay
+      const contract = contracts.at(this.contractAddress)
+      const state = await contract.getState()
+      this.balance = utils.units.fromQa(
+        new utils.BN(state._balance), 'zil'
+      )
     },
     async roll () {
-      if (!process.client) {
+      const test = this.zilPayTest()
+      if (!test) {
         return null
       }
       const { contracts, utils } = window.zilPay
@@ -116,19 +151,104 @@ export default {
       const gasPrice = utils.units.toQa(
         '1000', utils.units.Units.Li
       )
-      await contract.call(
-        'Roll', [{
-          vname: 'rol',
-          type: 'Uint128',
-          value: this.range.toString()
-        }],
-        {
-          amount,
-          gasPrice,
-          gasLimit: utils.Long.fromNumber(9000)
-        }
+      try {
+        this.$nuxt.$loading.start()
+        const tx = await contract.call(
+          'Roll', [{
+            vname: 'rol',
+            type: 'Uint128',
+            value: this.range.toString()
+          }],
+          {
+            amount,
+            gasPrice,
+            gasLimit: utils.Long.fromNumber(9000)
+          }
+        )
+        const interval = setInterval(() => window
+          .zilPay
+          .blockchain
+          .getTransaction(tx.TranID)
+          .then(tx => tx.receipt.event_logs[0].params)
+          .then(params => params.find(el => el.vname === 'winAmount').value)
+          .then(amount => this.showResult(amount))
+          .then(() => this.$nuxt.$loading.finish())
+          .then(() => clearInterval(interval))
+          .catch(), 5000)
+      } catch (err) {
+        //
+      }
+    },
+    showResult (value) {
+      const { utils } = window.zilPay
+      const amount = utils.units.fromQa(
+        new utils.BN(value), 'zil'
       )
-      // console.log(tx)
+
+      if (Number(value) > 0) {
+        this.rollModal.title = `You win ${amount} ZIL`
+        this.$modal.show(this.rollModal.name)
+      } else {
+        this.rollModal.title = `You lose ZIL`
+        this.$modal.show(this.rollModal.name)
+      }
+    },
+    zilPayTest () {
+      if (!process.client) {
+        return false
+      }
+
+      if (typeof window.zilPay === 'undefined') {
+        this.rollModal.img = '/img/home.png'
+        this.rollModal.title = 'Please install ZilPay!'
+        this.$modal.show(this.rollModal.name)
+        return false
+      } else if (!window.zilPay.wallet.isEnable) {
+        this.rollModal.img = '/img/lock.png'
+        this.rollModal.title = 'Please unlock ZilPay!'
+        this.$modal.show(this.rollModal.name)
+        return false
+      } else if (window.zilPay.wallet.net !== 'testnet') {
+        this.rollModal.img = '/img/network.png'
+        this.rollModal.title = 'Please change network!'
+        this.$modal.show(this.rollModal.name)
+        return false
+      }
+
+      try {
+        this.$modal.close(this.rollModal.name)
+      } catch (err) {
+        // If modal was't open.
+      }
+
+      return true
+    },
+    observable () {
+      try {
+        window
+          .zilPay
+          .wallet
+          .observableAccount()
+          .subscribe((acc) => {
+            this.walletState.currentAddress = acc.bech32
+          })
+      } catch (err) {
+        // Skip
+      }
+
+      try {
+        this.walletState.network = window.zilPay.wallet.net
+        window
+          .zilPay
+          .wallet
+          .observableNetwork()
+          .subscribe((net) => {
+            this.walletState.network = net
+            this.zilPayTest()
+          })
+      } catch (err) {
+        // Skip
+      }
     }
   }
 }
@@ -149,6 +269,17 @@ $indentation: 100vw - 100;
     padding-top: 15vh;
     padding-left: $indentation;
     padding-right: $indentation;
+  }
+
+  &__info {
+    width: 600px;
+    padding: 5px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__network, &__address {
+    color: $primary;
   }
 
   &__range {
@@ -187,6 +318,15 @@ $indentation: 100vw - 100;
   &__button {
     margin-top: 20px;
     text-align: center;
+  }
+
+  &__modal-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 30px;
+    height: auto;
+    width: auto;
   }
 }
 </style>

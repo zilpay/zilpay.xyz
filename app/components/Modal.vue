@@ -61,8 +61,6 @@ export default {
   &__container {
     background: $background-gradient;
     padding: 30px;
-    max-width: 500px;
-    max-height: 100vh;
     border-radius: 4px;
     overflow-y: auto;
     box-sizing: border-box;
