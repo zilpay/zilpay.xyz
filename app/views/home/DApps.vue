@@ -56,7 +56,7 @@ export default {
           window.location.origin + url
         )
       }
-      this.$router.push(url)
+      this.$router.push('/app' + url)
     }
   }
 }
