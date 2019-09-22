@@ -7,8 +7,5 @@ script:
   - npm run generate
 deploy:
   provider: firebase
-  token:
-    secure: $FIREBASE_TOKEN
-  project: "zilpay-test"
 after_success:
-  - ls
+  - firebase deploy --token $FIREBASE_TOKEN
