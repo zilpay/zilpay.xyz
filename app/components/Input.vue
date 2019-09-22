@@ -45,7 +45,7 @@ export default {
       default: 1
     },
     value: {
-      type: String || Number,
+      type: [String, Number],
       default: null
     },
     label: {
@@ -88,6 +88,9 @@ export default {
   text-align: center;
   border-radius: .25rem;
 
+  border: 2px solid #dadada;
+  border-radius: 7px;
+
   @include transition(box-shadow 300ms);
 
   &::placeholder {
@@ -102,30 +105,50 @@ export default {
     color: $primary + 150;
     border-color: $primary;
     border: 1px solid $primary;
+
+    &:focus {
+      @include box-shadow(0 0 10px $primary);
+    }
   }
 
   &_variant-success {
     color: $success + 150;
     border-color: $success;
     border: 1px solid $success;
+
+    &:focus {
+      @include box-shadow(0 0 10px $success);
+    }
   }
 
   &_variant-warning {
     color: $warning + 150;
     border-color: $warning;
     border: 1px solid $warning;
+
+    &:focus {
+      @include box-shadow(0 0 10px $warning);
+    }
   }
 
   &_variant-danger {
     color: $danger + 150;
     border-color: $danger;
     border: 1px solid $danger;
+
+    &:focus {
+      @include box-shadow(0 0 10px $danger);
+    }
   }
 
   &_variant-info {
     color: $info + 150;
     border-color: $info;
     border: 1px solid $info;
+
+    &:focus {
+      @include box-shadow(0 0 10px $info);
+    }
   }
 }
 .label {

@@ -1,7 +1,7 @@
 <template>
   <div>
     <button
-      :class="b()"
+      :class="b({ xl, lg, sm, md, block })"
       @click="clickBtn"
     >
       <slot />
@@ -12,6 +12,28 @@
 <script>
 export default {
   name: 'Button',
+  props: {
+    xl: {
+      type: Boolean,
+      default: false
+    },
+    lg: {
+      type: Boolean,
+      default: false
+    },
+    md: {
+      type: Boolean,
+      default: false
+    },
+    sm: {
+      type: Boolean,
+      default: false
+    },
+    block: {
+      type: Boolean,
+      default: false
+    }
+  },
   methods: {
     clickBtn () {
       this.$emit('click')
@@ -23,8 +45,6 @@ export default {
 <style lang="scss">
 .Button {
   cursor: pointer;
-
-  padding: 1.25rem 2.5rem;
 
   display: inline-block;
 
@@ -48,6 +68,30 @@ export default {
   &:hover {
     background-color: $primary - 30;
     border-color: $primary - 30;
+  }
+
+  &_xl {
+    padding: 1.25rem 2.5rem;
+  }
+
+  &_lg {
+    padding: .5rem 1rem;
+  }
+
+  &_md {
+    padding: .375rem .75rem;
+  }
+
+  &_sm {
+    padding: .25rem .5rem;
+    font-size: .875rem;
+    line-height: 1.5;
+    border-radius: .2rem;
+  }
+
+  &_block {
+    display: block;
+    width: 100%;
   }
 }
 </style>

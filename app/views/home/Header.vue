@@ -13,7 +13,11 @@
           </a>
           blockchain
         </h2>
-        <Button :class="b('button')" @click="goToStore">
+        <Button
+          xl
+          :class="b('button')"
+          @click="goToStore"
+        >
           {{ btnTitle }} {{ detectedBrowser }}
         </Button>
       </div>

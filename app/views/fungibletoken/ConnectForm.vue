@@ -2,50 +2,25 @@
   <div>
     <Jumbotron :class="b()">
       <h1 :class="b('title')">
-        FungibleToken creator
+        FungibleToken Connect
       </h1>
       <Alert :variant="types.info">
         <p>
-          This dApp is a form to create fungible tokens.
+          You can connect your FungibleToken for call to call his methods.
         </p>
       </Alert>
       <Input
         :variant="types.primary"
         :class="b('form-input')"
-        placeholder="Enter your zil address"
+        placeholder="Enter your contract address"
         label="Contract owner:"
-      />
-      <Input
-        :variant="types.primary"
-        :class="b('form-input')"
-        placeholder="Enter your token name"
-        label="Token name:"
-      />
-      <Input
-        :variant="types.primary"
-        :class="b('form-input')"
-        placeholder="Enter your token symbol"
-        label="Token symbol:"
-      />
-      <Input
-        :variant="types.primary"
-        :class="b('form-input')"
-        placeholder="Enter your count of tokens"
-        label="Total supply of tokens:"
-      />
-      <Input
-        :variant="types.primary"
-        :class="b('form-input')"
-        type="number"
-        value="18"
-        label="Decimals:"
       />
       <Button
         md
         block
         :class="b('form-button')"
       >
-        Deploy
+        Connect
       </Button>
     </Jumbotron>
   </div>
@@ -60,7 +35,7 @@ import Alert from '../../components/Alert'
 import Button from '../../components/Button'
 
 export default {
-  name: 'FormDeploy',
+  name: 'ConnectForm',
   components: {
     Jumbotron,
     Input,
@@ -76,7 +51,7 @@ export default {
 </script>
 
 <style lang="scss">
-.FormDeploy {
+.ConnectForm {
   &__form-input,
   &__form-button {
     padding-top: 20px;

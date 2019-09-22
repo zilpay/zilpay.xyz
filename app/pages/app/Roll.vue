@@ -46,9 +46,16 @@
           >
             WIN AMOUNT: {{ winAmount }}
           </div>
-          <Input v-model="betAmount" :variant="types.warning" />
+          <Input
+            v-model="betAmount"
+            label="Your bet amount:"
+            type="number"
+            :max="1000000000"
+            :variant="types.warning"
+          />
         </div>
         <Button
+          lg
           :class="b('button')"
           @click="roll"
         >
@@ -57,13 +64,13 @@
       </Jumbotron>
     </div>
     <Modal
-      :name="rollModal.name"
-      :title="rollModal.title"
+      :name="modalInstance.name"
+      :title="modalInstance.title"
     >
       <div :class="b('modal-content')">
         <img
           width="300"
-          :src="rollModal.img"
+          :src="modalInstance.img"
           :class="b('modal-img')"
         >
       </div>
@@ -81,6 +88,8 @@ import Input from '../../components/Input'
 import Button from '../../components/Button'
 import Modal from '../../components/Modal'
 
+import ZilPayMixin from '../../mixins/zilpay'
+
 export default {
   name: 'Roll',
   components: {
@@ -91,6 +100,7 @@ export default {
     Button,
     Modal
   },
+  mixins: [ZilPayMixin],
   data () {
     return {
       types: TYPES,
@@ -100,14 +110,10 @@ export default {
       balance: 0,
       betAmount: 100,
       contractAddress: 'zil1az5e0c6e4s4pazgahhmlca2cvgamp6kjtaxf4q',
-      rollModal: {
+      modalInstance: {
         title: 'ZilPay',
         name: 'roll',
         img: ''
-      },
-      walletState: {
-        currentAddress: '',
-        network: ''
       }
     }
   },
@@ -176,7 +182,7 @@ export default {
           .then(() => clearInterval(interval))
           .catch(), 5000)
       } catch (err) {
-        //
+        this.$nuxt.$loading.finish()
       }
     },
     showResult (value) {
@@ -186,68 +192,11 @@ export default {
       )
 
       if (Number(value) > 0) {
-        this.rollModal.title = `You win ${amount} ZIL`
-        this.$modal.show(this.rollModal.name)
+        this.modalInstance.title = `You win ${amount} ZIL`
+        this.$modal.show(this.modalInstance.name)
       } else {
-        this.rollModal.title = `You lose ZIL`
-        this.$modal.show(this.rollModal.name)
-      }
-    },
-    zilPayTest () {
-      if (!process.client) {
-        return false
-      }
-
-      if (typeof window.zilPay === 'undefined') {
-        this.rollModal.img = '/img/home.png'
-        this.rollModal.title = 'Please install ZilPay!'
-        this.$modal.show(this.rollModal.name)
-        return false
-      } else if (!window.zilPay.wallet.isEnable) {
-        this.rollModal.img = '/img/lock.png'
-        this.rollModal.title = 'Please unlock ZilPay!'
-        this.$modal.show(this.rollModal.name)
-        return false
-      } else if (window.zilPay.wallet.net !== 'testnet') {
-        this.rollModal.img = '/img/network.png'
-        this.rollModal.title = 'Please change network!'
-        this.$modal.show(this.rollModal.name)
-        return false
-      }
-
-      try {
-        this.$modal.close(this.rollModal.name)
-      } catch (err) {
-        // If modal was't open.
-      }
-
-      return true
-    },
-    observable () {
-      try {
-        window
-          .zilPay
-          .wallet
-          .observableAccount()
-          .subscribe((acc) => {
-            this.walletState.currentAddress = acc.bech32
-          })
-      } catch (err) {
-        // Skip
-      }
-
-      try {
-        this.walletState.network = window.zilPay.wallet.net
-        window
-          .zilPay
-          .wallet
-          .observableNetwork()
-          .subscribe((net) => {
-            this.walletState.network = net
-            this.zilPayTest()
-          })
-      } catch (err) {
-        // Skip
+        this.modalInstance.title = `You lose ZIL`
+        this.$modal.show(this.modalInstance.name)
       }
     }
   }
