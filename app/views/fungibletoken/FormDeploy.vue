@@ -16,6 +16,7 @@
         type="text"
         :variant="types.primary"
         :class="b('form-input')"
+        @input="onInput"
       />
       <Input
         v-model="form.tokenName"
@@ -24,6 +25,7 @@
         type="text"
         :variant="types.primary"
         :class="b('form-input')"
+        @input="onInput"
       />
       <Input
         v-model="form.tokenSymbol"
@@ -32,6 +34,7 @@
         type="text"
         :variant="types.primary"
         :class="b('form-input')"
+        @input="onInput"
       />
       <Input
         v-model="form.totalSupply"
@@ -40,6 +43,7 @@
         type="number"
         :variant="types.primary"
         :class="b('form-input')"
+        @input="onInput"
       />
       <Input
         v-model="form.decimals"
@@ -47,6 +51,7 @@
         label="Decimals:"
         :variant="types.primary"
         :class="b('form-input')"
+        @input="onInput"
       />
       <Button
         md
@@ -76,21 +81,24 @@ export default {
     Alert,
     Button
   },
+  props: {
+    value: {
+      type: Object,
+      required: true
+    }
+  },
   data () {
     return {
       types: TYPES,
-      form: {
-        owner: null,
-        tokenName: null,
-        tokenSymbol: null,
-        totalSupply: null,
-        decimals: 18
-      }
+      form: this.value
     }
   },
   methods: {
     submit () {
       this.$emit('submit', this.form)
+    },
+    onInput () {
+      this.$emit('input', this.form)
     }
   }
 }

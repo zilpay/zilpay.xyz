@@ -26,38 +26,45 @@ export default {
       }
 
       if (typeof window.zilPay === 'undefined') {
-        this.rollModal.img = '/img/home.png'
-        this.rollModal.title = 'Please install ZilPay!'
-        this.$modal.show(this.rollModal.name)
+        this.modalInstance.img = '/img/home.png'
+        this.modalInstance.title = 'Please install ZilPay!'
+        this.$modal.show(this.modalInstance.name)
         return false
       } else if (!window.zilPay.wallet.isEnable) {
-        this.rollModal.img = '/img/lock.png'
-        this.rollModal.title = 'Please unlock ZilPay!'
-        this.$modal.show(this.rollModal.name)
+        this.modalInstance.img = '/img/lock.png'
+        this.modalInstance.title = 'Please unlock ZilPay!'
+        this.$modal.show(this.modalInstance.name)
         return false
-      } else if (window.zilPay.wallet.net !== 'testnet') {
-        this.rollModal.img = '/img/network.png'
-        this.rollModal.title = 'Please change network!'
-        this.$modal.show(this.rollModal.name)
+      } else if (!this.needNetwork.includes(window.zilPay.wallet.net)) {
+        this.modalInstance.img = '/img/network.png'
+        this.modalInstance.title = 'Please change network!'
+        this.$modal.show(this.modalInstance.name)
         return false
       }
 
       try {
-        this.$modal.close(this.rollModal.name)
+        this.$modal.close(this.modalInstance.name)
       } catch (err) {
         // If modal was't open.
       }
 
       return true
     },
-    observable () {
+    observable (cbAddress, cbNet) {
       try {
+        this.walletState.currentAddress = window.zilPay.wallet.defaultAccount.bech32
+        if (typeof cbAddress === 'function') {
+          cbAddress(window.zilPay.wallet.defaultAccount)
+        }
         this.observables.address = window
           .zilPay
           .wallet
           .observableAccount()
           .subscribe((acc) => {
             this.walletState.currentAddress = acc.bech32
+            if (typeof cbAddress === 'function') {
+              cbAddress(acc)
+            }
           })
       } catch (err) {
         // Skip
@@ -65,6 +72,9 @@ export default {
 
       try {
         this.walletState.network = window.zilPay.wallet.net
+        if (typeof cbNet === 'function') {
+          cbNet(window.zilPay.wallet.net)
+        }
         this.observables.network = window
           .zilPay
           .wallet
@@ -72,10 +82,33 @@ export default {
           .subscribe((net) => {
             this.walletState.network = net
             this.zilPayTest()
+            if (typeof cbNet === 'function') {
+              cbNet(net)
+            }
           })
       } catch (err) {
         // Skip
       }
+    },
+    validateAddreas (address) {
+      const { utils, crypto } = window.zilPay
+      const { validation } = utils
+      const {
+        decodeBase58,
+        toChecksumAddress,
+        fromBech32Address,
+        isValidChecksumAddress
+      } = crypto
+
+      if (validation.isAddress(address)) {
+        address = isValidChecksumAddress(address)
+      } else if (validation.isBase58(address)) {
+        address = decodeBase58(address)
+      } else if (validation.isBech32(address)) {
+        address = fromBech32Address(address)
+      }
+
+      return toChecksumAddress(address)
     }
   }
 }

@@ -10,15 +10,17 @@
         </p>
       </Alert>
       <Input
-        :variant="types.primary"
-        :class="b('form-input')"
+        v-model="address"
         placeholder="Enter your contract address"
         label="Contract owner:"
+        :variant="types.primary"
+        :class="b('form-input')"
       />
       <Button
         md
         block
         :class="b('form-button')"
+        @click="submit"
       >
         Connect
       </Button>
@@ -44,7 +46,13 @@ export default {
   },
   data () {
     return {
-      types: TYPES
+      types: TYPES,
+      address: null
+    }
+  },
+  methods: {
+    submit () {
+      this.$emit('submit', this.address)
     }
   }
 }

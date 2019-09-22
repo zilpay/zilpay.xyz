@@ -110,9 +110,10 @@ export default {
       balance: 0,
       betAmount: 100,
       contractAddress: 'zil1az5e0c6e4s4pazgahhmlca2cvgamp6kjtaxf4q',
+      needNetwork: ['testnet'],
       modalInstance: {
         title: 'ZilPay',
-        name: 'roll',
+        name: this.$options.name,
         img: ''
       }
     }

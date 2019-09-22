@@ -22,12 +22,10 @@
     }
   },
   "dependencies": {
-    "@ledgerhq/hw-transport-u2f": "^4.70.0",
     "@nuxtjs/axios": "^5.3.6",
     "@nuxtjs/eslint-config": "^1.0.1",
     "@nuxtjs/eslint-module": "^1.0.0",
     "@nuxtjs/style-resources": "^1.0.0",
-    "@zilliqa-js/zilliqa": "^0.8.0-alpha.0",
     "babel-eslint": "^10.0.1",
     "cross-env": "^5.2.0",
     "eslint": "^6.1.0",
@@ -38,12 +36,15 @@
     "nuxt": "^2.0.0",
     "sass-loader": "^8.0.0",
     "uuidv4": "^5.0.1",
-    "vue-bem-cn": "^1.1.1"
+    "vue-bem-cn": "^1.1.1",
+    "vue-json-tree-view": "^2.1.4"
   },
   "devDependencies": {
     "nodemon": "^1.18.9",
     "vuepress": "^1.1.0",
     "webpack": "^4.40.2",
-    "webpack-cli": "^3.3.8"
+    "webpack-cli": "^3.3.8",
+    "@ledgerhq/hw-transport-u2f": "^4.70.0",
+    "@zilliqa-js/zilliqa": "^0.8.0-alpha.0"
   }
 }

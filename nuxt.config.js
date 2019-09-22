@@ -145,7 +145,8 @@ module.exports = {
   */
   plugins: [
     '~/plugins/vue-bem-cn',
-    '~/plugins/vue-modal'
+    '~/plugins/vue-modal',
+    '~/plugins/tree-view'
   ],
   /*
   ** Nuxt.js dev-modules
