@@ -5,6 +5,7 @@
         <DeployForm
           :class="b('column')"
           :form="createForm"
+          @submit="submit"
         />
         <ConnectForm :class="b('column')" />
       </div>
@@ -34,6 +35,11 @@ export default {
         totalSupply: '',
         decimals: ''
       }
+    }
+  },
+  methods: {
+    submit (event) {
+      console.log(event)
     }
   }
 }

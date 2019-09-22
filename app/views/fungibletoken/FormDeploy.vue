@@ -10,40 +10,49 @@
         </p>
       </Alert>
       <Input
-        :variant="types.primary"
-        :class="b('form-input')"
+        v-model="form.owner"
         placeholder="Enter your zil address"
         label="Contract owner:"
-      />
-      <Input
+        type="text"
         :variant="types.primary"
         :class="b('form-input')"
+      />
+      <Input
+        v-model="form.tokenName"
         placeholder="Enter your token name"
         label="Token name:"
-      />
-      <Input
+        type="text"
         :variant="types.primary"
         :class="b('form-input')"
+      />
+      <Input
+        v-model="form.tokenSymbol"
         placeholder="Enter your token symbol"
         label="Token symbol:"
-      />
-      <Input
+        type="text"
         :variant="types.primary"
         :class="b('form-input')"
+      />
+      <Input
+        v-model="form.totalSupply"
         placeholder="Enter your count of tokens"
         label="Total supply of tokens:"
-      />
-      <Input
+        type="number"
         :variant="types.primary"
         :class="b('form-input')"
+      />
+      <Input
+        v-model="form.decimals"
         type="number"
-        value="18"
         label="Decimals:"
+        :variant="types.primary"
+        :class="b('form-input')"
       />
       <Button
         md
         block
         :class="b('form-button')"
+        @click="submit"
       >
         Deploy
       </Button>
@@ -69,7 +78,19 @@ export default {
   },
   data () {
     return {
-      types: TYPES
+      types: TYPES,
+      form: {
+        owner: null,
+        tokenName: null,
+        tokenSymbol: null,
+        totalSupply: null,
+        decimals: 18
+      }
+    }
+  },
+  methods: {
+    submit () {
+      this.$emit('submit', this.form)
     }
   }
 }
