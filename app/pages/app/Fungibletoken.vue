@@ -16,7 +16,9 @@
           v-if="contractState"
           :class="b('column')"
           :state="contractState"
+          :init="contractInit"
           @clear="contractState = null"
+          @submit="callContractMethod"
         />
       </div>
     </div>
@@ -44,6 +46,8 @@ import Modal from '../../components/Modal'
 
 import ZilPayMixin from '../../mixins/zilpay'
 
+import ACTIONS_METHODS from '../../views/fungibletoken/actions.json'
+
 export default {
   name: 'Fungibletoken',
   components: {
@@ -64,6 +68,7 @@ export default {
       },
       contractAddress: null,
       contractState: null,
+      contractInit: null,
       needNetwork: ['testnet', 'mainnet', 'private'],
       modalInstance: {
         title: 'ZilPay',
@@ -145,12 +150,161 @@ export default {
         const { contracts } = window.zilPay
         const contract = contracts.at(contractAddress)
         this.contractAddress = contractAddress
+        this.contractInit = await contract.getInit()
         this.contractState = await contract.getState()
       } catch (err) {
         //
       } finally {
         this.$nuxt.$loading.finish()
       }
+    },
+    async [ACTIONS_METHODS.transferFrom] ({ from, to, amount }) {
+      const test = this.zilPayTest()
+      if (!test) {
+        return null
+      }
+      const { contracts, utils } = window.zilPay
+      const { units, BN, Long } = utils
+      const contract = contracts.at(this.contractAddress)
+      const gasPrice = units.toQa('1000', units.Units.Li)
+      const gasLimit = Long.fromNumber(9000)
+      try {
+        await contract.call(
+          'TransferFrom',
+          [
+            {
+              vname: 'from',
+              type: 'ByStr20',
+              value: this.validateAddreas(from)
+            },
+            {
+              vname: 'to',
+              type: 'ByStr20',
+              value: this.validateAddreas(to)
+            },
+            {
+              vname: 'tokens',
+              type: 'Uint128',
+              value: String(amount)
+            }
+          ],
+          {
+            gasPrice,
+            gasLimit,
+            amount: new BN(0)
+          }
+        )
+      } catch (err) {
+        // If user reject
+      }
+    },
+    async [ACTIONS_METHODS.transfer] ({ to, amount }) {
+      const test = this.zilPayTest()
+      if (!test) {
+        return null
+      }
+      const { contracts, utils } = window.zilPay
+      const { units, BN, Long } = utils
+      const contract = contracts.at(this.contractAddress)
+      const gasPrice = units.toQa('1000', units.Units.Li)
+      const gasLimit = Long.fromNumber(9000)
+      try {
+        await contract.call(
+          'Transfer',
+          [
+            {
+              vname: 'to',
+              type: 'ByStr20',
+              value: this.validateAddreas(to)
+            },
+            {
+              vname: 'tokens',
+              type: 'Uint128',
+              value: String(amount)
+            }
+          ],
+          {
+            gasPrice,
+            gasLimit,
+            amount: new BN(0)
+          }
+        )
+      } catch (err) {
+        // If user reject
+      }
+    },
+    async [ACTIONS_METHODS.approve] ({ spender, amount }) {
+      const test = this.zilPayTest()
+      if (!test) {
+        return null
+      }
+      const { contracts, utils } = window.zilPay
+      const { units, BN, Long } = utils
+      const contract = contracts.at(this.contractAddress)
+      const gasPrice = units.toQa('1000', units.Units.Li)
+      const gasLimit = Long.fromNumber(9000)
+      try {
+        await contract.call(
+          'Approve',
+          [
+            {
+              vname: 'spender',
+              type: 'ByStr20',
+              value: this.validateAddreas(spender)
+            },
+            {
+              vname: 'tokens',
+              type: 'Uint128',
+              value: String(amount)
+            }
+          ],
+          {
+            gasPrice,
+            gasLimit,
+            amount: new BN(0)
+          }
+        )
+      } catch (err) {
+        // If User reject.
+      }
+    },
+    async [ACTIONS_METHODS.allowance] ({ owner, spender }) {
+      const test = this.zilPayTest()
+      if (!test) {
+        return null
+      }
+      const { contracts, utils } = window.zilPay
+      const { units, BN, Long } = utils
+      const contract = contracts.at(this.contractAddress)
+      const gasPrice = units.toQa('1000', units.Units.Li)
+      const gasLimit = Long.fromNumber(9000)
+      try {
+        await contract.call(
+          'Allowance',
+          [
+            {
+              vname: 'tokenOwner',
+              type: 'ByStr20',
+              value: this.validateAddreas(owner)
+            },
+            {
+              vname: 'spender',
+              type: 'ByStr20',
+              value: this.validateAddreas(spender)
+            }
+          ],
+          {
+            gasPrice,
+            gasLimit,
+            amount: new BN(0)
+          }
+        )
+      } catch (err) {
+        // If user reject
+      }
+    },
+    callContractMethod (data) {
+      this[data.currentAction](data.form)
     }
   }
 }

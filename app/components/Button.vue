@@ -1,7 +1,7 @@
 <template>
   <div>
     <button
-      :class="b({ xl, lg, sm, md, block })"
+      :class="b({ xl, lg, sm, md, block, variant })"
       @click="clickBtn"
     >
       <slot />
@@ -10,6 +10,8 @@
 </template>
 
 <script>
+import TYPES from '../static/types.json'
+
 export default {
   name: 'Button',
   props: {
@@ -32,6 +34,10 @@ export default {
     block: {
       type: Boolean,
       default: false
+    },
+    variant: {
+      type: String,
+      default: TYPES.primary
     }
   },
   methods: {
@@ -43,6 +49,8 @@ export default {
 </script>
 
 <style lang="scss">
+$hover_amount: 50;
+
 .Button {
   cursor: pointer;
 
@@ -61,14 +69,7 @@ export default {
   @include transition(all .15s ease);
   @include box-shadow(0 3px 3px 0 rgba(0, 0, 0, .1));
 
-  background-color: $primary;
-  border-color: $borderColor;
   color: $background;
-
-  &:hover {
-    background-color: $primary - 30;
-    border-color: $primary - 30;
-  }
 
   &_xl {
     padding: 1.25rem 2.5rem;
@@ -92,6 +93,57 @@ export default {
   &_block {
     display: block;
     width: 100%;
+  }
+
+  &_variant-primary {
+    background-color: $primary;
+    border-color: $primary;
+
+    &:hover {
+      background-color: $primary - $hover_amount;
+      border-color: $primary - $hover_amount;
+    }
+  }
+
+  &_variant-success {
+    background-color: $success;
+    border-color: $success;
+    color: $background - $hover_amount;
+
+    &:hover {
+      background-color: $success + $hover_amount;
+      border-color: $success + $hover_amount;
+    }
+  }
+
+  &_variant-warning {
+    background-color: $warning;
+    border-color: $warning;
+
+    &:hover {
+      background-color: $warning - $hover_amount;
+      border-color: $warning - $hover_amount;
+    }
+  }
+
+  &_variant-danger {
+    background-color: $danger;
+    border-color: $danger;
+
+    &:hover {
+      background-color: $danger - $hover_amount;
+      border-color: $danger - $hover_amount;
+    }
+  }
+
+  &_variant-info {
+    background-color: $info;
+    border-color: $info;
+
+    &:hover {
+      background-color: $info - $hover_amount;
+      border-color: $info - $hover_amount;
+    }
   }
 }
 </style>
