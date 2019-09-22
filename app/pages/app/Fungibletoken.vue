@@ -94,7 +94,7 @@ export default {
       const { utils, contracts } = window.zilPay
       const { units, Long } = utils
       // const { toBech32Address } = crypto
-      const code = await this.$axios.$get('/contracts/fungible-token.scilla')
+      const code = await this.$axios.$get(window.location.origin + '/contracts/fungible-token.scilla')
       const init = [
         {
           vname: '_scilla_version',
