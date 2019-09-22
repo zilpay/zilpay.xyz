@@ -50,7 +50,7 @@ export default {
       if (!process.client) {
         return null
       }
-      const url = `/app/${dapp.link}`
+      const url = `/${dapp.link}`
       if (dapp.external) {
         window.location.replace(
           window.location.origin + url

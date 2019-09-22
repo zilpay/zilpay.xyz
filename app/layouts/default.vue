@@ -46,7 +46,7 @@ export default {
         {
           uuidv4: uuidv4(),
           name: ROUTERS.Doc,
-          href: ROUTERS.Doc,
+          href: `/${ROUTERS.Doc}`,
           external: true
         },
         {

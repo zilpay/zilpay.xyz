@@ -40,6 +40,9 @@ export default {
         this.modalInstance.title = 'Please change network!'
         this.$modal.show(this.modalInstance.name)
         return false
+      } else if (!window.zilPay.wallet.isConnect) {
+        window.zilPay.wallet.connect()
+        return null
       }
 
       try {

@@ -92,5 +92,5 @@ sw.*
 # Vim swap files
 *.swp
 
-public/ledger-bridge.js
-public/ledger-bridge.js.map
+app/static/app/ledger-bridge.js
+app/static/app/ledger-bridge.js.map

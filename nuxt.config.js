@@ -161,7 +161,8 @@ module.exports = {
   */
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
-    '@nuxtjs/axios'
+    '@nuxtjs/axios',
+    '@nuxtjs/robots'
   ],
   styleResources: {
     scss: [
@@ -174,6 +175,10 @@ module.exports = {
   ** See https://axios.nuxtjs.org/options
   */
   axios: {
+  },
+  robots: {
+    'User-agent': '*',
+    'Disallow': '/'
   },
   /*
   ** Build configuration

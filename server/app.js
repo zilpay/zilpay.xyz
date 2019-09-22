@@ -3,12 +3,10 @@ const express = require('express')
 const app = express()
 
 const PUBLIC = '/app'
-const PUBLIC_DIR = express.static(path.join(__dirname, '../public'))
+
 const DOC_DIST_DIR = express.static(path.join(__dirname, '../docs/.vuepress/dist'))
 
-app.use('/app/documentation', DOC_DIST_DIR)
-
-app.use(PUBLIC, PUBLIC_DIR)
+app.use(PUBLIC + '/documentation', DOC_DIST_DIR)
 
 app.get('/ledger-bridge', (req, res, next) => {
   return res.send(`
