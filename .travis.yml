@@ -11,4 +11,4 @@ deploy:
     secure: $FIREBASE_TOKEN
   project: "zilpay-test"
 after_success:
-  - 
+  - firebase deploy --token $FIREBASE_TOKEN
