@@ -8,7 +8,7 @@ script:
 deploy:
   provider: firebase
   token:
-    secure: $ENCRYPTED_TOKEN
+    secure: $FIREBASE_TOKEN
   project: zilpay-test
   on:
     branch: master
