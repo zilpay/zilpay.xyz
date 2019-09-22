@@ -9,6 +9,4 @@ deploy:
   provider: firebase
   token:
     secure: $FIREBASE_TOKEN
-  project: zilpay-test
-  on:
-    branch: master
+  project: "zilpay-test"
