@@ -92,6 +92,4 @@ sw.*
 # Vim swap files
 *.swp
 
-app/static/app/ledger-bridge.js
-app/static/app/ledger-bridge.js.map
 .firebase
