@@ -32,7 +32,7 @@ export default {
   padding: 4rem 2rem;
 
   &_rounded {
-    border-radius: .3rem
+    border-radius: .3rem;
   }
 
   &_shadow {

@@ -16,8 +16,8 @@
   {
     "img": "scillaeditor.png",
     "title": "scilla-editor",
-    "link": "scilla-editor",
-    "external": true,
+    "link": "Editor",
+    "external": false,
     "description": "Editor and deploy smart contract on scilla language"
   },
   {
