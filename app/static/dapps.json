@@ -7,13 +7,6 @@
     "description": "This dapp help will create FungibleToken token This token implements a fungible token interface a la ERC20."
   },
   {
-    "img": "nonfungibletoken.png",
-    "title": "NonfungibleToken creater",
-    "link": "nonfungibletoken",
-    "external": true,
-    "description": "This dapp help will create NonfungibleToken token This token is implementation Token ERC721"
-  },
-  {
     "img": "scillaeditor.png",
     "title": "scilla-editor",
     "link": "Editor",
@@ -26,5 +19,12 @@
     "link": "roll",
     "external": false,
     "description": "You can play with the test Zil"
+  },
+  {
+    "img": "roll_game.png",
+    "title": "Blockchain Domain Names",
+    "link": "unstoppabledomains",
+    "external": false,
+    "description": "Replace cryptocurrency addresses \nwith a human readable name"
   }
 ]
