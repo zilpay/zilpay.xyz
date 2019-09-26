@@ -14,7 +14,7 @@
         src="/icons/search-icon.svg"
         height="40"
         :class="b('icon')"
-      />
+      >
     </div>
   </div>
 </template>

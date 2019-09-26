@@ -8,11 +8,13 @@
             :options="initOptions"
           />
         </Jumbotron>
-        <codemirror
-          v-model="code"
-          :class="b('code-editor')"
-          :options="cmOptions"
-        />
+        <client-only placeholder="Scilla Loading...">
+          <codemirror
+            v-model="code"
+            :class="b('code-editor')"
+            :options="cmOption"
+          />
+        </client-only>
         <Jumbotron :class="b('contract-init')">
           <Button
             md
@@ -31,12 +33,14 @@
 </template>
 
 <script>
+import 'codemirror/lib/codemirror.css'
+import 'codemirror/theme/moxer.css'
+
 import { codemirror } from 'vue-codemirror'
+import '../../lib/scilla/mllike'
 
 import Jumbotron from '../../components/Jumbotron'
 import Button from '../../components/Button'
-
-import 'codemirror/lib/codemirror.css'
 
 export default {
   name: 'Editor',
@@ -47,16 +51,14 @@ export default {
   },
   data () {
     return {
-      code: 'const a = 10',
-      cmOptions: {
-        styleActiveLine: true,
+      code: '',
+      cmOption: {
         tabSize: 4,
-        mode: 'text/javascript',
+        foldGutter: true,
+        styleActiveLine: true,
         lineNumbers: true,
         line: true,
-        foldGutter: true,
-        styleSelectedText: true,
-        extraKeys: { Ctrl: 'autocomplete' }
+        theme: 'moxer'
       },
       initOptions: {
         rootObjectKey: 'init'
@@ -69,6 +71,16 @@ export default {
         'contract1.test',
         'contract2.test'
       ]
+    }
+  },
+  mounted () {
+    this.getContract()
+  },
+  methods: {
+    async getContract () {
+      this.code = await this.$axios.$get(
+        window.location.origin + '/contracts/HelloWord.scilla'
+      )
     }
   }
 }
@@ -116,9 +128,8 @@ export default {
 }
 .CodeMirror {
   height: 87vh;
-  background: #21282d;
 }
-.CodeMirror-gutters {
-  background: #191e22;
+.CodeMirror-vscrollbar {
+  display: none !important;
 }
 </style>
