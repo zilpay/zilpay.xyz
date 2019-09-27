@@ -33,3 +33,14 @@ h1, h2, h3, h4, h5, h6 {
   line-height: 1.2;
   color: $white;
 }
+
+
+.tree-view-item-key {
+  color: $primary;
+}
+.tree-view-item-value {
+  color: $warning;
+}
+.tree-view-wrapper {
+  margin-top: 40px;
+}

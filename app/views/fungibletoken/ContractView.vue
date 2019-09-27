@@ -265,13 +265,4 @@ export default {
     padding: 30px;
   }
 }
-.tree-view-item-key {
-  color: $primary;
-}
-.tree-view-item-value {
-  color: $warning;
-}
-.tree-view-wrapper {
-  margin-top: 40px;
-}
 </style>
