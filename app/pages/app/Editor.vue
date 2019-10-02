@@ -1,13 +1,15 @@
 <template>
   <div :class="b()">
+    <div :class="b('zil-pay-container')">
+      <span :class="b('net')">
+        {{ walletState.network }}
+      </span>
+      <span :class="b('address')">
+        {{ walletState.currentAddress }}
+      </span>
+    </div>
     <div :class="b('container')">
       <div :class="b('row')">
-        <Jumbotron :class="b('files')">
-          <tree-view
-            :data="files"
-            :options="initOptions"
-          />
-        </Jumbotron>
         <client-only placeholder="Scilla Loading...">
           <codemirror
             v-model="code"
@@ -15,40 +17,52 @@
             :options="cmOption"
           />
         </client-only>
-        <Jumbotron :class="b('contract-init')">
-          <Button
-            md
-            :class="b('deploy-btn')"
-          >
-            Deploy
-          </Button>
-          <tree-view
-            :data="init"
-            :options="initOptions"
-          />
-        </Jumbotron>
+        <Actions
+          :structure="structure"
+          @compile="codeCheck"
+          @structure="showStructure"
+        />
       </div>
     </div>
+    <Modal
+      :name="modalInstance.name"
+      :title="modalInstance.title"
+    >
+      <div :class="b('modal-content')">
+        <tree-view
+          :data="structure"
+          :options="initOptions"
+        />
+      </div>
+    </Modal>
   </div>
 </template>
 
 <script>
 import 'codemirror/lib/codemirror.css'
 import 'codemirror/theme/moxer.css'
-
-import { codemirror } from 'vue-codemirror'
 import '../../lib/scilla/mllike'
 
-import Jumbotron from '../../components/Jumbotron'
-import Button from '../../components/Button'
+import { codemirror } from 'vue-codemirror'
+
+import Actions from '../../views/editor/Actions'
+import Modal from '../../components/Modal'
+
+import ZilPayMixin from '../../mixins/zilpay'
+
+const SCILA_RUNNER = 'https://scilla-runner.zilliqa.com/contract'
+const SCILLA_METHODS = {
+  check: 'check'
+}
 
 export default {
   name: 'Editor',
   components: {
     codemirror,
-    Jumbotron,
-    Button
+    Actions,
+    Modal
   },
+  mixins: [ZilPayMixin],
   data () {
     return {
       code: '',
@@ -61,26 +75,41 @@ export default {
         theme: 'moxer'
       },
       initOptions: {
-        rootObjectKey: 'init'
+        rootObjectKey: 'structure'
       },
-      init: {
-        test: 'test'
+      modalInstance: {
+        name: 'structure',
+        title: 'Scilla contract structure'
       },
-      files: [
-        'contract.test',
-        'contract1.test',
-        'contract2.test'
-      ]
+      structure: null
     }
   },
   mounted () {
     this.getContract()
+    this.$nextTick(() => {
+      this.$nuxt.$loading.start()
+      this.observable()
+      this.$nuxt.$loading.finish()
+    })
   },
   methods: {
     async getContract () {
       this.code = await this.$axios.$get(
         window.location.origin + '/contracts/HelloWord.scilla'
       )
+    },
+    async codeCheck () {
+      const url = `${SCILA_RUNNER}/${SCILLA_METHODS.check}`
+      const { message } = await this
+        .$axios
+        .$post(url, { code: this.code })
+      this.structure = JSON.parse(message)
+    },
+    async showStructure () {
+      if (!this.structure) {
+        await this.codeCheck()
+      }
+      this.$modal.show(this.modalInstance.name)
     }
   }
 }
@@ -91,30 +120,28 @@ export default {
   height: 100vh;
   background-color: $background;
 
+  &__zil-pay-container {
+    display: flex;
+    justify-content: space-between;
+    padding: 12vh 10px 0;
+  }
+
+  &__net, &__address {
+    color: $primary;
+  }
+
   &__container {
     display: flex;
     flex-direction: column;
-    padding-top: 13vh;
-    height: 100vh;
+    padding-top: 9px;
   }
 
   &__row {
     display: flex;
   }
 
-  &__column {
-  }
-
-  &__contract-init {
-    width: 30%;
-  }
-
-  &__files {
-    width: 15%;
-  }
-
   &__code-editor {
-    width: 60%;
+    min-width: 50vw;
   }
 
   &__deploy-btn {
@@ -122,14 +149,21 @@ export default {
     margin-bottom: 30px;
   }
 
-  .Jumbotron {
-    height: 87vh;
+  &__modal-content {
+    padding: 50px;
+    min-width: 50vw;
+    max-height: 90vh;
+    overflow:scroll;
   }
 }
 .CodeMirror {
-  height: 87vh;
+  height: 85vh;
 }
 .CodeMirror-vscrollbar {
   display: none !important;
+}
+.CodeMirror-line {
+  z-index: 2 !important;
+  font-size: 12px !important;
 }
 </style>

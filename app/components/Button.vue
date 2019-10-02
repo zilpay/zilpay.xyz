@@ -2,6 +2,7 @@
   <div>
     <button
       :class="b({ xl, lg, sm, md, block, variant })"
+      :disabled="disabled"
       @click="clickBtn"
     >
       <slot />
@@ -38,6 +39,10 @@ export default {
     variant: {
       type: String,
       default: TYPES.primary
+    },
+    disabled: {
+      type: Boolean,
+      default: false
     }
   },
   methods: {
@@ -144,6 +149,11 @@ $hover_amount: 50;
       background-color: $info - $hover_amount;
       border-color: $info - $hover_amount;
     }
+  }
+
+  &:disabled,
+  &[disabled] {
+    cursor: not-allowed;
   }
 }
 </style>
