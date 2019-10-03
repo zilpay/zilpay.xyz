@@ -14,6 +14,13 @@
         </span>
       </h3>
       <div :class="b('transitions')">
+        <Input
+          v-model="params"
+          sm
+          block
+          placeholder="Params comma separated."
+          :class="b('transition-params')"
+        />
         <div
           v-for="transition of transitions"
           :key="transition.uuid"
@@ -22,16 +29,12 @@
           <Button
             sm
             block
+            :disabled="disabled"
             :class="b('transition-btn')"
+            @click="call(transition)"
           >
             {{ transition.vname }}
           </Button>
-          <Input
-            sm
-            block
-            placeholder="Params comma separated."
-            :class="b('transition-params')"
-          />
         </div>
       </div>
     </div>
@@ -56,11 +59,16 @@ export default {
     structure: {
       type: Object,
       required: true
+    },
+    disabled: {
+      type: Boolean,
+      default: true
     }
   },
   data () {
     return {
-      types: TYPES
+      types: TYPES,
+      params: ''
     }
   },
   computed: {
@@ -72,6 +80,19 @@ export default {
           ...el,
           uuid: uuidv4()
         }))
+    }
+  },
+  methods: {
+    call (transition) {
+      const parse = this.params.replace(' ', '').split(',')
+      const params = transition.params.map((el, index) => ({
+        ...el,
+        value: parse[index]
+      }))
+      this.$emit('transition', {
+        params,
+        method: transition.vname
+      })
     }
   }
 }

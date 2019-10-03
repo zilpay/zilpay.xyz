@@ -21,6 +21,7 @@
           :structure="structure"
           @compile="codeCheck"
           @structure="showStructure"
+          @state="getState"
         />
       </div>
     </div>
@@ -30,7 +31,7 @@
     >
       <div :class="b('modal-content')">
         <tree-view
-          :data="structure"
+          :data="structureTree || state"
           :options="initOptions"
         />
       </div>
@@ -75,13 +76,15 @@ export default {
         theme: 'moxer'
       },
       initOptions: {
-        rootObjectKey: 'structure'
+        rootObjectKey: 'result'
       },
       modalInstance: {
         name: 'structure',
         title: 'Scilla contract structure'
       },
-      structure: null
+      structure: null,
+      structureTree: null,
+      state: null
     }
   },
   mounted () {
@@ -104,11 +107,22 @@ export default {
         .$axios
         .$post(url, { code: this.code })
       this.structure = JSON.parse(message)
+      this.structureTree = this.structure
     },
     async showStructure () {
-      if (!this.structure) {
+      if (!this.structureTree) {
         await this.codeCheck()
       }
+      this.state = null
+      this.$modal.show(this.modalInstance.name)
+    },
+    async getState (address) {
+      const validateAddress = this.validateAddreas(address)
+      const { contracts } = window.zilPay
+      const contract = contracts.at(validateAddress)
+      this.state = await contract.getState()
+      this.structureTree = null
+      this.modalInstance.title = 'Contract state'
       this.$modal.show(this.modalInstance.name)
     }
   }
