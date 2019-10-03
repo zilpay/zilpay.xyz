@@ -13,15 +13,6 @@
           {{ structure.vname }}
         </span>
       </h3>
-      <div :class="b('connector')">
-        <Input
-          v-model="address"
-          sm
-          block
-          placeholder="Enter contract address."
-          :variant="types.warning"
-        />
-      </div>
       <div :class="b('transitions')">
         <div
           v-for="transition of transitions"
@@ -31,7 +22,6 @@
           <Button
             sm
             block
-            :disabled="address.length < 42"
             :class="b('transition-btn')"
           >
             {{ transition.vname }}
@@ -70,8 +60,7 @@ export default {
   },
   data () {
     return {
-      types: TYPES,
-      address: ''
+      types: TYPES
     }
   },
   computed: {

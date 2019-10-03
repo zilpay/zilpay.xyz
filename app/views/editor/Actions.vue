@@ -2,6 +2,13 @@
   <div :class="b()">
     <div :class="b('row')">
       <div :class="b('column', { sm: true })">
+        <Input
+          v-model="address"
+          sm
+          block
+          placeholder="Enter contract address."
+          :variant="types.warning"
+        />
         <Button
           sm
           block
@@ -44,13 +51,15 @@
 import TYPES from '../../static/types.json'
 
 import Button from '../../components/Button'
+import Input from '../../components/Input'
 import StructureBuilder from './StructureBuilder'
 
 export default {
   name: 'Actions',
   components: {
     Button,
-    StructureBuilder
+    StructureBuilder,
+    Input
   },
   props: {
     structure: {

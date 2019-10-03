@@ -13,6 +13,8 @@
         v-model="address"
         placeholder="Enter your contract address"
         label="Contract owner:"
+        md
+        block
         :variant="types.primary"
         :class="b('form-input')"
       />

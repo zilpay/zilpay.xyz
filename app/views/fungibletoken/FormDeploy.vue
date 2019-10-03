@@ -11,6 +11,8 @@
       </Alert>
       <Input
         v-model="form.owner"
+        md
+        block
         placeholder="Enter your zil address"
         label="Contract owner:"
         type="text"
@@ -20,6 +22,8 @@
       />
       <Input
         v-model="form.tokenName"
+        md
+        block
         placeholder="Enter your token name"
         label="Token name:"
         type="text"
@@ -29,6 +33,8 @@
       />
       <Input
         v-model="form.tokenSymbol"
+        md
+        block
         placeholder="Enter your token symbol"
         label="Token symbol:"
         type="text"
@@ -38,6 +44,8 @@
       />
       <Input
         v-model="form.totalSupply"
+        md
+        block
         placeholder="Enter your count of tokens"
         label="Total supply of tokens:"
         type="number"
@@ -47,6 +55,8 @@
       />
       <Input
         v-model="form.decimals"
+        md
+        block
         type="number"
         label="Decimals:"
         :variant="types.primary"

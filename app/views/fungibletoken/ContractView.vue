@@ -29,6 +29,8 @@
           v-for="input of currentForm.inputs"
           :key="input.uuidv4"
           v-model="formActions[input.name]"
+          md
+          block
           :placeholder="input.placeholder"
           :variant="types.primary"
           :label="input.label"
