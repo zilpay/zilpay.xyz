@@ -8,7 +8,7 @@
     </label>
     <input
       :id="uuidv4"
-      :class="b({ variant })"
+      :class="b({ xl, lg, sm, md, block, variant })"
       :type="type"
       :min="min"
       :max="max"
@@ -60,6 +60,26 @@ export default {
     variant: {
       type: String,
       default: TYPES.primary
+    },
+    xl: {
+      type: Boolean,
+      default: false
+    },
+    lg: {
+      type: Boolean,
+      default: false
+    },
+    md: {
+      type: Boolean,
+      default: false
+    },
+    sm: {
+      type: Boolean,
+      default: false
+    },
+    block: {
+      type: Boolean,
+      default: false
     }
   },
   data () {
@@ -77,15 +97,14 @@ export default {
 
 <style lang="scss">
 .Input {
-  display: block;
-  padding: 0.5rem 1.6rem;
   width: 100%;
 
   background: transparent;
 
   font-size: $sm-font;
   border-width: 1px;
-  text-align: center;
+  text-align: left;
+  text-indent: 10px;
   border-radius: .25rem;
 
   border: 2px solid #dadada;
@@ -105,50 +124,54 @@ export default {
     color: $primary + 150;
     border-color: $primary;
     border: 1px solid $primary;
-
-    &:focus {
-      @include box-shadow(0 0 10px $primary);
-    }
   }
 
   &_variant-success {
     color: $success + 150;
     border-color: $success;
     border: 1px solid $success;
-
-    &:focus {
-      @include box-shadow(0 0 10px $success);
-    }
   }
 
   &_variant-warning {
     color: $warning + 150;
     border-color: $warning;
     border: 1px solid $warning;
-
-    &:focus {
-      @include box-shadow(0 0 10px $warning);
-    }
   }
 
   &_variant-danger {
     color: $danger + 150;
     border-color: $danger;
     border: 1px solid $danger;
-
-    &:focus {
-      @include box-shadow(0 0 10px $danger);
-    }
   }
 
   &_variant-info {
     color: $info + 150;
     border-color: $info;
     border: 1px solid $info;
+  }
 
-    &:focus {
-      @include box-shadow(0 0 10px $info);
-    }
+  &_xl {
+    padding: 1.25rem 2.5rem;
+  }
+
+  &_lg {
+    padding: .5rem 1rem;
+  }
+
+  &_md {
+    padding: .375rem .75rem;
+  }
+
+  &_sm {
+    padding: .25rem .5rem;
+    font-size: .875rem;
+    line-height: 1.5;
+    border-radius: .2rem;
+  }
+
+  &_block {
+    display: block;
+    width: 100%;
   }
 }
 .label {

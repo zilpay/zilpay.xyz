@@ -2,6 +2,7 @@
   <div>
     <button
       :class="b({ xl, lg, sm, md, block, variant })"
+      :disabled="disabled"
       @click="clickBtn"
     >
       <slot />
@@ -38,6 +39,10 @@ export default {
     variant: {
       type: String,
       default: TYPES.primary
+    },
+    disabled: {
+      type: Boolean,
+      default: false
     }
   },
   methods: {
@@ -99,7 +104,7 @@ $hover_amount: 50;
     background-color: $primary;
     border-color: $primary;
 
-    &:hover {
+    &:hover:enabled {
       background-color: $primary - $hover_amount;
       border-color: $primary - $hover_amount;
     }
@@ -110,7 +115,7 @@ $hover_amount: 50;
     border-color: $success;
     color: $background - $hover_amount;
 
-    &:hover {
+    &:hover:enabled {
       background-color: $success + $hover_amount;
       border-color: $success + $hover_amount;
     }
@@ -120,7 +125,7 @@ $hover_amount: 50;
     background-color: $warning;
     border-color: $warning;
 
-    &:hover {
+    &:hover:enabled {
       background-color: $warning - $hover_amount;
       border-color: $warning - $hover_amount;
     }
@@ -130,7 +135,7 @@ $hover_amount: 50;
     background-color: $danger;
     border-color: $danger;
 
-    &:hover {
+    &:hover:enabled {
       background-color: $danger - $hover_amount;
       border-color: $danger - $hover_amount;
     }
@@ -140,10 +145,16 @@ $hover_amount: 50;
     background-color: $info;
     border-color: $info;
 
-    &:hover {
+    &:hover:enabled {
       background-color: $info - $hover_amount;
       border-color: $info - $hover_amount;
     }
+  }
+
+  &:disabled,
+  &[disabled] {
+    cursor: not-allowed;
+    opacity: 0.2;
   }
 }
 </style>

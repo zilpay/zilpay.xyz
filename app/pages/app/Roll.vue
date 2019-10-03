@@ -48,6 +48,8 @@
           </div>
           <Input
             v-model="betAmount"
+            md
+            block
             label="Your bet amount:"
             type="number"
             :max="1000000000"

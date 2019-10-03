@@ -10,6 +10,12 @@ CodeMirror.defineMode('mllike', (_config, parserConfig) => {
 
     'contract': 'keyword',
     'transition': 'keyword',
+    'let': 'keyword',
+    'fun': 'keyword',
+    'field': 'keyword',
+    'end': 'keyword',
+    'event': 'keyword',
+    'send': 'keyword',
 
     'Uint32': '',
     'Uint64': 'type',
@@ -36,8 +42,7 @@ CodeMirror.defineMode('mllike', (_config, parserConfig) => {
     'Option': 'builtin',
     'Nat': 'builtin',
     'with': 'builtin',
-    'Nil': 'builtin',
-    'field': 'builtin'
+    'Nil': 'builtin'
   }
 
   const extraWords = parserConfig.extraWords || {}
