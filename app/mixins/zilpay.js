@@ -51,7 +51,14 @@ export default {
         this.$modal.show(this.modalInstance.name)
         return false
       } else if (!window.zilPay.wallet.isConnect) {
-        window.zilPay.wallet.connect()
+        window
+          .zilPay
+          .wallet
+          .connect()
+          .then(() => {
+            const { bech32 } = window.zilPay.wallet.defaultAccount
+            this.walletState.currentAddress = bech32
+          })
         return null
       }
 

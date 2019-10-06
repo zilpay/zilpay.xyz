@@ -82,11 +82,13 @@ export default {
       },
       modalInstance: {
         name: 'structure',
-        title: 'Scilla contract structure'
+        title: 'Scilla contract structure',
+        img: null
       },
       structure: null,
       structureTree: null,
-      state: null
+      state: null,
+      needNetwork: ['testnet', 'mainnet', 'private']
     }
   },
   mounted () {
@@ -94,6 +96,7 @@ export default {
     this.$nextTick(async () => {
       this.$nuxt.$loading.start()
       await this.isLoad()
+      this.zilPayTest()
       this.observable()
       this.$nuxt.$loading.finish()
     })
