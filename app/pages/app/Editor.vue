@@ -91,8 +91,9 @@ export default {
   },
   mounted () {
     this.getContract()
-    this.$nextTick(() => {
+    this.$nextTick(async () => {
       this.$nuxt.$loading.start()
+      await this.isLoad()
       this.observable()
       this.$nuxt.$loading.finish()
     })
@@ -162,7 +163,11 @@ export default {
           //
         }
         return el
-      })
+      }).concat([{
+        vname: '_scilla_version',
+        type: 'Uint32',
+        value: this.structure.contract_info.scilla_major_version
+      }])
       const code = this.code
       const { units, Long } = window.zilPay.utils
       const { toBech32Address } = window.zilPay.crypto
@@ -195,7 +200,7 @@ export default {
   &__zil-pay-container {
     display: flex;
     justify-content: space-between;
-    padding: 12vh 10px 0;
+    padding: 100px 10px 0;
   }
 
   &__net, &__address {
@@ -213,7 +218,7 @@ export default {
   }
 
   &__code-editor {
-    min-width: 50vw;
+    min-width: 60vw;
   }
 
   &__deploy-btn {
@@ -229,7 +234,7 @@ export default {
   }
 }
 .CodeMirror {
-  height: 85vh;
+  height: calc(100vh - 128px);
 }
 .CodeMirror-vscrollbar {
   display: none !important;

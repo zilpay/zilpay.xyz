@@ -128,6 +128,7 @@ export default {
   mounted () {
     this.$nextTick(async () => {
       this.$nuxt.$loading.start()
+      await this.isLoad()
       this.observable()
       await this.getState()
       this.$nuxt.$loading.finish()

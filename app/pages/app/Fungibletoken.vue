@@ -78,8 +78,9 @@ export default {
     }
   },
   mounted () {
-    this.$nextTick(() => {
+    this.$nextTick(async () => {
       this.$nuxt.$loading.start()
+      await this.isLoad()
       this.observable(acc => (this.createForm.owner = acc.bech32))
       this.$nuxt.$loading.finish()
     })

@@ -161,8 +161,8 @@ export default {
 <style lang="scss">
 .Actions {
   background-color: $grey-darkest;
-  height: 85vh;
-  min-width: 50vw;
+  height: calc(100vh - 128px);
+  min-width: 40vw;
   max-width: 100vw;
 
   &__row {

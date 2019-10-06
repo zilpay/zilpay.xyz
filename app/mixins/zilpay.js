@@ -20,6 +20,16 @@ export default {
     }
   },
   methods: {
+    isLoad () {
+      return new Promise((resolve) => {
+        if (window.document.readyState === 'complete') {
+          resolve(true)
+        }
+        window.onload = function () {
+          resolve(true)
+        }
+      })
+    },
     zilPayTest () {
       if (!process.client) {
         return false
