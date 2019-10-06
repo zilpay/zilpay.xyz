@@ -79,7 +79,7 @@ export default {
     @include transition(all .5s);
 
     &:hover {
-      background-color: $primary - 30;
+      background-color: darken($primary, 10%);
       border-radius: 20px;
     }
   }

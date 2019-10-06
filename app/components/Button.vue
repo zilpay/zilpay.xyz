@@ -54,7 +54,7 @@ export default {
 </script>
 
 <style lang="scss">
-$hover_amount: 50;
+$hover_amount: 25%;
 
 .Button {
   cursor: pointer;
@@ -105,19 +105,19 @@ $hover_amount: 50;
     border-color: $primary;
 
     &:hover:enabled {
-      background-color: $primary - $hover_amount;
-      border-color: $primary - $hover_amount;
+      background-color: darken($primary, $hover_amount);
+      border-color: darken($primary, $hover_amount);
     }
   }
 
   &_variant-success {
     background-color: $success;
     border-color: $success;
-    color: $background - $hover_amount;
+    color: darken($background, $hover_amount);
 
     &:hover:enabled {
-      background-color: $success + $hover_amount;
-      border-color: $success + $hover_amount;
+      background-color: darken($success, $hover_amount);
+      border-color: darken($success, $hover_amount);
     }
   }
 
@@ -126,8 +126,8 @@ $hover_amount: 50;
     border-color: $warning;
 
     &:hover:enabled {
-      background-color: $warning - $hover_amount;
-      border-color: $warning - $hover_amount;
+      background-color: darken($warning, $hover_amount);
+      border-color: darken($warning, $hover_amount);
     }
   }
 
@@ -136,8 +136,8 @@ $hover_amount: 50;
     border-color: $danger;
 
     &:hover:enabled {
-      background-color: $danger - $hover_amount;
-      border-color: $danger - $hover_amount;
+      background-color: darken($danger, $hover_amount);
+      border-color: darken($danger, $hover_amount);
     }
   }
 
@@ -146,8 +146,8 @@ $hover_amount: 50;
     border-color: $info;
 
     &:hover:enabled {
-      background-color: $info - $hover_amount;
-      border-color: $info - $hover_amount;
+      background-color: darken($info, $hover_amount);
+      border-color: darken($info, $hover_amount);
     }
   }
 
