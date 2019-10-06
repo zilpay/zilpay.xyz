@@ -47,6 +47,7 @@ export default {
 
     display: flex;
     flex-direction: column;
+    align-items: center;
 
     text-align: center;
   }
@@ -61,6 +62,9 @@ export default {
   }
 
   &__description {
+    max-width: 1100px;
+    text-align: center;
+
     font-size: $sm-font;
     color: $grey-darker + 100;
 
@@ -70,7 +74,7 @@ export default {
   }
 
   &__preview {
-    padding-top: 50px;
+    padding-top: 20px;
     margin-bottom: 10px;
     display: flex;
     align-items: center;
@@ -79,10 +83,14 @@ export default {
   }
 
   &__img {
-    margin-top: 50px;
     border-radius: .25rem;
+    margin: 20px;
 
-    @include box-shadow(10px 10px 5px 0 rgba(0,0,0,.75))
+    @include box-shadow(10px 10px 5px 0 rgba(0,0,0,.75));
+    @include mobile {
+      max-width: 200px;
+    }
   }
 }
+
 </style>

@@ -121,31 +121,31 @@ export default {
   }
 
   &_variant-primary {
-    color: $primary + 150;
+    color: lighten($primary, 40%);
     border-color: $primary;
     border: 1px solid $primary;
   }
 
   &_variant-success {
-    color: $success + 150;
+    color: lighten($success, 40%);
     border-color: $success;
     border: 1px solid $success;
   }
 
   &_variant-warning {
-    color: $warning + 150;
+    color: lighten($warning, 40%);
     border-color: $warning;
     border: 1px solid $warning;
   }
 
   &_variant-danger {
-    color: $danger + 150;
+    color: lighten($danger, 40%);
     border-color: $danger;
     border: 1px solid $danger;
   }
 
   &_variant-info {
-    color: $info + 150;
+    color: lighten($info, 40%);
     border-color: $info;
     border: 1px solid $info;
   }

@@ -19,6 +19,8 @@ export default {
 </script>
 
 <style lang="scss">
+@debug lighten($primary, 10%);
+
 .Alert {
   display: flex;
   position: relative;
@@ -28,62 +30,62 @@ export default {
   border-radius: .25rem;
 
   &_variant-primary {
-    color: $primary + 100;
+    color: lighten($primary, 40%);
     background-color: $primary;
-    border-color: $primary + 30;
+    border-color: darken($primary, 10%);
 
     a {
-      color: $primary - 150;
+      color: darken($primary, 50%);
     }
   }
 
   &_variant-secondary {
-    color: $background + 150;
+    color: lighten($background, 40%);
     background-color: $background;
-    border-color: $background + 30;
+    border-color: lighten($background, 10%);
 
     a {
-      color: $background - 150;
+      color: darken($background, 45%);
     }
   }
 
   &_variant-success {
-    color: $success + 150;
+    color: lighten($success, 40%);
     background-color: $success;
-    border-color: $success + 30;
+    border-color: lighten($success, 10%);
 
     a {
-      color: $success - 150;
+      color: darken($success, 45%);
     }
   }
 
   &_variant-danger {
-    color: $danger + 150;
+    color: lighten($danger, 40%);
     background-color: $danger;
-    border-color: $danger + 30;
+    border-color: lighten($danger, 10%);
 
     a {
-      color: $danger - 150;
+      color: darken($danger, 45%);
     }
   }
 
   &_variant-warning {
-    color: $warning + 150;
+    color: lighten($warning, 40%);
     background-color: $warning;
-    border-color: $warning + 30;
+    border-color: lighten($warning, 10%);
 
     a {
-      color: $warning - 150;
+      color: darken($warning, 45%);
     }
   }
 
   &_variant-dark {
-    color: $grey-darker + 150;
+    color: lighten($grey-darker, 40%);
     background-color: $grey-darker;
-    border-color: $grey-darker + 30;
+    border-color: lighten($grey-darker, 10%);
 
     a {
-      color: $grey-darker - 150;
+      color: darken($grey-darker, 45%);
     }
   }
 }

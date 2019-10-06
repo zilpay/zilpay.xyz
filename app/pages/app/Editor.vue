@@ -21,7 +21,9 @@
           :structure="structure"
           @compile="codeCheck"
           @structure="showStructure"
+          @deploy="deploy"
           @state="getState"
+          @init="getInit"
         />
       </div>
     </div>
@@ -89,8 +91,9 @@ export default {
   },
   mounted () {
     this.getContract()
-    this.$nextTick(() => {
+    this.$nextTick(async () => {
       this.$nuxt.$loading.start()
+      await this.isLoad()
       this.observable()
       this.$nuxt.$loading.finish()
     })
@@ -103,11 +106,15 @@ export default {
     },
     async codeCheck () {
       const url = `${SCILA_RUNNER}/${SCILLA_METHODS.check}`
-      const { message } = await this
-        .$axios
-        .$post(url, { code: this.code })
-      this.structure = JSON.parse(message)
-      this.structureTree = this.structure
+      try {
+        const { message } = await this
+          .$axios
+          .$post(url, { code: this.code })
+        this.structure = JSON.parse(message)
+        this.structureTree = this.structure
+      } catch (err) {
+        //
+      }
     },
     async showStructure () {
       if (!this.structureTree) {
@@ -117,13 +124,69 @@ export default {
       this.$modal.show(this.modalInstance.name)
     },
     async getState (address) {
+      this.$nuxt.$loading.start()
       const validateAddress = this.validateAddreas(address)
       const { contracts } = window.zilPay
       const contract = contracts.at(validateAddress)
-      this.state = await contract.getState()
-      this.structureTree = null
-      this.modalInstance.title = 'Contract state'
-      this.$modal.show(this.modalInstance.name)
+      try {
+        this.state = await contract.getState()
+        this.structureTree = null
+        this.modalInstance.title = 'Contract state'
+        this.$modal.show(this.modalInstance.name)
+      } catch (err) {
+        //
+      } finally {
+        this.$nuxt.$loading.finish()
+      }
+    },
+    async getInit (address) {
+      this.$nuxt.$loading.start()
+      const validateAddress = this.validateAddreas(address)
+      const { contracts } = window.zilPay
+      const contract = contracts.at(validateAddress)
+      try {
+        this.state = await contract.getInit()
+        this.structureTree = null
+        this.modalInstance.title = 'Contract init'
+        this.$modal.show(this.modalInstance.name)
+      } catch (err) {
+        //
+      } finally {
+        this.$nuxt.$loading.finish()
+      }
+    },
+    async deploy (models) {
+      const init = models.map((el) => {
+        try {
+          el.value = this.validateAddreas(el.value)
+        } catch (err) {
+          //
+        }
+        return el
+      }).concat([{
+        vname: '_scilla_version',
+        type: 'Uint32',
+        value: this.structure.contract_info.scilla_major_version
+      }])
+      const code = this.code
+      const { units, Long } = window.zilPay.utils
+      const { toBech32Address } = window.zilPay.crypto
+      const contract = window.zilPay.contracts.new(code, init)
+      const gasPrice = units.toQa('1000', units.Units.Li)
+      const gasLimit = Long.fromNumber(10000)
+      try {
+        const [deployTx, newContract] = await contract.deploy({
+          gasPrice,
+          gasLimit
+        })
+        const bech32 = toBech32Address(newContract.address)
+        this.structureTree = null
+        this.state = deployTx.txParams
+        this.modalInstance.title = `contract address: ${bech32}`
+        this.$modal.show(this.modalInstance.name)
+      } catch (err) {
+        //
+      }
     }
   }
 }
@@ -137,7 +200,7 @@ export default {
   &__zil-pay-container {
     display: flex;
     justify-content: space-between;
-    padding: 12vh 10px 0;
+    padding: 100px 10px 0;
   }
 
   &__net, &__address {
@@ -155,7 +218,7 @@ export default {
   }
 
   &__code-editor {
-    min-width: 50vw;
+    min-width: 60vw;
   }
 
   &__deploy-btn {
@@ -171,7 +234,7 @@ export default {
   }
 }
 .CodeMirror {
-  height: 85vh;
+  height: calc(100vh - 128px);
 }
 .CodeMirror-vscrollbar {
   display: none !important;
