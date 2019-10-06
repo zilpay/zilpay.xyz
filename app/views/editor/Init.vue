@@ -12,9 +12,9 @@
     <Input
       v-for="model of models"
       :key="model.vname"
+      v-model="model.value"
       :class="b('init-input')"
       :variant="types.warning"
-      v-model="model.value"
       sm
       block
       :placeholder="model.type"

@@ -33,6 +33,10 @@ export default {
     border-radius: 50%;
 
     @include box-shadow(0 3px 3px 0 rgba(0, 0, 0, .1));
+    @include mobile {
+      height: 3rem;
+      width: 3rem;
+    };
   }
 
   &__warp {

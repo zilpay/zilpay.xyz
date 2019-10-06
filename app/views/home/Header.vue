@@ -18,7 +18,7 @@
           :class="b('button')"
           @click="goToStore"
         >
-          {{ btnTitle }} {{ detectedBrowser }}
+          {{ detectedBrowser }} extension
         </Button>
       </div>
     </div>
@@ -39,7 +39,6 @@ export default {
   mixins: [DetectingBrowsers],
   data () {
     return {
-      btnTitle: 'get ZilPay for',
       detectedBrowser: null
     }
   },
