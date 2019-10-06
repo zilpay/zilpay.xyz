@@ -21,7 +21,9 @@
           :structure="structure"
           @compile="codeCheck"
           @structure="showStructure"
+          @deploy="deploy"
           @state="getState"
+          @init="getInit"
         />
       </div>
     </div>
@@ -124,6 +126,18 @@ export default {
       this.structureTree = null
       this.modalInstance.title = 'Contract state'
       this.$modal.show(this.modalInstance.name)
+    },
+    async getInit (address) {
+      const validateAddress = this.validateAddreas(address)
+      const { contracts } = window.zilPay
+      const contract = contracts.at(validateAddress)
+      this.state = await contract.getInit()
+      this.structureTree = null
+      this.modalInstance.title = 'Contract init'
+      this.$modal.show(this.modalInstance.name)
+    },
+    deploy (models) {
+      console.log(models)
     }
   }
 }

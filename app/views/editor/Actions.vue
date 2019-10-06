@@ -14,15 +14,6 @@
           block
           :variant="types.warning"
           :class="b('common-btn')"
-          @click="$emit('deploy')"
-        >
-          DEPLOY
-        </Button>
-        <Button
-          sm
-          block
-          :variant="types.warning"
-          :class="b('common-btn')"
           @click="$emit('compile')"
         >
           COMPILE
@@ -46,6 +37,23 @@
         >
           GET STATE
         </Button>
+        <Button
+          sm
+          block
+          :variant="types.warning"
+          :class="b('common-btn')"
+          :disabled="isEnable"
+          @click="$emit('init', address)"
+        >
+          GET INIT
+        </Button>
+      </div>
+      <div :class="b('column')">
+        <Init
+          v-if="structure"
+          :structure="structure.contract_info"
+          @deploy="$emit('deploy', $event)"
+        />
       </div>
       <div :class="b('column', { lg: true })">
         <StructureBuilder
@@ -79,6 +87,7 @@ import Modal from '../../components/Modal'
 import Button from '../../components/Button'
 import Input from '../../components/Input'
 import StructureBuilder from './StructureBuilder'
+import Init from './Init'
 
 export default {
   name: 'Actions',
@@ -86,7 +95,8 @@ export default {
     Button,
     StructureBuilder,
     Input,
-    Modal
+    Modal,
+    Init
   },
   mixins: [ZilPayMixin],
   props: {
