@@ -31,6 +31,8 @@ import DomainView from '../../views/unstoppabledomains/DomainView'
 import ZilPayMixin from '../../mixins/zilpay'
 
 const DEFAULT_ZONE = 'zil'
+const UD_API = 'https://unstoppabledomains.com/api/v1'
+// const UD_TOKEN = 'v3swdv21edx3sb5s2o9rosi0qi3vsxiv'
 const UD_CONTRACT_ADDRESS = 'zil1jcgu2wlx6xejqk9jw3aaankw6lsjzeunx2j0jz'
 
 export default {
@@ -64,15 +66,13 @@ export default {
       // console.log(this.domainInfo)
       this.$nuxt.$loading.finish()
     },
-    getContractField () {
-      const method = 'GetSmartContractSubState'
-      const contract = this.validateAddreas(this.address)
-
-      window.zilPay.provider.send(
-        method,
-        contract,
-        'records'
-      )
+    async getContractField () {
+      const url = `${UD_API}/${this.domain}`
+      try {
+        return await this.$axios.$get(url)
+      } catch (err) {
+        return null
+      }
     }
   }
 }
