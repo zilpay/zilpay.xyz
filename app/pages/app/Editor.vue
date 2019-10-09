@@ -240,7 +240,6 @@ export default {
   height: calc(100vh - 128px);
 }
 .CodeMirror-vscrollbar {
-  display: none !important;
 }
 .CodeMirror-line {
   z-index: 2 !important;

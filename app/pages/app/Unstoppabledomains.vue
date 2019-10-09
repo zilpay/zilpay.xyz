@@ -12,17 +12,27 @@
         :class="b('search-input')"
         @click="domainSubmit"
       />
+      <div :class="b('wallet-info')">
+        <div :class="b('network')">
+          {{ walletState.network }}
+        </div>
+        <div :class="b('address')">
+          {{ walletState.currentAddress }}
+        </div>
+      </div>
       <DomainView
         v-if="domainInfo && domain"
         :class="b('domain-view')"
         :info="domainInfo"
         :domain="domain"
+        @register="register"
       />
     </div>
   </div>
 </template>
 
 <script>
+import DomainToHash from '../../lib/ud/namehash'
 import DApps from '../../static/dapps.json'
 
 import SearchInput from '../../components/Search'
@@ -32,8 +42,11 @@ import ZilPayMixin from '../../mixins/zilpay'
 
 const DEFAULT_ZONE = 'zil'
 const UD_API = 'https://unstoppabledomains.com/api/v1'
-// const UD_TOKEN = 'v3swdv21edx3sb5s2o9rosi0qi3vsxiv'
-const UD_CONTRACT_ADDRESS = 'zil1jcgu2wlx6xejqk9jw3aaankw6lsjzeunx2j0jz'
+const UD_TOKEN = 'v3swdv21edx3sb5s2o9rosi0qi3vsxiv'
+const UD_CONTRACT_ADDRESS = 'zil156v6kay07jasewt7dalu3p3lxacc27x08v4v7u'
+const headers = {
+  Authentication: `Bearer ${UD_TOKEN}`
+}
 
 export default {
   name: 'Unstoppabledomains',
@@ -46,7 +59,8 @@ export default {
     return {
       domain: '',
       address: UD_CONTRACT_ADDRESS,
-      domainInfo: null
+      domainInfo: null,
+      needNetwork: ['testnet', 'mainnet']
     }
   },
   computed: {
@@ -54,6 +68,14 @@ export default {
       const name = this.$options.name.toLowerCase()
       return DApps.find(app => app.link === name)
     }
+  },
+  mounted () {
+    this.$nextTick(async () => {
+      this.$nuxt.$loading.start()
+      await this.isLoad()
+      this.observable()
+      this.$nuxt.$loading.finish()
+    })
   },
   methods: {
     async domainSubmit () {
@@ -68,10 +90,47 @@ export default {
     },
     async getContractField () {
       const url = `${UD_API}/${this.domain}`
+      const url2 = `${UD_API}/resellers/zilpay/domains/${this.domain}`
       try {
-        return await this.$axios.$get(url)
+        console.log(await this.$axios.$get(url2, { headers }))
+        return await this.$axios.$get(url, { headers })
       } catch (err) {
         return null
+      }
+    },
+    async register () {
+      const test = this.zilPayTest()
+      if (!test) {
+        return null
+      }
+      const { contracts, utils } = window.zilPay
+      const { units, BN, Long } = utils
+      const contract = contracts.at(this.address)
+      const gasPrice = units.toQa('1000', units.Units.Li)
+      const gasLimit = Long.fromNumber(9000)
+      try {
+        await contract.call(
+          'TransferFrom',
+          [
+            {
+              vname: 'parent',
+              type: 'ByStr32',
+              value: DomainToHash(this.domain)
+            },
+            {
+              vname: 'label',
+              type: 'String',
+              value: this.domain
+            }
+          ],
+          {
+            gasPrice,
+            gasLimit,
+            amount: new BN(10)
+          }
+        )
+      } catch (err) {
+        // If user reject
       }
     }
   }
@@ -99,6 +158,18 @@ export default {
     @include mobile {
       font-size: $md-font;
     }
+  }
+
+  &__wallet-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    color: $primary;
+    max-width: 500px;
+    width: 100%;
+
+    padding: 3px;
   }
 
   &__sub-title {
