@@ -25,6 +25,7 @@
     "@nuxtjs/style-resources": "^1.0.0",
     "cross-env": "^5.2.0",
     "express": "^4.16.4",
+    "hash.js": "^1.1.7",
     "micromodal": "^0.4.2",
     "nuxt": "^2.0.0",
     "uuidv4": "^5.0.1",

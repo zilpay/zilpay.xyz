@@ -48,6 +48,7 @@
         block
         :variant="types.warning"
         :class="b('registry-button')"
+        @click="register"
       >
         Registry
       </Button>
@@ -100,6 +101,11 @@ export default {
     },
     addresses () {
       return this.info.addresses || {}
+    }
+  },
+  methods: {
+    register () {
+      this.$emit('register')
     }
   }
 }
