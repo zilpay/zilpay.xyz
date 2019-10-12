@@ -1,26 +1,16 @@
 <template>
   <div>
     <Jumbotron :class="b()">
-      <h1
+      <h3
         :class="b('title')"
       >
-        Resolver Information:
+        Price:
         <span
           :class="b('title-span')"
         >
-          {{ domain }}
+          ${{ domainPrice }}
         </span>
-      </h1>
-      <h1
-        :class="b('title')"
-      >
-        Order Total:
-        <span
-          :class="b('title-span')"
-        >
-          {{ defaultPrice }}
-        </span>
-      </h1>
+      </h3>
       <Alert
         v-if="owner"
         :class="b('owner-info')"
@@ -43,15 +33,6 @@
         {{ currency }}:
         {{ value }}
       </Alert>
-      <Button
-        md
-        block
-        :variant="types.warning"
-        :class="b('registry-button')"
-        @click="register"
-      >
-        Registry
-      </Button>
     </Jumbotron>
   </div>
 </template>
@@ -62,15 +43,13 @@ import TYPES from '../../static/types.json'
 import Jumbotron from '../../components/Jumbotron'
 import Alert from '../../components/Alert'
 import ViewBlockLink from '../../components/ViewBlockLink'
-import Button from '../../components/Button'
 
 export default {
   name: 'DomainView',
   components: {
     Jumbotron,
     Alert,
-    ViewBlockLink,
-    Button
+    ViewBlockLink
   },
   props: {
     info: {
@@ -84,8 +63,7 @@ export default {
   },
   data () {
     return {
-      types: TYPES,
-      defaultPrice: '10$'
+      types: TYPES
     }
   },
   computed: {
@@ -101,6 +79,12 @@ export default {
     },
     addresses () {
       return this.info.addresses || {}
+    },
+    domainPrice () {
+      if (!this.info.price) {
+        return 0
+      }
+      return Number(this.info.price) / 100
     }
   },
   methods: {
@@ -124,16 +108,11 @@ export default {
   }
 
   &__owner-info {
-    // margin-top: 30px;
     text-align: left;
   }
 
   &__view-block-link {
     margin-left: 5px;
-  }
-
-  &__registry-button {
-    padding: 0 30px 0;
   }
 }
 </style>

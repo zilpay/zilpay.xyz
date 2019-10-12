@@ -31,7 +31,8 @@
     "uuidv4": "^5.0.1",
     "vue-bem-cn": "^1.1.1",
     "vue-codemirror": "^4.0.6",
-    "vue-json-tree-view": "^2.1.4"
+    "vue-json-tree-view": "^2.1.4",
+    "vue-tabs-component": "^1.5.0"
   },
   "devDependencies": {
     "@nuxtjs/eslint-config": "^1.0.1",

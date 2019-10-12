@@ -1,21 +1,22 @@
 <template>
   <div>
-    <div
+    <form
       :class="b()"
+      @submit.prevent="onClick"
     >
       <input
         type="search"
         :class="b('search')"
         :value="value"
         @input="onInput"
-        @change="onClick"
       >
       <img
         src="/icons/search-icon.svg"
         height="40"
         :class="b('icon')"
+        @click="onClick"
       >
-    </div>
+    </form>
   </div>
 </template>
 
