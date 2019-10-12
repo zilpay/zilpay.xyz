@@ -8,71 +8,140 @@
         Buy .zil domains for $10
       </h2>
       <SearchInput
-        v-model="domain"
+        v-model.lazy="domain"
         :class="b('search-input')"
         @click="domainSubmit"
       />
       <div :class="b('wallet-info')">
         <div :class="b('network')">
-          {{ walletState.network }}
+          brad.zil
         </div>
         <div :class="b('address')">
           {{ walletState.currentAddress }}
         </div>
       </div>
-      <DomainView
-        v-if="domainInfo && domain"
-        :class="b('domain-view')"
-        :info="domainInfo"
-        :domain="domain"
-        @register="register"
-      />
+      <div :class="b('result')">
+        <Alert
+          v-show="isReserved !== null"
+          :variant="varianReserved"
+          :class="b('domain-name')"
+        >
+          <span :class="b('domain')">
+            {{ domainWithZone }}:
+          </span>
+          <span :class="b('domain-resolver')">
+            {{ textReserved }}
+          </span>
+        </Alert>
+      </div>
+      <div :class="b('row')">
+        <ContractForm
+          :class="b('domain-view')"
+          :info="domainInfo"
+          :domain="domain"
+        />
+        <DomainView
+          v-if="isViewDomain"
+          :class="b('domain-view')"
+          :info="domainInfo"
+          :domain="domain"
+        />
+      </div>
     </div>
+    <Modal
+      :name="modalInstance.name"
+      :title="modalInstance.title"
+    >
+      <div :class="b('modal-content')">
+        <img
+          width="300"
+          :src="modalInstance.img"
+          :class="b('modal-img')"
+        >
+      </div>
+    </Modal>
   </div>
 </template>
 
 <script>
-import DomainToHash from '../../lib/ud/namehash'
 import DApps from '../../static/dapps.json'
+import TYPES from '../../static/types.json'
 
 import SearchInput from '../../components/Search'
 import DomainView from '../../views/unstoppabledomains/DomainView'
+import ContractForm from '../../views/unstoppabledomains/ContractForm'
+import Modal from '../../components/Modal'
+import Alert from '../../components/Alert'
 
 import ZilPayMixin from '../../mixins/zilpay'
-
-const DEFAULT_ZONE = 'zil'
-const UD_API = 'https://unstoppabledomains.com/api/v1'
-const UD_TOKEN = 'v3swdv21edx3sb5s2o9rosi0qi3vsxiv'
-const UD_CONTRACT_ADDRESS = 'zil156v6kay07jasewt7dalu3p3lxacc27x08v4v7u'
-const headers = {
-  Authentication: `Bearer ${UD_TOKEN}`
-}
+import UDMixin from '../../mixins/ud'
 
 export default {
   name: 'Unstoppabledomains',
   components: {
     SearchInput,
-    DomainView
+    DomainView,
+    ContractForm,
+    Modal,
+    Alert
   },
-  mixins: [ZilPayMixin],
+  mixins: [ZilPayMixin, UDMixin],
   data () {
     return {
+      types: TYPES,
       domain: '',
-      address: UD_CONTRACT_ADDRESS,
       domainInfo: null,
-      needNetwork: ['testnet', 'mainnet']
+      needNetwork: ['testnet', 'mainnet'],
+      modalInstance: {
+        name: 'modal-view',
+        title: 'ZilPay'
+      }
     }
   },
   computed: {
     app () {
       const name = this.$options.name.toLowerCase()
       return DApps.find(app => app.link === name)
+    },
+    domainWithZone () {
+      return this.domainValidate(this.domain)
+    },
+    isReserved () {
+      if (!this.domainInfo) {
+        return null
+      }
+      return Boolean(this.domainInfo.meta.owner)
+    },
+    textReserved () {
+      if (this.isReserved === null) {
+        return null
+      } else if (this.isReserved) {
+        return 'Resolver Information'
+      }
+      return 'Reserved Domain: This name is reserved.'
+    },
+    varianReserved () {
+      if (this.isReserved) {
+        return this.types.warngin
+      }
+      return this.types.danger
+    },
+    isViewDomain () {
+      if (!this.domainInfo) {
+        return false
+      } else if (!this.domainInfo.meta.owner) {
+        return false
+      } else if (!this.domain) {
+        return false
+      }
+      return true
     }
   },
   mounted () {
     this.$nextTick(async () => {
       this.$nuxt.$loading.start()
       await this.isLoad()
+      this.zilPayTest()
       this.observable()
       this.$nuxt.$loading.finish()
     })
@@ -80,58 +149,13 @@ export default {
   methods: {
     async domainSubmit () {
       this.$nuxt.$loading.start()
-      const zone = this.domain.substr(this.domain.length - 4)
-      if (zone !== `.${DEFAULT_ZONE}`) {
-        this.domain += `.${DEFAULT_ZONE}`
-      }
-      this.domainInfo = await this.getContractField()
+
+      const info = await this.udDomain()
+      info.price = await this.udPrice()
+
+      this.domainInfo = info
       // console.log(this.domainInfo)
       this.$nuxt.$loading.finish()
-    },
-    async getContractField () {
-      const url = `${UD_API}/${this.domain}`
-      const url2 = `${UD_API}/resellers/zilpay/domains/${this.domain}`
-      try {
-        console.log(await this.$axios.$get(url2, { headers }))
-        return await this.$axios.$get(url, { headers })
-      } catch (err) {
-        return null
-      }
-    },
-    async register () {
-      const test = this.zilPayTest()
-      if (!test) {
-        return null
-      }
-      const { contracts, utils } = window.zilPay
-      const { units, BN, Long } = utils
-      const contract = contracts.at(this.address)
-      const gasPrice = units.toQa('1000', units.Units.Li)
-      const gasLimit = Long.fromNumber(9000)
-      try {
-        await contract.call(
-          'TransferFrom',
-          [
-            {
-              vname: 'parent',
-              type: 'ByStr32',
-              value: DomainToHash(this.domain)
-            },
-            {
-              vname: 'label',
-              type: 'String',
-              value: this.domain
-            }
-          ],
-          {
-            gasPrice,
-            gasLimit,
-            amount: new BN(10)
-          }
-        )
-      } catch (err) {
-        // If user reject
-      }
     }
   }
 }
@@ -139,7 +163,7 @@ export default {
 
 <style lang="scss">
 .Unstoppabledomains {
-  height: 100vh;
+  min-height: 100vh;
   background-color: $background;
 
   &__container {
@@ -149,6 +173,15 @@ export default {
     text-align: center;
 
     padding-top: 120px;
+  }
+
+  &__row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+
+    width: 100%;
+    max-width: 900px;
   }
 
   &__title {
@@ -162,6 +195,7 @@ export default {
 
   &__wallet-info {
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
 
@@ -172,6 +206,13 @@ export default {
     padding: 3px;
   }
 
+  &__result {
+    padding: 20px 20px 0;
+
+    max-width: 500px;
+    width: 100%;
+  }
+
   &__sub-title {
     padding-top: 10px;
     font-weight: 400;
@@ -180,7 +221,26 @@ export default {
 
   &__search-input,
   &__domain-view {
-    margin-top: 40px;
+    margin-top: 20px;
+  }
+
+  &__domain,
+  &__domain-resolver {
+    color: $success;
+  }
+
+  &__domain-name {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__modal-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 30px;
+    height: auto;
+    width: auto;
   }
 }
 </style>

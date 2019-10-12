@@ -29,7 +29,7 @@ export default {
 <style lang="scss">
 .Jumbotron {
   background: $background-gradient;
-  padding: 4rem 2rem;
+  padding: 2rem 2rem;
 
   &_rounded {
     border-radius: .3rem;
