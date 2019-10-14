@@ -5,7 +5,7 @@
         {{ app.title }}
       </h1>
       <h2 :class="b('sub-title')">
-        Buy .zil domains for $10
+        Manage your domain via ZilPay.
       </h2>
       <SearchInput
         v-model.lazy="domain"
@@ -37,8 +37,9 @@
       <div :class="b('row')">
         <ContractForm
           :class="b('domain-view')"
-          :info="domainInfo"
           :domain="domain"
+          @transfer="transfer"
+          @assign="assign"
         />
         <DomainView
           v-if="isViewDomain"
@@ -156,6 +157,12 @@ export default {
       this.domainInfo = info
       // console.log(this.domainInfo)
       this.$nuxt.$loading.finish()
+    },
+    transfer (event) {
+      console.log(event)
+    },
+    assign (event) {
+      console.log(event)
     }
   }
 }
