@@ -7,7 +7,7 @@
           @submit="$emit('transfer', $event)"
         />
       </tab>
-      <tab name="Assign">
+      <tab name="Assign" :is-disabled="true">
         <Assign
           @submit="$emit('assign', $event)"
         />

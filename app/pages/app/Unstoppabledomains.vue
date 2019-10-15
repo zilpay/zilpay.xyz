@@ -36,10 +36,10 @@
       </div>
       <div :class="b('row')">
         <ContractForm
+          v-if="isOwnerDomain"
           :class="b('domain-view')"
           :domain="domain"
           @transfer="transfer"
-          @assign="assign"
         />
         <DomainView
           v-if="isViewDomain"
@@ -136,6 +136,9 @@ export default {
         return false
       }
       return true
+    },
+    isOwnerDomain () {
+      return this.isViewDomain
     }
   },
   mounted () {
@@ -157,12 +160,6 @@ export default {
       this.domainInfo = info
       // console.log(this.domainInfo)
       this.$nuxt.$loading.finish()
-    },
-    transfer (event) {
-      console.log(event)
-    },
-    assign (event) {
-      console.log(event)
     }
   }
 }
