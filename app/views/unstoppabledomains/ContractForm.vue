@@ -2,10 +2,15 @@
   <div>
     <tabs>
       <tab name="Transfer">
-        <Transfer />
+        <Transfer
+          :domain="domain"
+          @submit="$emit('transfer', $event)"
+        />
       </tab>
-      <tab name="Assign">
-        <Assign />
+      <tab name="Assign" :is-disabled="true">
+        <Assign
+          @submit="$emit('assign', $event)"
+        />
       </tab>
       <tab name="Approve" :is-disabled="true">
         Third tab content
@@ -29,6 +34,12 @@ export default {
     Tab,
     Transfer,
     Assign
+  },
+  props: {
+    domain: {
+      type: String,
+      required: true
+    }
   },
   data () {
     return {

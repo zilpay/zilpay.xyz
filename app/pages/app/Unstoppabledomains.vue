@@ -5,7 +5,7 @@
         {{ app.title }}
       </h1>
       <h2 :class="b('sub-title')">
-        Buy .zil domains for $10
+        Manage your domain via ZilPay.
       </h2>
       <SearchInput
         v-model.lazy="domain"
@@ -36,9 +36,10 @@
       </div>
       <div :class="b('row')">
         <ContractForm
+          v-if="isOwnerDomain"
           :class="b('domain-view')"
-          :info="domainInfo"
           :domain="domain"
+          @transfer="transfer"
         />
         <DomainView
           v-if="isViewDomain"
@@ -135,6 +136,9 @@ export default {
         return false
       }
       return true
+    },
+    isOwnerDomain () {
+      return this.isViewDomain
     }
   },
   mounted () {

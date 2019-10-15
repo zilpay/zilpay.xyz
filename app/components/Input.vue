@@ -15,6 +15,7 @@
       :step="step"
       :placeholder="placeholder"
       :value="value"
+      :disabled="disabled"
       @input="change"
     >
   </div>
@@ -47,6 +48,10 @@ export default {
     value: {
       type: [String, Number],
       default: null
+    },
+    disabled: {
+      type: Boolean,
+      default: false
     },
     label: {
       type: String,
@@ -172,6 +177,10 @@ export default {
   &_block {
     display: block;
     width: 100%;
+  }
+
+  &:disabled {
+    opacity: 0.5;
   }
 }
 .label {

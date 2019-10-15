@@ -2,10 +2,11 @@
   <div>
     <form :class="b()" @submit.prevent="submit">
       <Input
-        v-model="node"
+        :value="domainName"
         :variant="types.warning"
         :class="b('form-input')"
         label="Domain"
+        disabled
         md
         block
       />
@@ -34,23 +35,39 @@ import TYPES from '../../../static/types.json'
 import Input from '../../../components/Input'
 import Button from '../../../components/Button'
 
+import UDMixin from '../../../mixins/ud'
+
 export default {
   name: 'Transfer',
   components: {
     Input,
     Button
   },
+  mixins: [UDMixin],
+  props: {
+    domain: {
+      type: String,
+      required: true
+    }
+  },
   data () {
     return {
-      node: null,
       owner: null,
       types: TYPES
     }
   },
+  computed: {
+    domainName () {
+      return this.domainValidate(this.domain)
+    }
+  },
+  mounted () {
+    this.node = this.domain
+  },
   methods: {
     submit () {
       this.$emit('submit', {
-        node: this.node,
+        node: this.udDomainToHash(this.domain),
         owner: this.owner
       })
     }
