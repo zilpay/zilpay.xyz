@@ -68,7 +68,8 @@ export default {
             gasLimit: utils.Long.fromNumber(9000)
           }
         )
-        console.log(tx)
+        this.modalTxConfirm.tx = tx.TranID
+        this.$modal.show(this.modalTxConfirm.name)
       } catch (err) {
         //
       } finally {
