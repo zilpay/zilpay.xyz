@@ -61,6 +61,24 @@
         >
       </div>
     </Modal>
+    <Modal
+      :name="modalTxConfirm.name"
+      :title="modalTxConfirm.title"
+    >
+      <div :class="b('modal-content')">
+        <img
+          width="200"
+          src="/icons/confirmation.svg"
+          :class="b('modal-img')"
+        >
+        <ViewBlockLink
+          v-if="modalTxConfirm.tx"
+          :hash="modalTxConfirm.tx"
+        >
+          View on ViewBlock.io
+        </ViewBlockLink>
+      </div>
+    </Modal>
   </div>
 </template>
 
@@ -73,6 +91,7 @@ import DomainView from '../../views/unstoppabledomains/DomainView'
 import ContractForm from '../../views/unstoppabledomains/ContractForm'
 import Modal from '../../components/Modal'
 import Alert from '../../components/Alert'
+import ViewBlockLink from '../../components/ViewBlockLink'
 
 import ZilPayMixin from '../../mixins/zilpay'
 import UDMixin from '../../mixins/ud'
@@ -84,7 +103,8 @@ export default {
     DomainView,
     ContractForm,
     Modal,
-    Alert
+    Alert,
+    ViewBlockLink
   },
   mixins: [ZilPayMixin, UDMixin],
   data () {
@@ -96,6 +116,11 @@ export default {
       modalInstance: {
         name: 'modal-view',
         title: 'ZilPay'
+      },
+      modalTxConfirm: {
+        name: 'modal-tx',
+        title: 'Transaction In Process',
+        tx: ''
       }
     }
   },
@@ -144,9 +169,11 @@ export default {
   mounted () {
     this.$nextTick(async () => {
       this.$nuxt.$loading.start()
+
       await this.isLoad()
       this.zilPayTest()
       this.observable()
+
       this.$nuxt.$loading.finish()
     })
   },
@@ -158,7 +185,6 @@ export default {
       info.price = await this.udPrice()
 
       this.domainInfo = info
-      // console.log(this.domainInfo)
       this.$nuxt.$loading.finish()
     }
   }
