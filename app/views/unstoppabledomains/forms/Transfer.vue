@@ -6,22 +6,25 @@
         :variant="types.warning"
         :class="b('form-input')"
         label="Domain"
+        disabled
         md
         block
       />
       <Input
         v-model="owner"
+        placeholder="ZIL address"
         :variant="types.warning"
+        :error="errorAddress"
         :class="b('form-input')"
         label="New owner"
         md
         block
+        @input="errorAddress = null"
       />
       <Button
         :variant="types.warning"
         :class="b('transfer-btn')"
         md
-        @click="submit"
       >
         Transfer
       </Button>
@@ -52,6 +55,7 @@ export default {
   data () {
     return {
       owner: null,
+      errorAddress: null,
       types: TYPES
     }
   },
@@ -65,8 +69,15 @@ export default {
   },
   methods: {
     submit () {
-      this.$emit('submit', {
-        node: this.udDomainToHash(this.domain, '0x5d40c23d98d558f739e27887d362adbfbdfad59e617fc51e430ff5bf2de5c031'),
+      try {
+        this.validateAddreas(this.owner)
+      } catch (err) {
+        this.errorAddress = 'Owner is must be ZIL address'
+        return null
+      }
+
+      this.$emit('transfer', {
+        node: this.udDomainToHash(this.domain),
         owner: this.owner
       })
     }

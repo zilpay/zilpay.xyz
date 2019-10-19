@@ -6,20 +6,9 @@
         :variant="types.warning"
         :class="b('form-input')"
         disabled
-        label="domain"
+        label="Domain"
         md
         block
-      />
-      <Input
-        v-model="label"
-        placeholder="Sub domain"
-        :variant="types.warning"
-        :error="errorLabel"
-        :class="b('form-input')"
-        label="Sub domain label"
-        md
-        block
-        @input="errorLabel = null"
       />
       <Input
         v-model="owner"
@@ -27,17 +16,17 @@
         :variant="types.warning"
         :error="errorAddress"
         :class="b('form-input')"
-        label="New owner"
+        label="Approved address"
         md
         block
         @input="errorAddress = null"
       />
       <Button
         :variant="types.warning"
-        :class="b('assign-btn')"
+        :class="b('transfer-btn')"
         md
       >
-        Assign
+        Approve
       </Button>
     </form>
   </div>
@@ -51,7 +40,7 @@ import Button from '../../../components/Button'
 import UDMixin from '../../../mixins/ud'
 
 export default {
-  name: 'Assign',
+  name: 'Approve',
   components: {
     Input,
     Button
@@ -65,11 +54,9 @@ export default {
   },
   data () {
     return {
+      owner: null,
       types: TYPES,
-      label: null,
-      errorAddress: null,
-      errorLabel: null,
-      owner: null
+      errorAddress: null
     }
   },
   computed: {
@@ -77,25 +64,20 @@ export default {
       return this.domainValidate(this.domain)
     }
   },
+  mounted () {
+    this.node = this.domain
+  },
   methods: {
     submit () {
-      const test = /.*[a-z, 0-9]/mg
-
-      if (!test.test(this.label) || !this.label) {
-        this.errorLabel = 'Sub domain must be LowerCase, dont have [-*,.]'
-        return null
-      }
-
       try {
         this.validateAddreas(this.owner)
       } catch (err) {
         this.errorAddress = 'Owner is must be ZIL address'
         return null
       }
-      this.$emit('assign', {
+      this.$emit('approve', {
         node: this.udDomainToHash(this.domain),
-        owner: this.owner,
-        label: this.label
+        owner: this.owner
       })
     }
   }
@@ -103,14 +85,14 @@ export default {
 </script>
 
 <style lang="scss">
-.Assign {
+.Approve {
   text-align: left;
 
   &__form-input {
     margin-top: 10px;
   }
 
-  &__assign-btn {
+  &__transfer-btn {
     margin-top: 20px;
   }
 }

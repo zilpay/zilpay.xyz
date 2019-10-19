@@ -4,16 +4,20 @@
       <tab name="Transfer">
         <Transfer
           :domain="domain"
-          @submit="$emit('transfer', $event)"
+          @transfer="$emit('transfer', $event)"
         />
       </tab>
       <tab name="Assign">
         <Assign
-          @submit="$emit('assign', $event)"
+          :domain="domain"
+          @assign="$emit('assign', $event)"
         />
       </tab>
-      <tab name="Approve" :is-disabled="true">
-        Third tab content
+      <tab name="Approve">
+        <Approve
+          :domain="domain"
+          @approve="$emit('approve', $event)"
+        />
       </tab>
     </tabs>
   </div>
@@ -26,6 +30,7 @@ import TYPES from '../../static/types.json'
 
 import Transfer from './forms/Transfer'
 import Assign from './forms/Assign'
+import Approve from './forms/Approve'
 
 export default {
   name: 'ContractForm',
@@ -33,7 +38,8 @@ export default {
     Tabs,
     Tab,
     Transfer,
-    Assign
+    Assign,
+    Approve
   },
   props: {
     domain: {

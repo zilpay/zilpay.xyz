@@ -14,9 +14,16 @@
       :max="max"
       :step="step"
       :placeholder="placeholder"
+      :disabled="disabled"
       :value="value"
       @input="change"
     >
+    <small
+      :class="b('error-msg')"
+      :for="uuidv4"
+    >
+      {{ error }}
+    </small>
   </div>
 </template>
 
@@ -31,6 +38,11 @@ export default {
     type: {
       type: String,
       default: 'text'
+    },
+    error: {
+      type: String,
+      required: false,
+      default: null
     },
     min: {
       type: Number,
@@ -51,6 +63,10 @@ export default {
     label: {
       type: String,
       default: ''
+    },
+    disabled: {
+      type: Boolean,
+      default: false
     },
     placeholder: {
       type: String,
@@ -112,6 +128,10 @@ export default {
 
   @include transition(box-shadow 300ms);
 
+  &__error-msg {
+    color: $danger;
+  }
+
   &::placeholder {
     color: $grey-darker;
   }
@@ -172,6 +192,10 @@ export default {
   &_block {
     display: block;
     width: 100%;
+  }
+
+  &[disabled="disabled"] {
+    opacity: 0.4;
   }
 }
 .label {

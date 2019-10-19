@@ -47,6 +47,16 @@
         >
           GET INIT
         </Button>
+        <Button
+          sm
+          block
+          :variant="types.warning"
+          :class="b('common-btn')"
+          :disabled="isEnable"
+          @click="$emit('code', address)"
+        >
+          GET CODE
+        </Button>
       </div>
       <div :class="b('column')">
         <Init
