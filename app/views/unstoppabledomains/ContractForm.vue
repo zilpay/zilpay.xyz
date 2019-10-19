@@ -7,7 +7,7 @@
           @transfer="$emit('transfer', $event)"
         />
       </tab>
-      <tab name="Assign" :is-disabled="true">
+      <tab name="Assign">
         <Assign
           :domain="domain"
           @assign="$emit('assign', $event)"
