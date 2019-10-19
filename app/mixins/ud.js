@@ -141,11 +141,7 @@ export default {
       try {
         this.$nuxt.$loading.start()
         const tx = await contract.call(
-<<<<<<< HEAD
           'approve', [
-=======
-          'transfer', [
->>>>>>> f319bc947a01e3b9f4dbac89ce494aa05854dff2
             {
               vname: 'node',
               type: 'ByStr32',
@@ -160,11 +156,7 @@ export default {
           {
             amount,
             gasPrice,
-<<<<<<< HEAD
             gasLimit: utils.Long.fromNumber(9500)
-=======
-            gasLimit: utils.Long.fromNumber(9000)
->>>>>>> f319bc947a01e3b9f4dbac89ce494aa05854dff2
           }
         )
         this.modalTxConfirm.tx = tx.TranID
