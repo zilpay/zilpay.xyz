@@ -5,11 +5,7 @@ import ZilPayMixin from './zilpay'
 const DEFAULT_ZONE = 'zil'
 const UD_API = 'https://unstoppabledomains.com/api'
 const UD_API_VERSION = 'v1'
-<<<<<<< HEAD
 const UD_CONTRACT_ADDRESS = 'zil1jcgu2wlx6xejqk9jw3aaankw6lsjzeunx2j0jz'
-=======
-const UD_CONTRACT_ADDRESS = 'zil156v6kay07jasewt7dalu3p3lxacc27x08v4v7u'
->>>>>>> f319bc947a01e3b9f4dbac89ce494aa05854dff2
 
 export default {
   mixins: [ZilPayMixin],
