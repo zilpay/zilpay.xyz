@@ -35,6 +35,11 @@ export default {
         return false
       }
 
+      const net = {
+        mainnet: '/img/main_net.png',
+        testnet: '/img/network.png'
+      }
+
       if (typeof window.zilPay === 'undefined') {
         this.modalInstance.img = '/img/home.png'
         this.modalInstance.title = 'Please install ZilPay!'
@@ -46,7 +51,8 @@ export default {
         this.$modal.show(this.modalInstance.name)
         return false
       } else if (!this.needNetwork.includes(window.zilPay.wallet.net)) {
-        this.modalInstance.img = '/img/network.png'
+        const [need] = this.needNetwork
+        this.modalInstance.img = net[need]
         this.modalInstance.title = 'Please change network!'
         this.$modal.show(this.modalInstance.name)
         return false
