@@ -5,7 +5,11 @@ import ZilPayMixin from './zilpay'
 const DEFAULT_ZONE = 'zil'
 const UD_API = 'https://unstoppabledomains.com/api'
 const UD_API_VERSION = 'v1'
+<<<<<<< HEAD
 const UD_CONTRACT_ADDRESS = 'zil1jcgu2wlx6xejqk9jw3aaankw6lsjzeunx2j0jz'
+=======
+const UD_CONTRACT_ADDRESS = 'zil156v6kay07jasewt7dalu3p3lxacc27x08v4v7u'
+>>>>>>> f319bc947a01e3b9f4dbac89ce494aa05854dff2
 
 export default {
   mixins: [ZilPayMixin],
@@ -141,7 +145,11 @@ export default {
       try {
         this.$nuxt.$loading.start()
         const tx = await contract.call(
+<<<<<<< HEAD
           'approve', [
+=======
+          'transfer', [
+>>>>>>> f319bc947a01e3b9f4dbac89ce494aa05854dff2
             {
               vname: 'node',
               type: 'ByStr32',
@@ -156,7 +164,11 @@ export default {
           {
             amount,
             gasPrice,
+<<<<<<< HEAD
             gasLimit: utils.Long.fromNumber(9500)
+=======
+            gasLimit: utils.Long.fromNumber(9000)
+>>>>>>> f319bc947a01e3b9f4dbac89ce494aa05854dff2
           }
         )
         this.modalTxConfirm.tx = tx.TranID

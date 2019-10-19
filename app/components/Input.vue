@@ -60,6 +60,10 @@ export default {
       type: [String, Number],
       default: null
     },
+    disabled: {
+      type: Boolean,
+      default: false
+    },
     label: {
       type: String,
       default: ''
@@ -194,8 +198,13 @@ export default {
     width: 100%;
   }
 
+<<<<<<< HEAD
   &[disabled="disabled"] {
     opacity: 0.4;
+=======
+  &:disabled {
+    opacity: 0.5;
+>>>>>>> f319bc947a01e3b9f4dbac89ce494aa05854dff2
   }
 }
 .label {

@@ -167,6 +167,7 @@ export default {
       }
       return true
     },
+<<<<<<< HEAD
     myAddress () {
       if (this.currentDomainByAddress && !this.domainInfo) {
         return this.currentDomainByAddress
@@ -196,14 +197,24 @@ export default {
       }
 
       return null
+=======
+    isOwnerDomain () {
+      return this.isViewDomain
+>>>>>>> f319bc947a01e3b9f4dbac89ce494aa05854dff2
     }
   },
   mounted () {
     this.$nextTick(async () => {
       this.$nuxt.$loading.start()
+
       await this.isLoad()
       this.zilPayTest()
+<<<<<<< HEAD
       this.observable(currentState => this.addressCb(currentState))
+=======
+      this.observable()
+
+>>>>>>> f319bc947a01e3b9f4dbac89ce494aa05854dff2
       this.$nuxt.$loading.finish()
     })
   },
@@ -224,10 +235,15 @@ export default {
         this.$nuxt.$loading.finish()
       }
 
+<<<<<<< HEAD
       if (this.myAddress) {
         const currentAddress = this.validateAddreas(this.walletState.currentAddress)
         storage.setItem(currentAddress, this.myAddress)
       }
+=======
+      this.domainInfo = info
+      this.$nuxt.$loading.finish()
+>>>>>>> f319bc947a01e3b9f4dbac89ce494aa05854dff2
     }
   }
 }
