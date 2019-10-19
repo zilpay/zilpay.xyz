@@ -14,7 +14,7 @@
       />
       <div :class="b('wallet-info')">
         <div :class="b('network')">
-          brad.zil
+          {{ myAddress }}
         </div>
         <div :class="b('address')">
           {{ walletState.currentAddress }}
@@ -36,10 +36,12 @@
       </div>
       <div :class="b('row')">
         <ContractForm
-          v-if="isOwnerDomain"
+          v-if="myAddress"
           :class="b('domain-view')"
-          :domain="domain"
+          :domain="myAddress"
           @transfer="transfer"
+          @assign="assign"
+          @approve="approve"
         />
         <DomainView
           v-if="isViewDomain"
@@ -96,6 +98,8 @@ import ViewBlockLink from '../../components/ViewBlockLink'
 import ZilPayMixin from '../../mixins/zilpay'
 import UDMixin from '../../mixins/ud'
 
+const storage = window.localStorage
+
 export default {
   name: 'Unstoppabledomains',
   components: {
@@ -111,8 +115,9 @@ export default {
     return {
       types: TYPES,
       domain: '',
+      currentDomainByAddress: null,
       domainInfo: null,
-      needNetwork: ['testnet', 'mainnet'],
+      needNetwork: ['mainnet'],
       modalInstance: {
         name: 'modal-view',
         title: 'ZilPay'
@@ -133,7 +138,7 @@ export default {
       return this.domainValidate(this.domain)
     },
     isReserved () {
-      if (!this.domainInfo) {
+      if (!this.domainInfo || this.domain.length < 4) {
         return null
       }
       return Boolean(this.domainInfo.meta.owner)
@@ -162,8 +167,40 @@ export default {
       }
       return true
     },
+<<<<<<< HEAD
+    myAddress () {
+      if (this.currentDomainByAddress && !this.domainInfo) {
+        return this.currentDomainByAddress
+      } else if (!this.domainInfo) {
+        return null
+      }
+
+      const current = this.validateAddreas(this.walletState.currentAddress)
+      const { addresses, meta } = this.domainInfo
+      let owner = null
+
+      if (meta && meta.owner) {
+        try {
+          owner = this.validateAddreas(meta.owner)
+        } catch (err) {}
+
+        if (owner === current) {
+          return this.domainValidate(this.domain)
+        }
+      }
+
+      if (addresses && addresses.ZIL) {
+        owner = this.validateAddreas(addresses.ZIL)
+        if (owner === current) {
+          return this.domainValidate(this.domain)
+        }
+      }
+
+      return null
+=======
     isOwnerDomain () {
       return this.isViewDomain
+>>>>>>> f319bc947a01e3b9f4dbac89ce494aa05854dff2
     }
   },
   mounted () {
@@ -172,20 +209,41 @@ export default {
 
       await this.isLoad()
       this.zilPayTest()
+<<<<<<< HEAD
+      this.observable(currentState => this.addressCb(currentState))
+=======
       this.observable()
 
+>>>>>>> f319bc947a01e3b9f4dbac89ce494aa05854dff2
       this.$nuxt.$loading.finish()
     })
   },
   methods: {
+    addressCb (defaultAddress) {
+      this.currentDomainByAddress = storage.getItem(defaultAddress.base16)
+    },
     async domainSubmit () {
       this.$nuxt.$loading.start()
 
-      const info = await this.udDomain()
-      info.price = await this.udPrice()
+      try {
+        const info = await this.udDomain()
+        info.price = await this.udPrice()
+        this.domainInfo = info
+      } catch (err) {
+        //
+      } finally {
+        this.$nuxt.$loading.finish()
+      }
 
+<<<<<<< HEAD
+      if (this.myAddress) {
+        const currentAddress = this.validateAddreas(this.walletState.currentAddress)
+        storage.setItem(currentAddress, this.myAddress)
+      }
+=======
       this.domainInfo = info
       this.$nuxt.$loading.finish()
+>>>>>>> f319bc947a01e3b9f4dbac89ce494aa05854dff2
     }
   }
 }

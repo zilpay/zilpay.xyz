@@ -24,6 +24,7 @@
           @deploy="deploy"
           @state="getState"
           @init="getInit"
+          @code="getContractCodeByAddress"
         />
       </div>
     </div>
@@ -106,6 +107,22 @@ export default {
       this.code = await this.$axios.$get(
         window.location.origin + '/contracts/HelloWord.scilla'
       )
+    },
+    async getContractCodeByAddress (address) {
+      this.$nuxt.$loading.start()
+      try {
+        const validateAddress = this.validateAddreas(address)
+        const { result } = await window
+          .zilPay
+          .blockchain
+          .getSmartContractCode(validateAddress)
+        this.code = result.code
+        await this.codeCheck()
+      } catch (err) {
+        //
+      } finally {
+        this.$nuxt.$loading.finish()
+      }
     },
     async codeCheck () {
       const url = `${SCILA_RUNNER}/${SCILLA_METHODS.check}`
