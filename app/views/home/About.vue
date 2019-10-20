@@ -66,7 +66,7 @@ export default {
     text-align: center;
 
     font-size: $sm-font;
-    color: $grey-darker + 100;
+    color: lighten($grey-darker, 40%);
 
     @include mobile {
       font-size: $xs-font;
