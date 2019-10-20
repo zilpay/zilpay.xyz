@@ -3,7 +3,7 @@
     <form :class="b()" @submit.prevent="submit">
       <Input
         :value="domainName"
-        :variant="types.warning"
+        :variant="types.primary"
         :class="b('form-input')"
         disabled
         label="Domain"
@@ -13,7 +13,7 @@
       <Input
         v-model="owner"
         placeholder="ZIL address"
-        :variant="types.warning"
+        :variant="types.primary"
         :error="errorAddress"
         :class="b('form-input')"
         label="Approved address"
