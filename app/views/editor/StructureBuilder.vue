@@ -15,10 +15,18 @@
       </h3>
       <div :class="b('transitions')">
         <Input
+          v-model="amount"
+          sm
+          block
+          label="ZIL amount."
+          type="number"
+        />
+        <Input
           v-model="params"
           sm
           block
           placeholder="Params comma separated."
+          label="Transition params."
           :class="b('transition-params')"
         />
         <div
@@ -68,7 +76,8 @@ export default {
   data () {
     return {
       types: TYPES,
-      params: ''
+      params: '',
+      amount: 0
     }
   },
   computed: {
@@ -91,7 +100,8 @@ export default {
       }))
       this.$emit('transition', {
         params,
-        method: transition.vname
+        method: transition.vname,
+        amount: this.amount
       })
     }
   }
@@ -121,6 +131,7 @@ export default {
 
   &__transition-params {
     margin-left: 3px;
+    margin-bottom: 30px;
   }
 }
 </style>

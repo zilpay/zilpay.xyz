@@ -141,7 +141,7 @@ export default {
       const address = this.validateAddreas(this.address)
       const contract = contracts.at(address)
       const amount = utils.units.toQa(
-        0,
+        transition.amount,
         utils.units.Units.Zil
       )
       const gasPrice = utils.units.toQa(
