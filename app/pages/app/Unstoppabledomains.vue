@@ -20,19 +20,42 @@
           {{ walletState.currentAddress }}
         </div>
       </div>
-      <div :class="b('result')">
-        <Alert
-          v-show="isReserved !== null"
-          :variant="varianReserved"
-          :class="b('domain-name')"
+      <div
+        v-if="isViewDomain"
+        :class="b('result', { variant: varianReserved })"
+      >
+        <img
+          :class="b('result-icon')"
+          :src="varianIcon"
+          height="20"
         >
-          <span :class="b('domain')">
-            {{ domainWithZone }}:
-          </span>
-          <span :class="b('domain-resolver')">
-            {{ textReserved }}
-          </span>
-        </Alert>
+        <div :class="b('text-resolver')">
+          Resolver information:
+        </div>
+        <ViewBlockLink
+          v-if="isReserved"
+          :address="owner"
+          :class="b('domain-resolver')"
+        >
+          {{ owner }}
+        </ViewBlockLink>
+        <span
+          v-if="!isReserved"
+          :class="b('resolver-danger')"
+        >
+          Reserved Domain: This name is reserved.
+        </span>
+      </div>
+      <div
+        v-if="isViewDomain && isReserved"
+        :class="b('price-result', { variant: types.primary })"
+      >
+        <div :class="b('text-resolver')">
+          Total Amount:
+        </div>
+        <span :class="b('price-resolver')">
+          ${{ domainPrice }}
+        </span>
       </div>
       <div :class="b('row')">
         <ContractForm
@@ -42,12 +65,6 @@
           @transfer="transfer"
           @assign="assign"
           @approve="approve"
-        />
-        <DomainView
-          v-if="isViewDomain"
-          :class="b('domain-view')"
-          :info="domainInfo"
-          :domain="domain"
         />
       </div>
     </div>
@@ -89,10 +106,8 @@ import DApps from '../../static/dapps.json'
 import TYPES from '../../static/types.json'
 
 import SearchInput from '../../components/Search'
-import DomainView from '../../views/unstoppabledomains/DomainView'
 import ContractForm from '../../views/unstoppabledomains/ContractForm'
 import Modal from '../../components/Modal'
-import Alert from '../../components/Alert'
 import ViewBlockLink from '../../components/ViewBlockLink'
 
 import ZilPayMixin from '../../mixins/zilpay'
@@ -104,10 +119,8 @@ export default {
   name: 'Unstoppabledomains',
   components: {
     SearchInput,
-    DomainView,
     ContractForm,
     Modal,
-    Alert,
     ViewBlockLink
   },
   mixins: [ZilPayMixin, UDMixin],
@@ -134,6 +147,16 @@ export default {
       const name = this.$options.name.toLowerCase()
       return DApps.find(app => app.link === name)
     },
+    owner () {
+      try {
+        return window
+          .zilPay
+          .crypto
+          .toBech32Address(this.domainInfo.owner)
+      } catch (err) {
+        return null
+      }
+    },
     domainWithZone () {
       return this.domainValidate(this.domain)
     },
@@ -141,28 +164,30 @@ export default {
       if (!this.domainInfo || this.domain.length < 4) {
         return null
       }
-      return Boolean(this.domainInfo.meta.owner)
-    },
-    textReserved () {
-      if (this.isReserved === null) {
-        return null
-      } else if (this.isReserved) {
-        return 'Resolver Information'
-      }
-      return 'Reserved Domain: This name is reserved.'
+      return Boolean(this.domainInfo.owner)
     },
     varianReserved () {
       if (this.isReserved) {
-        return this.types.warngin
+        return this.types.primary
       }
       return this.types.danger
+    },
+    varianIcon () {
+      const url = '/icons'
+      if (this.varianReserved === this.types.primary) {
+        return `${url}/confirmation.svg`
+      } else if (this.varianReserved === this.types.danger) {
+        return `${url}/cancel.svg`
+      }
+
+      return null
     },
     isViewDomain () {
       if (!this.domainInfo) {
         return false
-      } else if (!this.domainInfo.meta.owner) {
+      } else if (!this.domainInfo.domainHash) {
         return false
-      } else if (!this.domain) {
+      } else if (!this.domain || !this.domainInfo.domain.includes(this.domain)) {
         return false
       }
       return true
@@ -175,12 +200,11 @@ export default {
       }
 
       const current = this.validateAddreas(this.walletState.currentAddress)
-      const { addresses, meta } = this.domainInfo
-      let owner = null
+      let { owner } = this.domainInfo
 
-      if (meta && meta.owner) {
+      if (owner) {
         try {
-          owner = this.validateAddreas(meta.owner)
+          owner = this.validateAddreas(owner)
         } catch (err) {}
 
         if (owner === current) {
@@ -188,14 +212,13 @@ export default {
         }
       }
 
-      if (addresses && addresses.ZIL) {
-        owner = this.validateAddreas(addresses.ZIL)
-        if (owner === current) {
-          return this.domainValidate(this.domain)
-        }
-      }
-
       return null
+    },
+    domainPrice () {
+      if (!this.domainInfo.price) {
+        return 0
+      }
+      return Number(this.domainInfo.price) / 100
     }
   },
   mounted () {
@@ -216,9 +239,7 @@ export default {
       this.$nuxt.$loading.start()
 
       try {
-        const info = await this.udDomain()
-        info.price = await this.udPrice()
-        this.domainInfo = info
+        this.domainInfo = await this.udDomainBN()
       } catch (err) {
         //
       } finally {
@@ -279,11 +300,63 @@ export default {
     padding: 3px;
   }
 
-  &__result {
-    padding: 20px 20px 0;
+  &__result,
+  &__price-result {
+    margin-top: 30px;
+    padding: 10px 30px 10px;
 
-    max-width: 500px;
+    max-width: 400px;
     width: 100%;
+    height: 60px;
+
+    box-sizing: border-box;
+    border-radius: 10px;
+
+    &_variant-danger {
+      border: 1px solid $danger;
+    }
+
+    &_variant-primary {
+      border: 1px solid $primary;
+    }
+  }
+
+  &__price-result {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    font-size: 20px;
+    line-height: 19px;
+  }
+
+  &__price-resolver {
+    color: $primary;
+  }
+
+  &__result-icon {
+    position: absolute;
+
+    transform: translate(170px, -5px);
+  }
+
+  &__text-resolver {
+    color: $white;
+    font-size: 20px;
+    line-height: 23px;
+  }
+
+  &__domain-resolver,
+  &__resolver-danger {
+    color: $primary;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 16px;
+  }
+
+  &__resolver-danger {
+    color: $danger;
   }
 
   &__sub-title {
@@ -295,16 +368,6 @@ export default {
   &__search-input,
   &__domain-view {
     margin-top: 20px;
-  }
-
-  &__domain,
-  &__domain-resolver {
-    color: $success;
-  }
-
-  &__domain-name {
-    display: flex;
-    justify-content: space-between;
   }
 
   &__modal-content {

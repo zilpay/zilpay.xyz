@@ -4,7 +4,6 @@ import ZilPayMixin from './zilpay'
 
 const DEFAULT_ZONE = 'zil'
 const UD_API = 'https://unstoppabledomains.com/api'
-const UD_API_VERSION = 'v1'
 const UD_CONTRACT_ADDRESS = 'zil1jcgu2wlx6xejqk9jw3aaankw6lsjzeunx2j0jz'
 
 export default {
@@ -19,10 +18,37 @@ export default {
       const [domain] = domainName.split('.')
       return `${domain}.${this.zone}`
     },
-    udDomain () {
+    async udDomainBN () {
+      const test = this.zilPayTest()
+      if (!test) {
+        return null
+      }
+
       const domain = this.domainValidate(this.domain)
-      const url = `${UD_API}/${UD_API_VERSION}/${domain}`
-      return this.$axios.$get(url)
+      const domainHash = this.udDomainToHash(domain)
+      const { contracts } = window.zilPay
+      const contract = contracts.at(UD_CONTRACT_ADDRESS)
+
+      try {
+        const result = await contract.getSubState('records', [domainHash])
+        const price = await this.udPrice()
+        const { records } = result
+        const [owner] = records[domainHash].arguments
+
+        return {
+          owner,
+          domainHash,
+          price,
+          domain
+        }
+      } catch (err) {
+        return {
+          domain,
+          owner: null,
+          domainHash,
+          price: null
+        }
+      }
     },
     udPrice () {
       const [domain] = this.domain.split('.')
