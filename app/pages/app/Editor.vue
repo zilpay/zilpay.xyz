@@ -103,10 +103,8 @@ export default {
     })
   },
   methods: {
-    async getContract () {
-      this.code = await this.$axios.$get(
-        window.location.origin + '/contracts/HelloWord.scilla'
-      )
+    getContract () {
+      this.code = ''
     },
     async getContractCodeByAddress (address) {
       this.$nuxt.$loading.start()
@@ -238,7 +236,7 @@ export default {
   }
 
   &__code-editor {
-    min-width: 60vw;
+    min-width: 59vw;
   }
 
   &__deploy-btn {
@@ -254,7 +252,7 @@ export default {
   }
 }
 .CodeMirror {
-  height: calc(100vh - 128px);
+  height: calc(100vh - 130px);
 }
 .CodeMirror-vscrollbar {
 }

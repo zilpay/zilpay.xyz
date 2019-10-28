@@ -171,7 +171,7 @@ export default {
 <style lang="scss">
 .Actions {
   background-color: $grey-darkest;
-  height: calc(100vh - 128px);
+  height: calc(100vh - 129px);
   min-width: 40vw;
   max-width: 100vw;
 
