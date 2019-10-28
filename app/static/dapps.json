@@ -26,5 +26,12 @@
     "link": "unstoppabledomains",
     "external": false,
     "description": "Replace cryptocurrency addresses \nwith a human readable name"
+  },
+  {
+    "img": "unstoppabledomains.png",
+    "title": "Multisig wallet.",
+    "link": "multisig",
+    "external": false,
+    "description": ""
   }
 ]

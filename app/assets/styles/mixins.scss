@@ -32,6 +32,7 @@
   -moz-box-shadow: $params;
   box-shadow: $params;
 }
+
 @mixin transition($params...) {
   -webkit-transition: $params;
    -moz-transition: $params;
@@ -40,6 +41,7 @@
   -webkit-transition: $params;
   transition: $params;
 }
+
 @mixin clip-path($params...) {
   clip-path: $params;
   -webkit-clip-path: $params;
