@@ -91,7 +91,7 @@ export default {
           {
             amount,
             gasPrice,
-            gasLimit: utils.Long.fromNumber(9500)
+            gasLimit: utils.Long.fromNumber(5000)
           }
         )
         this.modalTxConfirm.tx = tx.TranID
@@ -139,7 +139,7 @@ export default {
           {
             amount,
             gasPrice,
-            gasLimit: utils.Long.fromNumber(9500)
+            gasLimit: utils.Long.fromNumber(5000)
           }
         )
         this.modalTxConfirm.tx = tx.TranID
@@ -182,7 +182,7 @@ export default {
           {
             amount,
             gasPrice,
-            gasLimit: utils.Long.fromNumber(9500)
+            gasLimit: utils.Long.fromNumber(5000)
           }
         )
         this.modalTxConfirm.tx = tx.TranID
