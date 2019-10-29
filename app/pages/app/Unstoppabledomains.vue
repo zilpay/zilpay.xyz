@@ -235,11 +235,14 @@ export default {
   methods: {
     addressCb (defaultAddress) {
       this.currentDomainByAddress = storage.getItem(defaultAddress.base16)
+      this.domainSubmit()
     },
     async domainSubmit () {
       this.$nuxt.$loading.start()
+      let currentAddress = null
 
       try {
+        currentAddress = this.validateAddreas(this.walletState.currentAddress)
         this.domainInfo = await this.udDomainBN()
       } catch (err) {
         //
@@ -248,8 +251,10 @@ export default {
       }
 
       if (this.myAddress) {
-        const currentAddress = this.validateAddreas(this.walletState.currentAddress)
         storage.setItem(currentAddress, this.myAddress)
+      } else {
+        storage.removeItem(currentAddress)
+        storage.removeItem(currentAddress.toLowerCase())
       }
     }
   }

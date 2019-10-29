@@ -26,7 +26,7 @@ export default {
           resolve(true)
         }
         window.onload = function () {
-          resolve(true)
+          setTimeout(() => resolve(true), 1000)
         }
       })
     },

@@ -24,7 +24,7 @@ export default {
         return null
       }
 
-      const domain = this.domainValidate(this.domain)
+      const domain = this.domainValidate(this.domain || this.currentDomainByAddress)
       const domainHash = this.udDomainToHash(domain)
       const { contracts } = window.zilPay
       const contract = contracts.at(UD_CONTRACT_ADDRESS)
