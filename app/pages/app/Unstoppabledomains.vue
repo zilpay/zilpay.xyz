@@ -199,12 +199,13 @@ export default {
         return null
       }
 
-      const current = this.validateAddreas(this.walletState.currentAddress)
+      const current = this.validateAddreas(this.walletState.currentAddress).toLowerCase()
       let { owner } = this.domainInfo
 
       if (owner) {
         try {
           owner = this.validateAddreas(owner)
+          owner = owner.toLowerCase()
         } catch (err) {}
 
         if (owner === current) {
