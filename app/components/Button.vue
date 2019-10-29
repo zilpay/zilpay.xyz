@@ -85,7 +85,8 @@ $hover_amount: 25%;
   }
 
   &_md {
-    padding: .375rem .75rem;
+    padding: .2rem .5rem;
+    font-size: 1.4rem;
   }
 
   &_sm {

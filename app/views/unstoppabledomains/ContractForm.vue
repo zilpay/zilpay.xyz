@@ -127,7 +127,7 @@ export default {
 }
 
 .tabs-component-panels {
-  padding: 4em 0;
+  padding: 2em 0;
 }
 
 .tabs-component-panels {
@@ -135,7 +135,7 @@ export default {
   background-color: $background;
   border: solid 1px darken($background, 3%);
   border-radius: 0 6px 6px 6px;
-  padding: 4em 2em;
+  padding: 1em 2em;
 
   @include box-shadow(0 1rem 3rem rgba(0,0,0,.175));
 }
