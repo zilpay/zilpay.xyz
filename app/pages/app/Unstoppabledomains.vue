@@ -225,7 +225,6 @@ export default {
   mounted () {
     this.$nextTick(async () => {
       this.$nuxt.$loading.start()
-
       await this.isLoad()
       this.zilPayTest()
       this.observable(currentState => this.addressCb(currentState))
@@ -235,7 +234,11 @@ export default {
   methods: {
     addressCb (defaultAddress) {
       this.currentDomainByAddress = storage.getItem(defaultAddress.base16)
-      this.domainSubmit()
+      if (this.myAddress) {
+        storage.setItem(defaultAddress.base16.toLowerCase(), this.myAddress)
+      } else {
+        storage.removeItem(defaultAddress.toLowerCase())
+      }
     },
     async domainSubmit () {
       this.$nuxt.$loading.start()
@@ -253,7 +256,6 @@ export default {
       if (this.myAddress) {
         storage.setItem(currentAddress, this.myAddress)
       } else {
-        storage.removeItem(currentAddress)
         storage.removeItem(currentAddress.toLowerCase())
       }
     }
