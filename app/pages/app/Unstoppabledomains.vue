@@ -234,11 +234,7 @@ export default {
   methods: {
     addressCb (defaultAddress) {
       this.currentDomainByAddress = storage.getItem(defaultAddress.base16)
-      if (this.myAddress) {
-        storage.setItem(defaultAddress.base16.toLowerCase(), this.myAddress)
-      } else {
-        storage.removeItem(defaultAddress.toLowerCase())
-      }
+      this.domainSubmit()
     },
     async domainSubmit () {
       this.$nuxt.$loading.start()
