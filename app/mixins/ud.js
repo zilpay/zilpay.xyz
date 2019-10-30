@@ -164,6 +164,7 @@ export default {
       const gasPrice = utils.units.toQa(
         '1000', utils.units.Units.Li
       )
+
       try {
         this.$nuxt.$loading.start()
         const tx = await contract.call(
@@ -174,7 +175,7 @@ export default {
               value: event.node
             },
             {
-              vname: 'owner',
+              vname: 'address',
               type: 'ByStr20',
               value: this.validateAddreas(event.owner)
             }
