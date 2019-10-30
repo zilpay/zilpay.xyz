@@ -121,7 +121,7 @@ export default {
   border-width: 1px;
   text-align: left;
   text-indent: 10px;
-  border-radius: .25rem;
+  border-radius: .2rem;
 
   border: 2px solid #dadada;
   border-radius: 7px;
@@ -180,6 +180,8 @@ export default {
 
   &_md {
     padding: .375rem .75rem;
+    font-size: $xs-font;
+    border-radius: .2rem;
   }
 
   &_sm {
