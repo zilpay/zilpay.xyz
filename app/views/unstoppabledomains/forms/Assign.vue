@@ -6,7 +6,7 @@
         :variant="types.primary"
         :class="b('form-input')"
         disabled
-        label="domain"
+        label="Domain"
         md
         block
       />

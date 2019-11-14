@@ -46,17 +46,6 @@
           Reserved Domain: This name is reserved.
         </span>
       </div>
-      <div
-        v-if="isViewDomain && isReserved"
-        :class="b('price-result', { variant: types.primary })"
-      >
-        <div :class="b('text-resolver')">
-          Total Amount:
-        </div>
-        <span :class="b('price-resolver')">
-          ${{ domainPrice }}
-        </span>
-      </div>
       <div :class="b('row')">
         <ContractForm
           v-if="myAddress"
@@ -206,20 +195,16 @@ export default {
         try {
           owner = this.validateAddreas(owner)
           owner = owner.toLowerCase()
-        } catch (err) {}
+        } catch (err) { }
 
         if (owner === current) {
           return this.domainValidate(this.domain)
+        } else {
+          return undefined
         }
       }
 
       return null
-    },
-    domainPrice () {
-      if (!this.domainInfo.price) {
-        return 0
-      }
-      return Number(this.domainInfo.price) / 100
     }
   },
   mounted () {
@@ -233,8 +218,13 @@ export default {
   },
   methods: {
     addressCb (defaultAddress) {
-      this.currentDomainByAddress = storage.getItem(defaultAddress.base16)
-      this.domainSubmit()
+      const address = defaultAddress.base16
+
+      this.currentDomainByAddress = storage.getItem(address)
+
+      if (this.currentDomainByAddress === null) {
+        this.currentDomainByAddress = storage.getItem(address.toLowerCase())
+      }
     },
     async domainSubmit () {
       this.$nuxt.$loading.start()
@@ -250,8 +240,9 @@ export default {
       }
 
       if (this.myAddress) {
-        storage.setItem(currentAddress, this.myAddress)
-      } else {
+        const address = this.myAddress.toLowerCase()
+        storage.setItem(currentAddress, address)
+      } else if (typeof this.myAddress === 'undefined') {
         storage.removeItem(currentAddress.toLowerCase())
       }
     }

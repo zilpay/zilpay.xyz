@@ -3,7 +3,6 @@ import namehash from 'namicorn/lib/zns/namehash'
 import ZilPayMixin from './zilpay'
 
 const DEFAULT_ZONE = 'zil'
-const UD_API = 'https://unstoppabledomains.com/api'
 const UD_CONTRACT_ADDRESS = 'zil1jcgu2wlx6xejqk9jw3aaankw6lsjzeunx2j0jz'
 
 export default {
@@ -25,21 +24,20 @@ export default {
       }
 
       const domain = this.domainValidate(this.domain || this.currentDomainByAddress)
-      const domainHash = this.udDomainToHash(domain)
+      const domainHash = await this.udDomainToHash(domain)
       const { contracts } = window.zilPay
       const contract = contracts.at(UD_CONTRACT_ADDRESS)
 
       try {
         const result = await contract.getSubState('records', [domainHash])
-        const price = await this.udPrice()
         const { records } = result
         const [owner] = records[domainHash].arguments
 
         return {
           owner,
           domainHash,
-          price,
-          domain
+          domain,
+          price: null
         }
       } catch (err) {
         return {
@@ -50,13 +48,9 @@ export default {
         }
       }
     },
-    udPrice () {
-      const [domain] = this.domain.split('.')
-      const url = `${UD_API}/price?type=pre-order&label=${domain}&extension=${this.zone}`
-      return this.$axios.$get(url)
-    },
     udDomainToHash () {
       const domain = this.domainValidate(this.domain)
+
       return namehash(domain)
     },
     async transfer (event) {
