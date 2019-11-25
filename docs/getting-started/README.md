@@ -32,7 +32,7 @@ Currently there are a few stateful things you want to consider when interacting 
 - Is ZilPay unlocked?
 - Enable is broadcasting?
 
-Both of these are available synchronously as `window.zilPay.wallet`. You can listen for changes using events, too ([see the observable state](/zilliqa-provider/#window-zilpay-wallet-observablenetwork)).
+Both of these are available synchronously as `window.zilPay.wallet`. You can listen for changes using events, too ([see the observable state](../zilliqa-provider/#window-zilpay-wallet-observablenetwork)).
 
 ### Connection In
 
