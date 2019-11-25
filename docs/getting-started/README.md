@@ -4,7 +4,7 @@ To develop for ZilPay, you're first going to want to get ZilPay installed on you
 
 Once you have it running, you should find that new browser tabs have a `window.zilPay` object available in the console. This is the way ZilPay provides for you to interact with it.
 
-You can review the full API for that object [here](../zilliqa-Provider).
+You can review the full API for that object [here](../zilliqa-provider).
 
 ## Basic Considerations
 
@@ -32,7 +32,7 @@ Currently there are a few stateful things you want to consider when interacting 
 - Is ZilPay unlocked?
 - Enable is broadcasting?
 
-Both of these are available synchronously as `window.zilPay.wallet`. You can listen for changes using events, too ([see the observable state](/zilliqa-provider)).
+Both of these are available synchronously as `window.zilPay.wallet`. You can listen for changes using events, too ([see the observable state](../zilliqa-provider)).
 
 ### Connection In
 
