@@ -136,14 +136,19 @@ export default {
     }
   },
   methods: {
+    toZil (amount) {
+      const { utils } = window.zilPay
+
+      return utils.units.toQa(
+        amount,
+        utils.units.Units.Zil
+      )
+    },
     async transition (transition) {
       const { contracts, utils } = window.zilPay
       const address = this.validateAddreas(this.address)
       const contract = contracts.at(address)
-      const amount = utils.units.toQa(
-        transition.amount,
-        utils.units.Units.Zil
-      )
+      const amount = transition.amountType ? this.toZil(transition.amount) : new utils.BN(transition.amount)
       const gasPrice = utils.units.toQa(
         '1000', utils.units.Units.Li
       )

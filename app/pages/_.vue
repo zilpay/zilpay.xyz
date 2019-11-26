@@ -36,7 +36,7 @@ export default {
 .PageNotFound {
   &__separator {
     background-color: $background;
-    height: 27.7vh;
+    height: calc(20vh + 97px);
   }
 }
 </style>

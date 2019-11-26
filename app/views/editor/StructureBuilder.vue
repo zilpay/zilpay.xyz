@@ -14,6 +14,11 @@
         </span>
       </h3>
       <div :class="b('transitions')">
+        <toggle-button
+          v-model="amountType"
+          :labels="{checked: 'ZIL', unchecked: 'Qa'}"
+          color="#e6a23c"
+        />
         <Input
           v-model="amount"
           sm
@@ -77,7 +82,8 @@ export default {
     return {
       types: TYPES,
       params: '',
-      amount: 0
+      amount: 0,
+      amountType: true
     }
   },
   computed: {
@@ -101,7 +107,8 @@ export default {
       this.$emit('transition', {
         params,
         method: transition.vname,
-        amount: this.amount
+        amount: this.amount,
+        amountType: this.amountType
       })
     }
   }
