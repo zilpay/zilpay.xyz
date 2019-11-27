@@ -232,7 +232,8 @@ export default {
   }
 
   &__row {
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
   }
 
   &__code-editor {
