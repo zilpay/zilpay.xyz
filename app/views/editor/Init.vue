@@ -9,6 +9,12 @@
     >
       DEPLOY
     </Button>
+    <Alert
+      :class="b('warn')"
+      :variant="types.dark"
+    >
+      List params comma separated.
+    </Alert>
     <Input
       v-for="model of models"
       :key="model.vname"
@@ -28,12 +34,14 @@ import TYPES from '../../static/types.json'
 
 import Button from '../../components/Button'
 import Input from '../../components/Input'
+import Alert from '../../components/Alert'
 
 export default {
   name: 'Init',
   components: {
     Input,
-    Button
+    Button,
+    Alert
   },
   props: {
     structure: {
@@ -62,6 +70,10 @@ export default {
 .Init {
   &__init-input {
     margin-top: 10px;
+  }
+
+  &__warn {
+    margin-top: 20px;
   }
 }
 </style>

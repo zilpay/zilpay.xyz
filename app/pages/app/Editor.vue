@@ -180,12 +180,18 @@ export default {
         } catch (err) {
           //
         }
+
+        if (el.type.includes('List')) {
+          el.value = el.value.split(',')
+        }
+
         return el
       }).concat([{
         vname: '_scilla_version',
         type: 'Uint32',
         value: this.structure.contract_info.scilla_major_version
       }])
+
       const code = this.code
       const { units, Long } = window.zilPay.utils
       const { toBech32Address } = window.zilPay.crypto
