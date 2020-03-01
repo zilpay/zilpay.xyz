@@ -121,7 +121,6 @@ export default {
   border-width: 1px;
   text-align: left;
   text-indent: 10px;
-  border-radius: .2rem;
 
   border: 2px solid #dadada;
   border-radius: 7px;
