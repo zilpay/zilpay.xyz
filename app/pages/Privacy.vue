@@ -1,18 +1,13 @@
 <template>
   <div :class="b()">
-    <SimpleHeader
-      :title="header.title"
-      :sub-title="header.subTitle"
-    />
-    <DescriptionList
-      :content-list="list"
-    />
+    <SimpleHeader :title="header.title" :sub-title="header.subTitle" />
+    <DescriptionList :content-list="list" />
     <Footer />
   </div>
 </template>
 
 <script>
-import uuidv4 from 'uuidv4'
+import { uuid } from 'uuidv4'
 
 import SimpleHeader from '../components/SimpleHeader'
 import DescriptionList from '../components/DescriptionList'
@@ -22,7 +17,7 @@ import PrivacyPolicyData from '../static/privacy-data.json'
 
 const list = PrivacyPolicyData.list.map(el => ({
   ...el,
-  uuidv4: uuidv4()
+  uuidv4: uuid()
 }))
 
 export default {

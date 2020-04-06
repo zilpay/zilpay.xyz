@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import uuidv4 from 'uuidv4'
+import { uuid } from 'uuidv4'
 import RoundCard from '../../components/RoundCard'
 
 export default {
@@ -36,46 +36,46 @@ export default {
     return {
       elements: [
         {
-          id: uuidv4(),
+          id: uuid(),
           icon: 'cat-pet-kitten.svg',
           title: 'Convenience',
           description: 'Pleasant UI.'
         },
         {
-          id: uuidv4(),
+          id: uuid(),
           icon: 'eletric-stove.svg',
           title: 'functionality',
           description: 'You can change any settings.'
         },
         {
-          id: uuidv4(),
+          id: uuid(),
           icon: 'locked-door.svg',
           title: 'Reliability',
           description: 'Multi-layer algorithm encryption.'
         },
         {
-          id: uuidv4(),
+          id: uuid(),
           icon: 'dapps.svg',
           title: 'Dapps',
           description: 'Easy dApp build.'
         },
         {
-          id: uuidv4(),
+          id: uuid(),
           icon: 'hand-shake.svg',
           title: 'Zilliqa DEV Grants'
         },
         {
-          id: uuidv4(),
+          id: uuid(),
           icon: 'earth-2.svg',
           title: 'Open source'
         },
         {
-          id: uuidv4(),
+          id: uuid(),
           icon: 'libra.svg',
           title: 'MIT license'
         },
         {
-          id: uuidv4(),
+          id: uuid(),
           icon: 'multiplatform.svg',
           title: 'Multiplatform'
         }

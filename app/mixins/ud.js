@@ -1,4 +1,4 @@
-import namehash from 'namicorn/lib/zns/namehash'
+import namehash from '@unstoppabledomains/resolution/build/zns/namehash'
 
 import ZilPayMixin from './zilpay'
 

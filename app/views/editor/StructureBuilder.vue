@@ -3,15 +3,11 @@
     <div :class="b('container')">
       <h3 :class="b('title')">
         scilla_version:
-        <span :class="b('value')">
-          {{ structure.scilla_major_version }}
-        </span>
+        <span :class="b('value')">{{ structure.scilla_major_version }}</span>
       </h3>
       <h3 :class="b('title')">
         contract:
-        <span :class="b('value')">
-          {{ structure.vname }}
-        </span>
+        <span :class="b('value')">{{ structure.vname }}</span>
       </h3>
       <div :class="b('transitions')">
         <toggle-button
@@ -19,13 +15,7 @@
           :labels="{checked: 'ZIL', unchecked: 'Qa'}"
           color="#e6a23c"
         />
-        <Input
-          v-model="amount"
-          sm
-          block
-          label="ZIL amount."
-          type="number"
-        />
+        <Input v-model="amount" sm block label="ZIL amount." type="number" />
         <Input
           v-model="params"
           sm
@@ -34,11 +24,7 @@
           label="Transition params."
           :class="b('transition-params')"
         />
-        <div
-          v-for="transition of transitions"
-          :key="transition.uuid"
-          :class="b('transition')"
-        >
+        <div v-for="transition of transitions" :key="transition.uuid" :class="b('transition')">
           <Button
             sm
             block
@@ -55,7 +41,7 @@
 </template>
 
 <script>
-import uuidv4 from 'uuidv4'
+import { uuid } from 'uuidv4'
 
 import TYPES from '../../static/types.json'
 
@@ -88,13 +74,10 @@ export default {
   },
   computed: {
     transitions () {
-      return this
-        .structure
-        .transitions
-        .map(el => ({
-          ...el,
-          uuid: uuidv4()
-        }))
+      return this.structure.transitions.map(el => ({
+        ...el,
+        uuid: uuid()
+      }))
     }
   },
   methods: {
@@ -117,7 +100,6 @@ export default {
 
 <style lang="scss">
 .StructureBuilder {
-
   &__title {
     display: flex;
   }

@@ -27,9 +27,9 @@ export default {
   data () {
     return {
       imgs: [
-        '/img/account_details.png',
-        '/img/home.png',
-        '/img/accounts.png'
+        '/img/account.png',
+        '/img/accounts.png',
+        '/img/connections.png'
       ]
     }
   }

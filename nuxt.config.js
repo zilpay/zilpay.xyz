@@ -178,8 +178,7 @@ module.exports = {
   axios: {
   },
   robots: {
-    'User-agent': '*',
-    'Disallow': '/'
+    'User-agent': '*'
   },
   /*
   ** Build configuration

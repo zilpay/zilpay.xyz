@@ -2,52 +2,52 @@ import CodeMirror from 'codemirror'
 
 CodeMirror.defineMode('mllike', (_config, parserConfig) => {
   const words = {
-    'scilla_version': 'keyword',
-    'import': 'keyword',
-    'library': 'keyword',
+    scilla_version: 'keyword',
+    import: 'keyword',
+    library: 'keyword',
 
-    'type': 'keyword',
+    type: 'keyword',
 
-    'contract': 'keyword',
-    'transition': 'keyword',
-    'let': 'keyword',
-    'fun': 'keyword',
-    'field': 'keyword',
-    'end': 'keyword',
-    'event': 'keyword',
-    'send': 'keyword',
+    contract: 'keyword',
+    transition: 'keyword',
+    let: 'keyword',
+    fun: 'keyword',
+    field: 'keyword',
+    end: 'keyword',
+    event: 'keyword',
+    send: 'keyword',
 
-    'Uint32': '',
-    'Uint64': 'type',
-    'Uint128': 'type',
-    'Uint256': 'type',
+    Uint32: '',
+    Uint64: 'type',
+    Uint128: 'type',
+    Uint256: 'type',
 
-    'Int32': 'type',
-    'Int64': 'type',
-    'Int128': 'type',
-    'Int256': 'type',
+    Int32: 'type',
+    Int64: 'type',
+    Int128: 'type',
+    Int256: 'type',
 
-    'BNum': 'type',
-    'String': 'type',
-    'Address': 'type',
-    'ByStr': 'type',
-    'Hash': 'type',
+    BNum: 'type',
+    String: 'type',
+    Address: 'type',
+    ByStr: 'type',
+    Hash: 'type',
 
-    'ByStr20': 'type',
-    'ByStr32': 'type',
+    ByStr20: 'type',
+    ByStr32: 'type',
 
-    'List': 'builtin',
-    'Pair': 'builtin',
-    'Bool': 'builtin',
-    'Option': 'builtin',
-    'Nat': 'builtin',
-    'with': 'builtin',
-    'Nil': 'builtin'
+    List: 'builtin',
+    Pair: 'builtin',
+    Bool: 'builtin',
+    Option: 'builtin',
+    Nat: 'builtin',
+    with: 'builtin',
+    Nil: 'builtin'
   }
 
   const extraWords = parserConfig.extraWords || {}
   for (const prop in extraWords) {
-    if (extraWords.hasOwnProperty(prop)) {
+    if (prop in extraWords) {
       words[prop] = parserConfig.extraWords[prop]
     }
   }
@@ -113,7 +113,7 @@ CodeMirror.defineMode('mllike', (_config, parserConfig) => {
     if (/[\w\xA1-\uFFFF]/.test(ch)) {
       stream.eatWhile(/[\w\xA1-\uFFFF]/)
       const cur = stream.current()
-      return words.hasOwnProperty(cur) ? words[cur] : 'variable'
+      return (cur in words) ? words[cur] : 'variable'
     }
     return null
   }

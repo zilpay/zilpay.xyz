@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import uuidv4 from 'uuidv4'
+import { uuid } from 'uuidv4'
 import Nav from '../views/common/Nav'
 
 const ROUTERS = {
@@ -26,31 +26,31 @@ export default {
     return {
       navLinks: [
         {
-          uuidv4: uuidv4(),
+          uuidv4: uuid(),
           name: ROUTERS.Home,
           href: '',
           external: false
         },
         {
-          uuidv4: uuidv4(),
+          uuidv4: uuid(),
           name: ROUTERS.Privacy,
           href: ROUTERS.Privacy,
           external: false
         },
         {
-          uuidv4: uuidv4(),
+          uuidv4: uuid(),
           name: ROUTERS.Terms,
           href: ROUTERS.Terms,
           external: false
         },
         {
-          uuidv4: uuidv4(),
+          uuidv4: uuid(),
           name: ROUTERS.Doc,
           href: `/${ROUTERS.Doc}`,
           external: true
         },
         {
-          uuidv4: uuidv4(),
+          uuidv4: uuid(),
           name: ROUTERS.whitePaper,
           href: `/${ROUTERS.whitePaper}.pdf`,
           external: true

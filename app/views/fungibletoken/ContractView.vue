@@ -59,7 +59,7 @@
 </template>
 
 <script>
-import uuidv4 from 'uuidv4'
+import { uuid } from 'uuidv4'
 
 import Jumbotron from '../../components/Jumbotron'
 import Button from '../../components/Button'
@@ -70,19 +70,19 @@ import ACTIONS_METHODS from './actions.json'
 
 const ACTIONS = [
   {
-    uuidv4: uuidv4(),
+    uuidv4: uuid(),
     name: ACTIONS_METHODS.transferFrom
   },
   {
-    uuidv4: uuidv4(),
+    uuidv4: uuid(),
     name: ACTIONS_METHODS.transfer
   },
   {
-    uuidv4: uuidv4(),
+    uuidv4: uuid(),
     name: ACTIONS_METHODS.approve
   },
   {
-    uuidv4: uuidv4(),
+    uuidv4: uuid(),
     name: ACTIONS_METHODS.allowance
   }
 ]
@@ -92,21 +92,21 @@ const FORMS = {
     variant: TYPES.success,
     inputs: [
       {
-        uuidv4: uuidv4(),
+        uuidv4: uuid(),
         type: 'text',
         label: 'ByStr20',
         name: 'from',
         placeholder: 'Enter from address'
       },
       {
-        uuidv4: uuidv4(),
+        uuidv4: uuid(),
         type: 'text',
         label: 'ByStr20',
         name: 'to',
         placeholder: 'Enter to address'
       },
       {
-        uuidv4: uuidv4(),
+        uuidv4: uuid(),
         type: 'number',
         label: 'Uint128',
         name: 'amount',
@@ -119,14 +119,14 @@ const FORMS = {
     variant: TYPES.success,
     inputs: [
       {
-        uuidv4: uuidv4(),
+        uuidv4: uuid(),
         type: 'text',
         label: 'ByStr20',
         name: 'to',
         placeholder: 'Enter to address'
       },
       {
-        uuidv4: uuidv4(),
+        uuidv4: uuid(),
         type: 'number',
         label: 'Uint128',
         name: 'amount',
@@ -139,14 +139,14 @@ const FORMS = {
     variant: TYPES.success,
     inputs: [
       {
-        uuidv4: uuidv4(),
+        uuidv4: uuid(),
         type: 'text',
         label: 'ByStr20',
         name: 'spender',
         placeholder: 'Enter spender address'
       },
       {
-        uuidv4: uuidv4(),
+        uuidv4: uuid(),
         type: 'number',
         label: 'Uint128',
         name: 'amount',
@@ -159,14 +159,14 @@ const FORMS = {
     variant: TYPES.success,
     inputs: [
       {
-        uuidv4: uuidv4(),
+        uuidv4: uuid(),
         type: 'text',
         label: 'ByStr20',
         name: 'owner',
         placeholder: 'Enter tokenOwner address'
       },
       {
-        uuidv4: uuidv4(),
+        uuidv4: uuid(),
         type: 'text',
         label: 'ByStr20',
         name: 'spender',

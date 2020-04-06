@@ -1,11 +1,6 @@
 <template>
   <div>
-    <label
-      :class="b({ variant }, 'label')"
-      :for="uuidv4"
-    >
-      {{ label }}
-    </label>
+    <label :class="b({ variant }, 'label')" :for="uuidv4">{{ label }}</label>
     <input
       :id="uuidv4"
       :class="b({ xl, lg, sm, md, block, variant })"
@@ -18,17 +13,12 @@
       :value="value"
       @input="change"
     >
-    <small
-      :class="b('error-msg')"
-      :for="uuidv4"
-    >
-      {{ error }}
-    </small>
+    <small :class="b('error-msg')" :for="uuidv4">{{ error }}</small>
   </div>
 </template>
 
 <script>
-import uuidv4 from 'uuidv4'
+import { uuid } from 'uuidv4'
 
 import TYPES from '../static/types.json'
 
@@ -100,7 +90,7 @@ export default {
   },
   data () {
     return {
-      uuidv4: uuidv4()
+      uuidv4: uuid()
     }
   },
   methods: {
@@ -174,20 +164,20 @@ export default {
   }
 
   &_lg {
-    padding: .5rem 1rem;
+    padding: 0.5rem 1rem;
   }
 
   &_md {
-    padding: .375rem .75rem;
+    padding: 0.375rem 0.75rem;
     font-size: $xs-font;
-    border-radius: .2rem;
+    border-radius: 0.2rem;
   }
 
   &_sm {
-    padding: .25rem .5rem;
-    font-size: .875rem;
+    padding: 0.25rem 0.5rem;
+    font-size: 0.875rem;
     line-height: 1.5;
-    border-radius: .2rem;
+    border-radius: 0.2rem;
   }
 
   &_block {

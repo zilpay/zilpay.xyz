@@ -25,14 +25,13 @@
 </template>
 
 <script>
-import uuidv4 from 'uuidv4'
-
+import { uuid } from 'uuidv4'
 import ReduceCard from '../../components/ReduceCard'
 import DAppsData from '../../static/dapps.json'
 
 const dapps = DAppsData.map(el => ({
   ...el,
-  uuidv4: uuidv4()
+  uuidv4: uuid()
 }))
 
 export default {
@@ -52,9 +51,7 @@ export default {
       }
       const url = `/${dapp.link}`
       if (dapp.external) {
-        window.location.replace(
-          window.location.origin + url
-        )
+        window.location.replace(window.location.origin + url)
       }
       this.$router.push('/app' + url)
     }
