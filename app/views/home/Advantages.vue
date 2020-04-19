@@ -25,7 +25,7 @@
 
 <script>
 import { uuid } from 'uuidv4'
-import RoundCard from '../../components/RoundCard'
+import RoundCard from '@/components/RoundCard'
 
 export default {
   name: 'Advantages',

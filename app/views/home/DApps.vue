@@ -26,8 +26,8 @@
 
 <script>
 import { uuid } from 'uuidv4'
-import ReduceCard from '../../components/ReduceCard'
-import DAppsData from '../../static/dapps.json'
+import ReduceCard from '@/components/ReduceCard'
+import DAppsData from '@/static/dapps.json'
 
 const dapps = DAppsData.map(el => ({
   ...el,

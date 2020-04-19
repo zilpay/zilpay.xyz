@@ -43,10 +43,10 @@
 <script>
 import { uuid } from 'uuidv4'
 
-import TYPES from '../../static/types.json'
+import TYPES from '@/static/types.json'
 
-import Button from '../../components/Button'
-import Input from '../../components/Input'
+import Button from '@/components/Button'
+import Input from '@/components/Input'
 
 export default {
   name: 'StructureBuilder',

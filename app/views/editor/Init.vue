@@ -30,11 +30,11 @@
 </template>
 
 <script>
-import TYPES from '../../static/types.json'
+import TYPES from '@/static/types.json'
 
-import Button from '../../components/Button'
-import Input from '../../components/Input'
-import Alert from '../../components/Alert'
+import Button from '@/components/Button'
+import Input from '@/components/Input'
+import Alert from '@/components/Alert'
 
 export default {
   name: 'Init',

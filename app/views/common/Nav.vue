@@ -40,8 +40,8 @@
 </template>
 
 <script>
-import BurgerMenu from '../../components/BurgerMenu'
-import BackButton from '../../components/BackButton'
+import BurgerMenu from '@/components/BurgerMenu'
+import BackButton from '@/components/BackButton'
 
 export default {
   name: 'Nav',

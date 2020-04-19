@@ -31,12 +31,12 @@
 </template>
 
 <script>
-import TYPES from '../../static/types.json'
+import TYPES from '@/static/types.json'
 
-import Jumbotron from '../../components/Jumbotron'
-import Input from '../../components/Input'
-import Alert from '../../components/Alert'
-import Button from '../../components/Button'
+import Jumbotron from '@/components/Jumbotron'
+import Input from '@/components/Input'
+import Alert from '@/components/Alert'
+import Button from '@/components/Button'
 
 export default {
   name: 'ConnectForm',

@@ -57,16 +57,16 @@
 </template>
 
 <script>
-import TYPES from '../../static/types.json'
+import TYPES from '@/static/types.json'
 
-import Jumbotron from '../../components/Jumbotron'
-import Alert from '../../components/Alert'
-import Range from '../../components/Range'
-import Input from '../../components/Input'
-import Button from '../../components/Button'
-import Modal from '../../components/Modal'
+import Jumbotron from '@/components/Jumbotron'
+import Alert from '@/components/Alert'
+import Range from '@/components/Range'
+import Input from '@/components/Input'
+import Button from '@/components/Button'
+import Modal from '@/components/Modal'
 
-import ZilPayMixin from '../../mixins/zilpay'
+import ZilPayMixin from '@/mixins/zilpay'
 
 export default {
   name: 'Roll',

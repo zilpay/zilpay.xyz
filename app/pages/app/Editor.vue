@@ -45,14 +45,14 @@
 <script>
 import 'codemirror/lib/codemirror.css'
 import 'codemirror/theme/moxer.css'
-import '../../lib/scilla/mllike'
+import '@/lib/scilla/mllike'
 
 import { codemirror } from 'vue-codemirror'
 
-import Actions from '../../views/editor/Actions'
-import Modal from '../../components/Modal'
+import Modal from '@/components/Modal'
 
-import ZilPayMixin from '../../mixins/zilpay'
+import ZilPayMixin from '@/mixins/zilpay'
+import Actions from '@/views/editor/Actions'
 
 const SCILA_RUNNER = 'https://scilla-runner.zilliqa.com/contract'
 const SCILLA_METHODS = {

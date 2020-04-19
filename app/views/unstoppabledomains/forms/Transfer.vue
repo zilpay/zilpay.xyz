@@ -33,11 +33,11 @@
 </template>
 
 <script>
-import TYPES from '../../../static/types.json'
-import Input from '../../../components/Input'
-import Button from '../../../components/Button'
+import TYPES from '@/static/types.json'
+import Input from '@/components/Input'
+import Button from '@/components/Button'
 
-import UDMixin from '../../../mixins/ud'
+import UDMixin from '@/mixins/ud'
 
 export default {
   name: 'Transfer',

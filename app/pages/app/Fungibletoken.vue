@@ -38,15 +38,15 @@
 </template>
 
 <script>
-import DeployForm from '../../views/fungibletoken/FormDeploy'
-import ConnectForm from '../../views/fungibletoken/ConnectForm'
-import ConnectViewer from '../../views/fungibletoken/ContractView'
+import DeployForm from '@/views/fungibletoken/FormDeploy'
+import ConnectForm from '@/views/fungibletoken/ConnectForm'
+import ConnectViewer from '@/views/fungibletoken/ContractView'
 
-import Modal from '../../components/Modal'
+import Modal from '@/components/Modal'
 
-import ZilPayMixin from '../../mixins/zilpay'
+import ZilPayMixin from '@/mixins/zilpay'
 
-import ACTIONS_METHODS from '../../views/fungibletoken/actions.json'
+import ACTIONS_METHODS from '@/views/fungibletoken/actions.json'
 
 export default {
   name: 'Fungibletoken',

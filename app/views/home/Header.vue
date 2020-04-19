@@ -26,9 +26,9 @@
 </template>
 
 <script>
-import Logo from '../../components/Logo'
-import Button from '../../components/Button'
-import DetectingBrowsers from '../../mixins/detecting-browsers'
+import Logo from '@/components/Logo'
+import Button from '@/components/Button'
+import DetectingBrowsers from '@/mixins/detecting-browsers'
 
 export default {
   name: 'Header',

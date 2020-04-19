@@ -9,11 +9,11 @@
 <script>
 import { uuid } from 'uuidv4'
 
-import SimpleHeader from '../components/SimpleHeader'
-import DescriptionList from '../components/DescriptionList'
-import Footer from '../views/common/Footer'
+import SimpleHeader from '@/components/SimpleHeader'
+import DescriptionList from '@/components/DescriptionList'
+import Footer from '@/views/common/Footer'
 
-import PrivacyPolicyData from '../static/privacy-data.json'
+import PrivacyPolicyData from '@/static/privacy-data.json'
 
 const list = PrivacyPolicyData.list.map(el => ({
   ...el,

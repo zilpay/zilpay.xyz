@@ -12,8 +12,8 @@
 </template>
 
 <script>
-import SimpleHeader from '../components/SimpleHeader'
-import Footer from '../views/common/Footer'
+import SimpleHeader from '@/components/SimpleHeader'
+import Footer from '@/views/common/Footer'
 
 export default {
   name: 'PageNotFound',

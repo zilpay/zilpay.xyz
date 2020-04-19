@@ -9,11 +9,11 @@
 <script>
 import { uuid } from 'uuidv4'
 
-import Footer from '../views/common/Footer'
-import SimpleHeader from '../components/SimpleHeader'
-import DescriptionList from '../components/DescriptionList'
+import Footer from '@/views/common/Footer'
+import SimpleHeader from '@/components/SimpleHeader'
+import DescriptionList from '@/components/DescriptionList'
 
-import TermsData from '../static/terms.json'
+import TermsData from '@/static/terms.json'
 
 const list = TermsData.list.map(el => ({
   ...el,

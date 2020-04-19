@@ -26,11 +26,10 @@
 <script>
 import { Tabs, Tab } from 'vue-tabs-component'
 
-import TYPES from '../../static/types.json'
-
 import Transfer from './forms/Transfer'
 import Assign from './forms/Assign'
 import Approve from './forms/Approve'
+import TYPES from '@/static/types.json'
 
 export default {
   name: 'ContractForm',

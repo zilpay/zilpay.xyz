@@ -91,16 +91,16 @@
 </template>
 
 <script>
-import DApps from '../../static/dapps.json'
-import TYPES from '../../static/types.json'
+import DApps from '@/static/dapps.json'
+import TYPES from '@/static/types.json'
 
-import SearchInput from '../../components/Search'
-import ContractForm from '../../views/unstoppabledomains/ContractForm'
-import Modal from '../../components/Modal'
-import ViewBlockLink from '../../components/ViewBlockLink'
+import SearchInput from '@/components/Search'
+import ContractForm from '@/views/unstoppabledomains/ContractForm'
+import Modal from '@/components/Modal'
+import ViewBlockLink from '@/components/ViewBlockLink'
 
-import ZilPayMixin from '../../mixins/zilpay'
-import UDMixin from '../../mixins/ud'
+import ZilPayMixin from '@/mixins/zilpay'
+import UDMixin from '@/mixins/ud'
 
 const storage = window.localStorage
 
