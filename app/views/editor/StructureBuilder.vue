@@ -83,10 +83,23 @@ export default {
   methods: {
     call (transition) {
       const parse = this.params.replace(' ', '').split(',')
-      const params = transition.params.map((el, index) => ({
-        ...el,
-        value: parse[index]
-      }))
+      const params = transition.params.map((el, index) => {
+        try {
+          const { validation } = window.zilPay.utils
+          const { fromBech32Address } = window.zilPay.crypto
+
+          if (validation.isBech32(parse[index])) {
+            parse[index] = fromBech32Address(parse[index])
+          }
+        } catch (err) {
+          //
+        }
+
+        return {
+          ...el,
+          value: parse[index]
+        }
+      })
       this.$emit('transition', {
         params,
         method: transition.vname,

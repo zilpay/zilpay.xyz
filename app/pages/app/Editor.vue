@@ -92,6 +92,13 @@ export default {
       needNetwork: ['testnet', 'mainnet', 'private']
     }
   },
+  watch: {
+    code: (newValue, oldValue) => {
+      if (newValue !== oldValue) {
+        window.localStorage.setItem('code', newValue)
+      }
+    }
+  },
   mounted () {
     this.getContract()
     this.$nextTick(async () => {
@@ -104,17 +111,26 @@ export default {
   },
   methods: {
     getContract () {
-      this.code = ''
+      const code = window.localStorage.getItem('code')
+
+      if (code) {
+        this.code = code
+      }
     },
     async getContractCodeByAddress (address) {
-      this.$nuxt.$loading.start()
+      if (this.$nuxt && this.$nuxt.$loading && typeof this.$nuxt.$loading.start === 'function') {
+        this.$nuxt.$loading.start()
+      }
+
       try {
         const validateAddress = this.validateAddreas(address)
         const { result } = await window
           .zilPay
           .blockchain
           .getSmartContractCode(validateAddress)
+
         this.code = result.code
+
         await this.codeCheck()
       } catch (err) {
         //
@@ -239,7 +255,7 @@ export default {
 
   &__row {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: auto 1fr;
   }
 
   &__code-editor {
@@ -259,6 +275,7 @@ export default {
   }
 }
 .CodeMirror {
+  position: unset;
   height: calc(100vh - 130px);
 }
 .CodeMirror-vscrollbar {

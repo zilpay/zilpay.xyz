@@ -135,6 +135,21 @@ export default {
       return this.address < 42
     }
   },
+  watch: {
+    address: (newValue, oldValue) => {
+      if (newValue !== oldValue) {
+        window.localStorage.setItem('contract', newValue)
+      }
+    }
+  },
+  mounted () {
+    const contract = window.localStorage.getItem('contract')
+
+    if (contract) {
+      this.address = contract
+      this.$emit('code', this.address)
+    }
+  },
   methods: {
     toZil (amount) {
       const { utils } = window.zilPay
@@ -179,6 +194,7 @@ export default {
   height: calc(100vh - 129px);
   min-width: 40vw;
   max-width: 100vw;
+  padding-right: 15px;
 
   &__row {
     display: flex;
