@@ -11,6 +11,7 @@ import Nav from '../views/common/Nav'
 
 const ROUTERS = {
   Home: 'Home',
+  Apps: 'Apps',
   Privacy: 'Privacy',
   Terms: 'Terms',
   Doc: 'Documentation',
@@ -25,6 +26,12 @@ export default {
   data () {
     return {
       navLinks: [
+        {
+          uuidv4: uuid(),
+          name: ROUTERS.Apps,
+          href: ROUTERS.Apps,
+          external: false
+        },
         {
           uuidv4: uuid(),
           name: ROUTERS.Home,
