@@ -17,7 +17,9 @@ CodeMirror.defineMode('mllike', (_config, parserConfig) => {
     event: 'keyword',
     send: 'keyword',
 
-    Uint32: '',
+    Uint8: 'type',
+    Uint16: 'type',
+    Uint32: 'type',
     Uint64: 'type',
     Uint128: 'type',
     Uint256: 'type',
