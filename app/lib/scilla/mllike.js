@@ -28,6 +28,7 @@ CodeMirror.defineMode('mllike', (_config, parserConfig) => {
     Int64: 'type',
     Int128: 'type',
     Int256: 'type',
+    Message: 'type',
 
     BNum: 'type',
     String: 'type',
