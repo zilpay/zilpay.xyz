@@ -145,7 +145,8 @@ export default {
             amount,
             gasPrice,
             gasLimit: utils.Long.fromNumber(9000)
-          }
+          },
+          true
         )
         const interval = setInterval(
           () =>

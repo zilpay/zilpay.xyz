@@ -54,7 +54,7 @@ import Modal from '@/components/Modal'
 import ZilPayMixin from '@/mixins/zilpay'
 import Actions from '@/views/editor/Actions'
 
-const SCILA_RUNNER = 'https://scilla-runner.zilliqa.com/contract'
+const SCILA_RUNNER = 'https://scilla-server.zilliqa.com/contract'
 const SCILLA_METHODS = {
   check: 'check'
 }
