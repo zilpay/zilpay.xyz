@@ -95,6 +95,13 @@ export default {
           //
         }
 
+        if (el.type.includes('List')) {
+          return {
+            ...el,
+            value: parse
+          }
+        }
+
         return {
           ...el,
           value: parse[index]
