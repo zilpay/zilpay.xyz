@@ -61,17 +61,17 @@ Example usage (ES5):
 
 ```javascript
 window.zilPay.wallet.connect()
-.then(function (accounts) {
-    if (isConnect) {
-        // do something...
-    } else {
-        throw new Error('user rejected');
-    }
-})
-.catch(function (error) {
-  // Handle error. Likely the user rejected the login
-  console.error(error)
-})
+    .then(function (accounts) {
+        if (isConnect) {
+            // do something...
+        } else {
+            throw new Error('user rejected');
+        }
+    })
+    .catch(function (error) {
+    // Handle error. Likely the user rejected the login
+    console.error(error)
+    })
 ```
 
 
@@ -113,7 +113,6 @@ accountStreamChanged.subscribe(account => ...);
 accountStreamChanged.unsubscribe();
 ```
 
-
 ### `window.zilPay.wallet.observableNetwork`
 
 This method is required for the monitored user account, use the subscription only once and if you don't needed monitored account you  need unsubscribe.
@@ -123,6 +122,52 @@ const networkStreamChanged = window.zilPay.wallet.observableNetwork();
 accountStream.subscribe(net => ...);
 // If you do not need to track, you need to cancel the unsubscribe.
 accountStream.unsubscribe();
+```
+
+### `window.zilPay.wallet.observableBlock`
+
+This method is required for the monitored user account, use the subscription only once and if you don't needed monitored account you  need unsubscribe.
+
+When new block has been created, then this method show all block information.
+This method use socket connection!
+```javascript
+const block = window
+    .zilPay
+    .wallet
+    .observableBlock()
+    .subscribe(block => / do something... /);
+// If you do not need to track, you need to cancel the unsubscribe.
+block.unsubscribe();
+```
+
+### `window.zilPay.wallet.observableBlock`
+
+This method is required for the monitored user account, use the subscription only once and if you don't needed monitored account you  need unsubscribe.
+
+This method observable the new block and filtred by hash
+```javascript
+const block = window
+    .zilPay
+    .wallet
+    .observableTransaction(
+        // this args add to tranasctionQueue.
+        '1c8da22d431bf411a9732d91ef89252f4b949215bdaaa4011ecfe753cfe50ec5',
+        '06172676beee00682b92d353337d69f4965c857f3205488d04d76b5b40a2f9dc'
+    )
+    .subscribe(hashs => / do something... /);
+    // If the tranasction has been mined and confirmed, then this method
+    // emit the hash tx.
+
+// this method is adding to transactionQueue hashs for observable.
+// This method is working with the `observableTransaction`,
+// if the `observableTransaction` has not subscribed, then this is not working!!!
+window.zilPay.wallet.addTransactionsQueue(
+  '1c8da22d431bf411a9732d91ef89252f4b949215bdaaa4011ecfe753cfe50ec5',
+  '31231431bf411dffgdfa9732d91e3d52f4b94921adsddd4011ecfe753cfe50ec5'
+)
+
+// If you do not need to track, you need to cancel the unsubscribe.
+block.unsubscribe();
 ```
 
 Thank for this API [MetaMask](https://metamask.io/) team and other!!!

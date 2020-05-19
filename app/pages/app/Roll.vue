@@ -93,7 +93,8 @@ export default {
         title: 'ZilPay',
         name: this.$options.name,
         img: ''
-      }
+      },
+      subscriber: null
     }
   },
   computed: {
@@ -109,8 +110,34 @@ export default {
       await this.getState()
       this.$nuxt.$loading.finish()
     })
+
+    const test = this.zilPayTest()
+
+    if (test) {
+      this.subscriber = window
+        .zilPay
+        .wallet
+        .observableTransaction()
+        .subscribe(txns => txns.map(hash => this.checktx(hash)))
+    }
+  },
+  beforeDestroy () {
+    if (this.subscriber) {
+      this.subscriber.unsubscribe()
+    }
   },
   methods: {
+    async checktx (hash) {
+      try {
+        const tx = await window.zilPay.blockchain.getTransaction(hash)
+        const [{ params }] = tx.receipt.event_logs
+        const amount = params.find(el => el.vname === 'winAmount').value
+
+        this.showResult(amount)
+      } catch (err) {
+        //
+      }
+    },
     async getState () {
       const test = this.zilPayTest()
       if (!test) {
@@ -126,7 +153,7 @@ export default {
       if (!test) {
         return null
       }
-      const { contracts, utils } = window.zilPay
+      const { contracts, utils, wallet } = window.zilPay
       const contract = contracts.at(this.contractAddress)
       const amount = utils.units.toQa(this.betAmount, utils.units.Units.Zil)
       const gasPrice = utils.units.toQa('1000', utils.units.Units.Li)
@@ -145,21 +172,9 @@ export default {
             amount,
             gasPrice,
             gasLimit: utils.Long.fromNumber(9000)
-          },
-          true
+          }
         )
-        const interval = setInterval(
-          () =>
-            window.zilPay.blockchain
-              .getTransaction(tx.TranID)
-              .then(tx => tx.receipt.event_logs[0].params)
-              .then(params => params.find(el => el.vname === 'winAmount').value)
-              .then(amount => this.showResult(amount))
-              .then(() => this.$nuxt.$loading.finish())
-              .then(() => clearInterval(interval))
-              .catch(),
-          5000
-        )
+        wallet.addTransactionsQueue(tx.TranID)
       } catch (err) {
         this.$nuxt.$loading.finish()
       }
