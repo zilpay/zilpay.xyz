@@ -120,7 +120,6 @@ export default {
       const { utils, crypto } = window.zilPay
       const { validation } = utils
       const {
-        decodeBase58,
         toChecksumAddress,
         fromBech32Address,
         isValidChecksumAddress
@@ -128,8 +127,6 @@ export default {
 
       if (validation.isAddress(address)) {
         address = isValidChecksumAddress(address)
-      } else if (validation.isBase58(address)) {
-        address = decodeBase58(address)
       } else if (validation.isBech32(address)) {
         address = fromBech32Address(address)
       }

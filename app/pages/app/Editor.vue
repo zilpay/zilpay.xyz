@@ -135,7 +135,7 @@ export default {
       } catch (err) {
         //
       } finally {
-        this.$nuxt.$loading.finish()
+        // this.$nuxt.$loading.finish()
       }
     },
     async codeCheck () {
@@ -213,7 +213,8 @@ export default {
       const { toBech32Address } = window.zilPay.crypto
       const contract = window.zilPay.contracts.new(code, init)
       const gasPrice = units.toQa('1000', units.Units.Li)
-      const gasLimit = Long.fromNumber(10000)
+      const gasLimit = Long.fromNumber(25000)
+
       try {
         const [deployTx, newContract] = await contract.deploy({
           gasPrice,
