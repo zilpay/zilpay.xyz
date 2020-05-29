@@ -44,6 +44,9 @@
       "description": "To provide our service"
     },
     {
+      "description": "Websites cannot see your account information, because websites (dapps) need call request for connection. When user accept connections from website(dapp) then website can see your account informations (zilliqa address)."
+    },
+    {
       "title": "ZilPay stores on your device:",
       "attributes": [
         "Seed phrase words in encrypted by your password",
