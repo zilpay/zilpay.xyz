@@ -44,12 +44,31 @@
       "description": "To provide our service"
     },
     {
+      "title": "ZilPay stores on your device:",
+      "attributes": [
+        "Seed phrase words in encrypted by your password",
+        "Your import private Keys in encrypted by your password",
+        "Your accounts such as addresses and balance account.",
+        "Some UI information such as theme and language",
+        "Your transactions",
+        "Network information such as node URL, socket URL, node ID."
+      ]
+    },
+    {
+      "title": "cryptography",
+      "description": "Your financial data, such as (the initial opening phrase), encrypted with modern encryption methods by user password."
+    },
+    {
       "title": "We will use your personal information in the following ways:",
       "description": "To enable you to access and use the Services To provide and deliver products and services that you may request. To send information, including confirmations, technical notices, updates, security alerts, and support and administrative messages."
     },
     {
       "title": "To comply with law",
-      "description": "All data that you own (private key, initial phrase) is available only to you, only you can manage your account."
+      "description": "All data that you own (private key, initial phrase) is available only to you, only you can manage your account. If you forget your password or seed phrase words, you will lose your money."
+    },
+    {
+      "title": "Warning of liability",
+      "description": "We accept no liability for the loss of your finances. Also, if someone wants to receive your data such as (initial passphrase or private keys), do not in any case pass this information to third parties."
     }
   ]
 }
