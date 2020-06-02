@@ -53,7 +53,7 @@ We cannot know about the gas market on all blockchains because it requires some 
  
 ### toAddr [semi-optional]
 
-A `bech32, base16, base58` Zilliqa address. Required for transactions with a recipient (all transactions except for contract creation).
+A `bech32, base16` Zilliqa address. Required for transactions with a recipient (all transactions except for contract creation).
 
 Contract creation occurs when there is no `to` value but there is a `data, code` value.
 

@@ -171,3 +171,102 @@ None
 
 - `Promise<State>` - the Contract state.
 
+### Examples:
+
+* method `at`: create contract instance by contract address.
+
+```javascript
+// Create contract instance with some methods
+const contract = zilPay
+  .contracts
+  .at('zil1az5e0c6e4s4pazgahhmlca2cvgamp6kjtaxf4q');
+
+contract.getCode().then(({ code }) => /do something.../)
+contract.getInit().then((init) => /do something.../)
+contract.getState().then((contractState) => /do something.../)
+contract.getSubState('entropy').then(({ entropy }) => /do something.../)
+```
+
+* method `new `: create new contract by code.
+
+```javascript
+const scillaCode = `scilla_version 0
+import ListUtils
+library HelloWorld
+
+let one_msg = 
+  fun (msg : Message) => 
+  let nil_msg = Nil {Message} in
+  Cons {Message} msg nil_msg
+  
+let not_owner_code = Int32 1
+let set_hello_code = Int32 2
+
+contract HelloWorld
+(owner: ByStr20)
+
+field welcome_msg : String = ""
+
+transition setHello (msg : String)
+  is_owner = builtin eq owner _sender;
+  match is_owner with
+  | False =>
+    e = {_eventname : "setHello()"; code : not_owner_code};
+    event e
+  | True =>
+    welcome_msg := msg;
+    e = {_eventname : "setHello()"; code : set_hello_code};
+    event e
+  end
+end
+
+transition getHello ()
+    r <- welcome_msg;
+    e = {_eventname: "getHello()"; msg: r};
+    event e
+end
+
+transition multipleMsgs()
+  msg1 = {_tag : ""; _recipient : _sender; _amount : Uint128 0};
+  msg2 = {_tag : ""; _recipient : _sender; _amount : Uint128 0};
+  msgs1 = one_msg msg1;
+  msgs2 = Cons {Message} msg2 msgs1;
+  send msgs2
+end
+
+transition contrAddr()
+  msg1 = {_eventname : "ContractAddress"; addr : _this_address };
+  event msg1
+end
+`
+const init = [
+  {
+    "vname":"owner",
+    "type":"ByStr20",
+    "value":"zil1zxvjnkxr3r0rv582rv7u0w07pnh0ap30td4thr"
+  },
+  {
+    "vname":"_scilla_version",
+    "type":"Uint32",
+    "value":"0"
+  }
+]
+// Create contract instance with some methods
+const contract = zilPay
+  .contracts
+  .new(scillaCode, init);
+
+// Sending to DS
+contract.deploy({
+  gasLimit: '25000',
+  gasPrice: '1000000000'
+}, true)
+.then(([tx, contract]) => /do something.../);
+
+// Sending to TX
+contract.deploy({
+  gasLimit: '25000',
+  gasPrice: '1000000000'
+})
+.then(([tx, contract]) => /do something.../);
+```

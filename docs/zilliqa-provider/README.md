@@ -31,7 +31,6 @@ Returns a `object` with different address format :
 ```javascript
 {
     base16: "0xf0D679Dd9cAD89FB941ea4e7687aA90019E1023A",
-    base58: "4Mc9UbRpcb6cb8uin5VoE3G1mkXb",
     bech32: "zil17rt8nhvu4kylh9q75nnks74fqqv7zq36jyy3vu"
 }
 ```
@@ -74,33 +73,31 @@ window.zilPay.wallet.connect()
     })
 ```
 
+### Sing message
 
-### `window.zilPay.wallet.broadcasting`
+* Create message signature and Verify via [Zilliqa-js](https://github.com/Zilliqa/Zilliqa-JavaScript-Library):
 
-This is property must be boolean, if this property = `true` then all transaction needed for sign will be just returns  the signature but don't send to Zilliqa blockchain
-
-In this example we sign transaction but don't send to blockchain.
 ```javascript
-const zilliqa = window.zilPay;
-const utils = zilPay.utils;
+const message = 'ZilPay the best wallet!';
+const signature = await window.zilPay.wallet.sign(message); // Sign mesg via ZilPay.
 
-const amount = utils.units.toQa(10, utils.units.Units.Zil); // 10 zil
-const gasPrice = utils.units.toQa('1000', utils.units.Units.Li);
-const txParams = zilliqa.transactions.new({ // Create params for our trasnaction.
-    toAddr: 'zil1wl38cwww2u3g8wzgutxlxtxwwc0rf7jf27zace',
-    amount: amount,
-    gasPrice: gasPrice
-});
-try {
-    window.zilPay.wallet.broadcasting = true; // Disable broadcasting
-    const txResult = await zilliqa.blockchain.createTransaction(txParams);
-} catch (err) {
-    // if user rejected this transaction or other problem.
-}
+// nodejs code...
+import { ZilliqaMessage } from '@zilliqa-js/proto/dist/index'
+import { schnorr } from '@zilliqa-js/crypto'
+
+const pubKey = / pubkey from zilpay zilPay.wallet.defaultAccount.base16 /
+const msg = Uint8Array.from([...message].map((c) => c.charCodeAt(0)));
+const serialised = ZilliqaMessage.ByteArray.create(msg);
+const msgBuffer = Buffer.from(
+    ZilliqaMessage.ByteArray.encode(serialised).finish()
+);
+const sign = schnorr.toSignature(signature);
+const verify = schnorr.verify(
+    msgBuffer,
+    signature,
+    Buffer.from(pubKey, 'hex')
+); // True or fasle.
 ```
-
-This is experimental method don't use it for production!!!
-
 
 ### `window.zilPay.wallet.observableAccount`
 
@@ -169,5 +166,3 @@ window.zilPay.wallet.addTransactionsQueue(
 // If you do not need to track, you need to cancel the unsubscribe.
 block.unsubscribe();
 ```
-
-Thank for this API [MetaMask](https://metamask.io/) team and other!!!

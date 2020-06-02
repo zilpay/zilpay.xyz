@@ -136,10 +136,6 @@ Determines if a given string is a valid address.
 - `boolean` - `true` if the string is an address.
 
 
-`isBase58(address: string): boolean`
-
-Determines if a given string is a valid address in base58 format.
-
 **Parameters**
 
 - `address`: `string`.
@@ -160,3 +156,25 @@ Determines if a given string is a valid address in Bech32 format.
 **Returns**
 
 - `boolean` - `true` if the string is an address.
+
+
+## `window.zilPay.TypeChecker`
+
+This API can check types.
+
+```javascript
+const testForArray = new window.zilPay.TypeChecker([])
+testForArray.isArray // true
+```
+```javascript
+const testForArray = new window.zilPay.TypeChecker([1, 2, 3])
+testForArray.isArray // true
+testForArray.isBoolean // false
+testForArray.isFloat // false
+testForArray.isFunction // false
+testForArray.isInt // false
+testForArray.isObject // false
+testForArray.isString // false
+testForArray.isSymbol // false
+testForArray.isUndefined // false
+```

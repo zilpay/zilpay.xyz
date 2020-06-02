@@ -176,6 +176,7 @@ export default {
         )
         wallet.addTransactionsQueue(tx.TranID)
       } catch (err) {
+        console.error(err)
         this.$nuxt.$loading.finish()
       }
     },
