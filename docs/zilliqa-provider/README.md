@@ -82,21 +82,20 @@ const message = 'ZilPay the best wallet!';
 const signature = await window.zilPay.wallet.sign(message); // Sign mesg via ZilPay.
 
 // nodejs code...
-import { ZilliqaMessage } from '@zilliqa-js/proto/dist/index'
+import { sha256 } from 'js-sha256'
 import { schnorr } from '@zilliqa-js/crypto'
 
-const pubKey = / pubkey from zilpay zilPay.wallet.defaultAccount.base16 /
-const msg = Uint8Array.from([...message].map((c) => c.charCodeAt(0)));
-const serialised = ZilliqaMessage.ByteArray.create(msg);
-const msgBuffer = Buffer.from(
-    ZilliqaMessage.ByteArray.encode(serialised).finish()
-);
-const sign = schnorr.toSignature(signature);
+const message = 'ZilPay the best wallet!';
+const publicKey = '034f734a1dd79cd1b6dce193d243cc1fd5688ce264a02ca82c6cf1d80f2967e9d5'
+const hashStr = sha256(message)
+const hashBytes = Buffer.from(hashStr, 'hex')
+const myZilPaySignature = '17644c45eab5124a47b8df6a9014d8e2d34912b30a018fb1139a1ca51565f36932504eacc7f9d4ebaa9e3ae96982719f13e6574ee9a8153ec3c77237588eb368'
+const signature = schnorr.toSignature(myZilPaySignature)
 const verify = schnorr.verify(
-    msgBuffer,
+    hashBytes,
     signature,
-    Buffer.from(pubKey, 'hex')
-); // True or fasle.
+    Buffer.from(publicKey, 'hex')
+)
 ```
 
 ### `window.zilPay.wallet.observableAccount`
