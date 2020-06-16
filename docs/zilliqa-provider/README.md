@@ -73,7 +73,7 @@ window.zilPay.wallet.connect()
     })
 ```
 
-### Sing message
+### sign message
 
 * Create message signature and Verify via [Zilliqa-js](https://github.com/Zilliqa/Zilliqa-JavaScript-Library):
 
