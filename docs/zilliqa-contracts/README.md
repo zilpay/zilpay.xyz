@@ -270,3 +270,61 @@ contract.deploy({
 })
 .then(([tx, contract]) => /do something.../);
 ```
+
+* method `at`: create contract instance by contract address.
+
+```javascript
+// Create contract instance with some methods
+const contract = zilPay
+  .contracts
+  .at('zil1az5e0c6e4s4pazgahhmlca2cvgamp6kjtaxf4q');
+
+contract.getCode().then(({ code }) => /do something.../)
+contract.getInit().then((init) => /do something.../)
+contract.getState().then((contractState) => /do something.../)
+contract.getSubState('entropy').then(({ entropy }) => /do something.../)
+```
+
+* method `call`: create new contract by code.
+
+```javascript
+const { contracts, utils, wallet } = window.zilPay;
+const contract = contracts.at(this.contractAddress);
+const amount = utils.units.toQa(0, utils.units.Units.Zil);
+const gasPrice = utils.units.toQa('1000', utils.units.Units.Li)
+
+// Sending to DS
+const tx = await contract.call(
+  'setHello',
+  [
+    {
+      vname: 'msg',
+      type: 'String',
+      value: 'TEST'
+    }
+  ],
+  {
+    amount,
+    gasPrice,
+    gasLimit: utils.Long.fromNumber(9000)
+  },
+  true
+).then(([tx, contract]) => /do something.../);
+
+// Sending to TX
+const tx = await contract.call(
+  'setHello',
+  [
+    {
+      vname: 'msg',
+      type: 'String',
+      value: 'TEST'
+    }
+  ],
+  {
+    amount,
+    gasPrice,
+    gasLimit: utils.Long.fromNumber(9000)
+  }
+).then(([tx, contract]) => /do something.../);
+```

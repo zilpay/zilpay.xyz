@@ -136,7 +136,7 @@ const block = window
 block.unsubscribe();
 ```
 
-### `window.zilPay.wallet.observableBlock`
+### `window.zilPay.wallet.observableTransaction`
 
 This method is required for the monitored user account, use the subscription only once and if you don't needed monitored account you  need unsubscribe.
 
