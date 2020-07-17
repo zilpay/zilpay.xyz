@@ -1,12 +1,14 @@
 <template>
-  <div>
+  <a
+    :href="src"
+    target="_blank"
+  >
     <img
       :src="img"
       :height="height"
       :class="b()"
-      @click="goTo"
     >
-  </div>
+  </a>
 </template>
 
 <script>
@@ -24,23 +26,6 @@ export default {
     height: {
       type: Number,
       default: 40
-    },
-    blanck: {
-      type: Boolean,
-      default: false
-    }
-  },
-  methods: {
-    goTo () {
-      if (!process.client) {
-        return null
-      }
-
-      if (this.blanck) {
-        window.open(this.src)
-      } else {
-        window.location.replace(this.src)
-      }
     }
   }
 }

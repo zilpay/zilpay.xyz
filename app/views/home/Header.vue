@@ -13,13 +13,13 @@
           </a>
           blockchain
         </h2>
-        <Button
-          xl
-          :class="b('button')"
-          @click="goToStore"
+        <a
+          :class="b('btn')"
+          :href="urlsStore[detectedBrowser]"
+          target="_blank"
         >
           {{ detectedBrowser }} extension
-        </Button>
+        </a>
       </div>
     </div>
   </header>
@@ -27,13 +27,11 @@
 
 <script>
 import Logo from '@/components/Logo'
-import Button from '@/components/Button'
 import DetectingBrowsers from '@/mixins/detecting-browsers'
 
 export default {
   name: 'Header',
   components: {
-    Button,
     Logo
   },
   mixins: [DetectingBrowsers],
@@ -72,6 +70,13 @@ export default {
     text-align: center;
   }
 
+  &__masthead {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+  }
+
   &__title {
     font-size: $xll-font;
 
@@ -85,12 +90,14 @@ export default {
     font-size: $sm-font;
   }
 
-  &__button {
-    margin-top: 30px;
+  &__btn {
+    padding: 25px;
+    background-color: $primary;
+    color: $background;
+    font-size: 1.5rem;
+    border-radius: 10px;
+    max-width: 300px;
+    text-transform: uppercase;
   }
-}
-
-.Button {
-  text-transform: uppercase;
 }
 </style>
