@@ -5,20 +5,23 @@
         {{ $options.name }}
       </h1>
       <div :class="b('row')">
-        <ReduceCard
+        <nuxt-link
           v-for="dapp of dapps"
           :key="dapp.id"
-          :src="`/dapps/${dapp.img}`"
-          :class="b('card')"
-          @click="cardClick(dapp)"
+          :to="'/app/' + dapp.link"
         >
-          <h1 :class="b('card-title')">
-            {{ dapp.title }}
-          </h1>
-          <p :class="b('card-description')">
-            {{ dapp.description }}
-          </p>
-        </ReduceCard>
+          <ReduceCard
+            :src="`/dapps/${dapp.img}`"
+            :class="b('card')"
+          >
+            <h1 :class="b('card-title')">
+              {{ dapp.title }}
+            </h1>
+            <p :class="b('card-description')">
+              {{ dapp.description }}
+            </p>
+          </ReduceCard>
+        </nuxt-link>
       </div>
     </div>
   </section>
@@ -42,18 +45,6 @@ export default {
   data () {
     return {
       dapps
-    }
-  },
-  methods: {
-    cardClick (dapp) {
-      if (!process.client) {
-        return null
-      }
-      const url = `/${dapp.link}`
-      if (dapp.external) {
-        window.location.replace(window.location.origin + url)
-      }
-      this.$router.push('/app' + url)
     }
   }
 }
