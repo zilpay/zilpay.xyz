@@ -89,9 +89,11 @@ export default {
     background-color: $primary;
     color: $background;
     font-size: 1.5rem;
+    font-weight: 700;
     border-radius: 10px;
     max-width: 300px;
     text-transform: uppercase;
+    color: $black;
   }
 }
 #parallax {

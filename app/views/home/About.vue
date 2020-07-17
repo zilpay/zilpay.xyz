@@ -38,6 +38,8 @@ export default {
 
 <style lang="scss">
 .About {
+  background-color: $background;
+
   &__container {
     min-height: 100vh;
 
@@ -78,13 +80,18 @@ export default {
     align-items: center;
     justify-content: space-around;
     flex-wrap: wrap;
+
+    & > img {
+      max-width: 300px;
+      max-height: 560px;
+    }
   }
 
   &__img {
     border-radius: .25rem;
     margin: 20px;
 
-    @include box-shadow(10px 10px 5px 0 rgba(0,0,0,.75));
+    @include box-shadow(5px 10px 5px 0 rgba(0,0,0,.75));
     @include mobile {
       max-width: 200px;
     }
