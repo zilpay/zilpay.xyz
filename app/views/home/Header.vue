@@ -62,11 +62,6 @@ export default {
   justify-content: center;
   height: 100vh;
 
-  background-attachment: fixed;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-
   &__content {
       display: flex;
     flex-direction: column;
