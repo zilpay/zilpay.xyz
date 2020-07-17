@@ -73,13 +73,13 @@ window.zilPay.wallet.connect()
     })
 ```
 
-### sign message
+### Sign message
 
 * Create message signature and Verify via [Zilliqa-js](https://github.com/Zilliqa/Zilliqa-JavaScript-Library):
 
 ```javascript
 const message = 'ZilPay the best wallet!';
-const signature = await window.zilPay.wallet.sign(message); // Sign mesg via ZilPay.
+const { signature, message, publicKey } = await window.zilPay.wallet.sign(message); // Sign mesg via ZilPay.
 
 // nodejs code...
 import { sha256 } from 'js-sha256'
