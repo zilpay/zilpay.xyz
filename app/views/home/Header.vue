@@ -1,31 +1,32 @@
 <template>
   <header :class="b()">
-    <div :class="b('container')">
-      <div :class="b('masthead')">
-        <Logo />
-        <h1 :class="b('title')">
-          ZilPay Wallet
-        </h1>
-        <h2 :class="b('description')">
-          ZilPay Browser Extension for
-          <a href="https://zilliqa.com/" target="_blank">
-            Zilliqa
-          </a>
-          blockchain
-        </h2>
-        <a
-          :class="b('btn')"
-          :href="urlsStore[detectedBrowser]"
-          target="_blank"
-        >
-          {{ detectedBrowser }} extension
+    <canvas id="parallax" />
+    <div :class="b('content')">
+      <Logo />
+      <h1 :class="b('title')">
+        ZilPay Wallet
+      </h1>
+      <h2 :class="b('description')">
+        ZilPay Browser Extension for
+        <a href="https://zilliqa.com/" target="_blank">
+          Zilliqa
         </a>
-      </div>
+        blockchain
+      </h2>
+      <a
+        :class="b('btn')"
+        :href="urlsStore[detectedBrowser]"
+        target="_blank"
+      >
+        {{ detectedBrowser }} extension
+      </a>
     </div>
   </header>
 </template>
 
 <script>
+import fluid from '../../lib/fluid'
+
 import Logo from '@/components/Logo'
 import DetectingBrowsers from '@/mixins/detecting-browsers'
 
@@ -41,6 +42,7 @@ export default {
     }
   },
   mounted () {
+    fluid('parallax')
     this.detectedBrowser = this.detectMixin()
   },
   methods: {
@@ -55,26 +57,23 @@ export default {
 
 <style lang="scss">
 .Header {
-  background: url(/bg.svg) $background;
-  background-size: cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+
+  background-attachment: fixed;
+  background-position: center;
   background-repeat: no-repeat;
+  background-size: cover;
 
-  &__container {
-    min-height: 100vh;
-
-    padding-top: 200px;
-
-    display: flex;
+  &__content {
+      display: flex;
     flex-direction: column;
-
-    text-align: center;
-  }
-
-  &__masthead {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
     align-items: center;
+    justify-content: center;
+
+    z-index: 3;
   }
 
   &__title {
@@ -99,5 +98,8 @@ export default {
     max-width: 300px;
     text-transform: uppercase;
   }
+}
+#parallax {
+  position: absolute;
 }
 </style>

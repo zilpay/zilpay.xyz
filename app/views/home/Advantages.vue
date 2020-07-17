@@ -87,8 +87,6 @@ export default {
 
 <style lang="scss">
 .Advantages {
-  background: url(/bg-2.svg) $background;
-
   &__container {
     min-height: 100vh;
 

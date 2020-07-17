@@ -38,8 +38,6 @@ export default {
 
 <style lang="scss">
 .About {
-  background: $background-gradient;
-
   &__container {
     min-height: 100vh;
 
