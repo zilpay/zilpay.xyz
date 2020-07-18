@@ -5,10 +5,10 @@
         {{ $options.name }}
       </h1>
       <div :class="b('row')">
-        <nuxt-link
+        <NuxtLink
           v-for="dapp of dapps"
-          :key="dapp.id"
-          :to="'/app/' + dapp.link"
+          :key="dapp.link"
+          :to="dapp.link"
         >
           <ReduceCard
             :src="`/dapps/${dapp.img}`"
@@ -21,21 +21,45 @@
               {{ dapp.description }}
             </p>
           </ReduceCard>
-        </nuxt-link>
+        </NuxtLink>
       </div>
     </div>
   </section>
 </template>
 
 <script>
-import { uuid } from 'uuidv4'
 import ReduceCard from '@/components/ReduceCard'
-import DAppsData from '@/static/dapps.json'
 
-const dapps = DAppsData.map(el => ({
-  ...el,
-  uuidv4: uuid()
-}))
+const dapps = [
+  {
+    img: 'fungibletoken.png',
+    title: 'FungibleToken creater',
+    link: 'fungibletoken',
+    external: false,
+    description: 'This dapp help will create FungibleToken token This token implements a fungible token interface a la ERC20.'
+  },
+  {
+    img: 'scillaeditor.png',
+    title: 'scilla-editor',
+    link: 'Editor',
+    external: false,
+    description: 'Editor and deploy smart contract on scilla language'
+  },
+  {
+    img: 'roll_game.png',
+    title: 'Roll game',
+    link: 'roll',
+    external: false,
+    description: 'You can play with the test Zil'
+  },
+  {
+    img: 'unstoppabledomains.png',
+    title: 'Blockchain Domain Names',
+    link: 'unstoppabledomains',
+    external: false,
+    description: 'Replace cryptocurrency addresses \nwith a human readable name'
+  }
+]
 
 export default {
   name: 'DApps',

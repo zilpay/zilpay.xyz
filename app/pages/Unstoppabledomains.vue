@@ -1,9 +1,6 @@
 <template>
   <div :class="b()">
     <div :class="b('container')">
-      <h1 :class="b('title')">
-        {{ app.title }}
-      </h1>
       <h2 :class="b('sub-title')">
         Manage your domain via ZilPay.
       </h2>
@@ -91,7 +88,6 @@
 </template>
 
 <script>
-import DApps from '@/static/dapps.json'
 import TYPES from '@/static/types.json'
 
 import SearchInput from '@/components/Search'
@@ -132,10 +128,6 @@ export default {
     }
   },
   computed: {
-    app () {
-      const name = this.$options.name.toLowerCase()
-      return DApps.find(app => app.link === name)
-    },
     owner () {
       try {
         return window
@@ -246,6 +238,16 @@ export default {
         storage.removeItem(currentAddress.toLowerCase())
       }
     }
+  },
+  head: {
+    title: 'Unstoppable Domains',
+    meta: [
+      {
+        hid: 'description',
+        name: 'description',
+        content: 'Manage crypto domains via ZilPay wallet.'
+      }
+    ]
   }
 }
 </script>

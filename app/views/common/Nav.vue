@@ -67,7 +67,7 @@ export default {
   },
   methods: {
     backHistroyRoute () {
-      this.$router.push({ path: '/' })
+      this.$router.go(-1)
     }
   }
 }

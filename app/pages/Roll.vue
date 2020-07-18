@@ -191,6 +191,16 @@ export default {
         this.$modal.show(this.modalInstance.name)
       }
     }
+  },
+  head: {
+    title: 'ZilPay roll game',
+    meta: [
+      {
+        hid: 'description',
+        name: 'description',
+        content: 'testnet game for testing ZilPay'
+      }
+    ]
   }
 }
 </script>

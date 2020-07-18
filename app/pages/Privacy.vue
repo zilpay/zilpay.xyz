@@ -35,6 +35,11 @@ export default {
         subTitle: PrivacyPolicyData.subTitle
       }
     }
+  },
+  head: {
+    title: 'ZilPay - Privacy',
+    meta: [
+    ]
   }
 }
 </script>

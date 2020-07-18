@@ -229,6 +229,16 @@ export default {
         //
       }
     }
+  },
+  head: {
+    title: 'ZilPay scilla IDE',
+    meta: [
+      {
+        hid: 'description',
+        name: 'description',
+        content: 'Scilla interactive IDE'
+      }
+    ]
   }
 }
 </script>

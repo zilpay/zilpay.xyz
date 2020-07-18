@@ -35,6 +35,11 @@ export default {
         subTitle: TermsData.subTitle
       }
     }
+  },
+  head: {
+    title: 'ZilPay - Terms',
+    meta: [
+    ]
   }
 }
 </script>

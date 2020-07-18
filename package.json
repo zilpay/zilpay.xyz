@@ -1,7 +1,7 @@
 {
   "name": "zilpay.xyz",
   "version": "2.0.0",
-  "description": "ZilPay is a (Chrome, FireFox, Opera) wallet for Zilliqa.",
+  "description": "A crypto wallet & gateway to Zilliqa blockchain apps",
   "title": "ZilPay",
   "author": "Rinat",
   "private": false,

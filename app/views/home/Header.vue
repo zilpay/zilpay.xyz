@@ -85,7 +85,13 @@ export default {
   }
 
   &__btn {
-    padding: 25px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-left: 20px;
+    padding-right: 20px;
+
+    margin-top: 20px;
+
     background-color: $primary;
     color: $background;
     font-size: 1.5rem;
@@ -94,6 +100,10 @@ export default {
     max-width: 300px;
     text-transform: uppercase;
     color: $black;
+
+    &:hover {
+      opacity: 0.7;
+    }
   }
 }
 #parallax {
