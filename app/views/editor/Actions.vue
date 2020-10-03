@@ -89,8 +89,6 @@
 </template>
 
 <script>
-import StructureBuilder from './StructureBuilder'
-import Init from './Init'
 import TYPES from '@/static/types.json'
 
 import ZilPayMixin from '@/mixins/zilpay'
@@ -98,6 +96,8 @@ import ZilPayMixin from '@/mixins/zilpay'
 import Modal from '@/components/Modal'
 import Button from '@/components/Button'
 import Input from '@/components/Input'
+import Init from './Init'
+import StructureBuilder from './StructureBuilder'
 
 export default {
   name: 'Actions',

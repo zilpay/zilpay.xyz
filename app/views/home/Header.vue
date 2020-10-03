@@ -25,10 +25,10 @@
 </template>
 
 <script>
-import fluid from '../../lib/fluid'
 
 import Logo from '@/components/Logo'
 import DetectingBrowsers from '@/mixins/detecting-browsers'
+import fluid from '../../lib/fluid'
 
 export default {
   name: 'Header',

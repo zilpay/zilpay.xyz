@@ -61,12 +61,12 @@
 <script>
 import { uuid } from 'uuidv4'
 
-import ACTIONS_METHODS from './actions.json'
 import Jumbotron from '@/components/Jumbotron'
 import Button from '@/components/Button'
 import Input from '@/components/Input'
 
 import TYPES from '@/static/types.json'
+import ACTIONS_METHODS from './actions.json'
 
 const ACTIONS = [
   {

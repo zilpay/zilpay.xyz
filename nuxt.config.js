@@ -41,7 +41,7 @@ module.exports = {
       {
         rel: 'icon',
         type: 'image/x-icon',
-        href: '/favicon.ico'
+        href: '/favicon/favicon.ico'
       },
       {
         rel: 'apple-touch-icon',
