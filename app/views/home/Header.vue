@@ -20,6 +20,16 @@
       >
         {{ detectedBrowser }} extension
       </a>
+      <h2 :class="b('description', { anonce: true })">
+        ZilPay launch ZLP digital flow
+        <br>
+        <a
+          href="/whitePaper.pdf"
+          target="_blank"
+        >
+          whitePaper
+        </a>
+      </h2>
     </div>
   </header>
 </template>
@@ -82,6 +92,11 @@ export default {
   &__description {
     font-weight: 700;
     font-size: $sm-font;
+
+    &_anonce {
+      text-align: center;
+      margin-top: 20px;
+    }
   }
 
   &__btn {
@@ -100,10 +115,6 @@ export default {
     max-width: 300px;
     text-transform: uppercase;
     color: $black;
-
-    &:hover {
-      opacity: 0.7;
-    }
   }
 }
 #parallax {
