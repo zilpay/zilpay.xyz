@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import { uuid } from 'uuidv4'
+import { v4 as uuid } from 'uuid'
 import Nav from '../views/common/Nav'
 
 const ROUTERS = {

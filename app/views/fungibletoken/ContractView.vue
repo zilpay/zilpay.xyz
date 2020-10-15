@@ -59,7 +59,7 @@
 </template>
 
 <script>
-import { uuid } from 'uuidv4'
+import { v4 as uuid } from 'uuid'
 
 import Jumbotron from '@/components/Jumbotron'
 import Button from '@/components/Button'

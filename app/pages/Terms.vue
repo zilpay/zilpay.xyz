@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import { uuid } from 'uuidv4'
+import { v4 as uuid } from 'uuid'
 
 import Footer from '@/views/common/Footer'
 import SimpleHeader from '@/components/SimpleHeader'
