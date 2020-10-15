@@ -21,7 +21,7 @@
         {{ detectedBrowser }} extension
       </a>
       <h2 :class="b('description', { anonce: true })">
-        ZilPay launch ZLP digital flow
+        ZilPay launched ZLP digital flow
         <br>
         <a
           href="/whitePaper.pdf"
