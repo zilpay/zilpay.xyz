@@ -33,10 +33,10 @@ import ReduceCard from '@/components/ReduceCard'
 const dapps = [
   {
     img: 'fungibletoken.png',
-    title: 'FungibleToken creater',
-    link: 'fungibletoken',
+    title: 'Signature verification',
+    link: 'Verification',
     external: false,
-    description: 'This dapp help will create FungibleToken token This token implements a fungible token interface a la ERC20.'
+    description: 'This application can check signature of transaction or message.'
   },
   {
     img: 'scillaeditor.png',

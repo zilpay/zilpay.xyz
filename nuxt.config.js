@@ -6,6 +6,7 @@ const description = project.description
 module.exports = {
   mode: 'spa',
   srcDir: 'app/',
+  ssr: true,
   /*
   ** Headers of the page
   */
@@ -188,6 +189,9 @@ module.exports = {
     ** You can extend webpack config here
     */
     extend (config, ctx) {
+      config.node = {
+        fs: 'empty'
+      }
     }
   }
 }
