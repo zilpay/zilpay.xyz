@@ -129,10 +129,11 @@ export default {
 
 <style lang="scss">
 .Verification {
+  background-color: $background;
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 90vh;
+  height: 100vh;
 
   &__wrapper {
     width: 100%;

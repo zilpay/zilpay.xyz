@@ -32,7 +32,7 @@ import ReduceCard from '@/components/ReduceCard'
 
 const dapps = [
   {
-    img: 'fungibletoken.png',
+    img: 'Signature.png',
     title: 'Signature verification',
     link: 'Verification',
     external: false,
