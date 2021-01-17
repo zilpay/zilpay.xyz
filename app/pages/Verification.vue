@@ -10,6 +10,7 @@
       <Button
         :class="b('button')"
         lg
+        :disabled="!message"
         @click="verify"
       >
         Verify Message 
