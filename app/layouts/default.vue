@@ -9,7 +9,7 @@
 import { v4 as uuid } from 'uuid'
 import Nav from '../views/common/Nav'
 
-const ROUTERS = {
+export const ROUTERS = {
   Home: 'Home',
   Apps: 'Apps',
   Privacy: 'Privacy',
