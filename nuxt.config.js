@@ -6,7 +6,7 @@ const description = project.description
 module.exports = {
   mode: 'spa',
   srcDir: 'app/',
-  ssr: true,
+  telemetry: false,
   /*
   ** Headers of the page
   */
