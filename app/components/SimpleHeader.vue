@@ -3,24 +3,16 @@
     <h1 :class="b(classes.title)">
       {{ title }}
     </h1>
-    <h2 :class="b(classes.subTitle)">
-      {{ subTitle }}
-    </h2>
   </div>
 </template>
 
 <script>
-const SUB_TITLE = 'subTitle'
 const TITLE = 'title'
 
 export default {
   name: 'SimpleHeader',
   props: {
     [TITLE]: {
-      type: String,
-      required: true
-    },
-    [SUB_TITLE]: {
       type: String,
       required: true
     }
@@ -38,7 +30,7 @@ export default {
 
 <style lang="scss">
 .SimpleHeader {
-  min-height: 50vh;
+  min-height: 5vh;
   padding: 10%;
   background-color: $background;
 
