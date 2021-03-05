@@ -19,7 +19,8 @@ export default {
   name: 'PageNotFound',
   components: {
     SimpleHeader,
-    Footer
+    Footer,
+    CookieConsent
   },
   data () {
     return {

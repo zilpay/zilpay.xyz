@@ -11396,6 +11396,13 @@ vue-codemirror@^4.0.6:
     codemirror "^5.41.0"
     diff-match-patch "^1.0.0"
 
+vue-cookieconsent-component@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/vue-cookieconsent-component/-/vue-cookieconsent-component-1.2.0.tgz#cd6f5a37dd2301028360a169e2bee4817be18c3c"
+  integrity sha512-9vbbLSIIuLjtFuhJ2QJaY0Jt3xTmotWXsz5/rQyICK9kFgpcDd9dnDwwy753tMSoSLG0+gWKDugaHGuHMdUs2Q==
+  dependencies:
+    vue "^2.5.2"
+
 vue-eslint-parser@^7.0.0, vue-eslint-parser@^7.1.1, vue-eslint-parser@^7.6.0:
   version "7.6.0"
   resolved "https://registry.yarnpkg.com/vue-eslint-parser/-/vue-eslint-parser-7.6.0.tgz#01ea1a2932f581ff244336565d712801f8f72561"
@@ -11494,7 +11501,7 @@ vue-template-es2015-compiler@^1.9.0:
   resolved "https://registry.yarnpkg.com/vue-template-es2015-compiler/-/vue-template-es2015-compiler-1.9.1.tgz#1ee3bc9a16ecbf5118be334bb15f9c46f82f5825"
   integrity sha512-4gDntzrifFnCEvyoO8PqyJDmguXgVPxKiIxrBKjIowvL9l+N66196+72XVYR8BBf1Uv1Fgt3bGevJ+sEmxfZzw==
 
-vue@^2.5.16, vue@^2.6.10, vue@^2.6.12:
+vue@^2.5.16, vue@^2.5.2, vue@^2.6.10, vue@^2.6.12:
   version "2.6.12"
   resolved "https://registry.yarnpkg.com/vue/-/vue-2.6.12.tgz#f5ebd4fa6bd2869403e29a896aed4904456c9123"
   integrity sha512-uhmLFETqPPNyuLLbsKz6ioJ4q7AZHzD8ZVFNATNyICSZouqP2Sz0rotWQC8UNBF6VGSCs5abnKJoStA6JbCbfg==
