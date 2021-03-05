@@ -7,6 +7,7 @@ module.exports = {
   mode: 'spa',
   srcDir: 'app/',
   telemetry: false,
+  ssr: true,
   /*
   ** Headers of the page
   */
