@@ -42,10 +42,9 @@
             Office
           </h2>
           <p :class="b('info')">
-            Ulitsa Borisa Yel'tsina, 3
-            Yekaterinburg
-            Sverdlovskaya oblast'
-            620014, Russia
+            kv. 6, d. 9 ul. Shkolnaya
+            Martyush , 623462
+            Russian Federation
           </p>
         </div>
         <div :class="b('item')">
