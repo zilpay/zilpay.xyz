@@ -60,6 +60,13 @@ export default {
   },
   methods: {
     deploy () {
+      this.models = this.models.map((param) => {
+        if (param.type.includes('with') && param.type.includes('ByStr20')) {
+          param.type = 'ByStr20'
+        }
+
+        return param
+      })
       this.$emit('deploy', this.models)
     }
   }
